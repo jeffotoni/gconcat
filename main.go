@@ -1,15 +1,12 @@
 package concat
 
 import (
-	"io"
-	"os"
 	"strconv"
 	"strings"
 )
 
 //buildStr monta a string
 func buildStr(str interface{}) string {
-
 	switch str.(type) {
 	case nil:
 		return "nil"
@@ -136,64 +133,4 @@ func buildStr(str interface{}) string {
 		break
 	}
 	return ""
-}
-
-func IntToStringFast(a []int) string {
-	if len(a) == 0 {
-		return ""
-	}
-	b := make([]string, len(a))
-	for i, v := range a {
-		b[i] = strconv.Itoa(v)
-	}
-	return strings.Join(b, ",")
-}
-
-func Int32ToStringFast(a []int32) string {
-	if len(a) == 0 {
-		return ""
-	}
-
-	b := make([]string, len(a))
-	for i, v := range a {
-		b[i] = strconv.FormatInt(int64(v), 10)
-	}
-	return strings.Join(b, ",")
-}
-
-//Stdout func
-func Stdout(strs ...interface{}) {
-	var sb strings.Builder
-	for _, str := range strs {
-		sb.WriteString(buildStr(str))
-	}
-	io.Copy(os.Stdout, strings.NewReader(sb.String()))
-}
-
-//Concat
-func Build(strs ...interface{}) string {
-	var sb strings.Builder
-	for _, str := range strs {
-		sb.WriteString(buildStr(str))
-	}
-	return sb.String()
-}
-
-//Println printa com n\
-func Println(strs ...interface{}) {
-	var sb strings.Builder
-	for _, str := range strs {
-		sb.WriteString(buildStr(str))
-	}
-	sb.WriteString("\n")
-	io.Copy(os.Stdout, strings.NewReader(sb.String()))
-}
-
-//Print printa
-func Print(strs ...interface{}) {
-	var sb strings.Builder
-	for _, str := range strs {
-		sb.WriteString(buildStr(str))
-	}
-	io.Copy(os.Stdout, strings.NewReader(sb.String()))
 }
