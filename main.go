@@ -170,8 +170,8 @@ func Stdout(strs ...interface{}) {
 	io.Copy(os.Stdout, strings.NewReader(sb.String()))
 }
 
-//Concat contaquena
-func Concat(strs ...interface{}) string {
+//Concat
+func Build(strs ...interface{}) string {
 	var sb strings.Builder
 	for _, str := range strs {
 		sb.WriteString(buildStr(str))
