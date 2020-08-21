@@ -27,7 +27,7 @@ func buildStr(str interface{}) string {
 	case []uint:
 		concat := ""
 		for _, val := range str.([]uint) {
-			concat = Concat(concat, val)
+			concat = Build(concat, val)
 		}
 		return concat
 	case int8:
@@ -38,14 +38,14 @@ func buildStr(str interface{}) string {
 	case []int8:
 		concat := ""
 		for _, val := range str.([]int8) {
-			concat = Concat(concat, val)
+			concat = Build(concat, val)
 		}
 		return concat
 
 	case []uint8:
 		concat := ""
 		for _, val := range str.([]uint8) {
-			concat = Concat(concat, val)
+			concat = Build(concat, val)
 		}
 		return concat
 
@@ -56,14 +56,14 @@ func buildStr(str interface{}) string {
 	case []int16:
 		concat := ""
 		for _, val := range str.([]int16) {
-			concat = Concat(concat, val)
+			concat = Build(concat, val)
 		}
 		return concat
 
 	case []uint16:
 		concat := ""
 		for _, val := range str.([]uint16) {
-			concat = Concat(concat, val)
+			concat = Build(concat, val)
 		}
 		return concat
 
@@ -77,7 +77,7 @@ func buildStr(str interface{}) string {
 	case []uint32:
 		concat := ""
 		for _, val := range str.([]uint32) {
-			concat = Concat(concat, val)
+			concat = Build(concat, val)
 		}
 		return concat
 	case int64:
@@ -87,13 +87,13 @@ func buildStr(str interface{}) string {
 	case []int64:
 		concat := ""
 		for _, val := range str.([]int64) {
-			concat = Concat(concat, val)
+			concat = Build(concat, val)
 		}
 		return concat
 	case []uint64:
 		concat := ""
 		for _, val := range str.([]uint64) {
-			concat = Concat(concat, val)
+			concat = Build(concat, val)
 		}
 		return concat
 
@@ -108,7 +108,7 @@ func buildStr(str interface{}) string {
 	case []float64:
 		concat := ""
 		for _, val := range str.([]float64) {
-			concat = Concat(concat, val)
+			concat = Build(concat, val)
 		}
 		return concat
 	case float32:
@@ -116,7 +116,7 @@ func buildStr(str interface{}) string {
 	case []float32:
 		concat := ""
 		for _, val := range str.([]float32) {
-			concat = Concat(concat, val)
+			concat = Build(concat, val)
 		}
 		return concat
 	case uintptr:
@@ -124,7 +124,7 @@ func buildStr(str interface{}) string {
 	case []uintptr:
 		concat := ""
 		for _, val := range str.([]uintptr) {
-			concat = Concat(concat, val)
+			concat = Build(concat, val)
 		}
 		return concat
 	case complex64:
