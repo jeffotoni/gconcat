@@ -10,7 +10,7 @@ https://github.com/jeffotoni/concat.git
 
 ## Meta
 
-Jeff Otoni - [], [https://github.com/jeffotoni](https://github.com/jeffotoni), [https://www.linkedin.com/in/jeffotoni/](https://www.linkedin.com/in/jeffotoni/)
+Jeff Otoni - [@jeffotoni], [https://github.com/jeffotoni](https://github.com/jeffotoni), [https://www.linkedin.com/in/jeffotoni/](https://www.linkedin.com/in/jeffotoni/)
 
 João Vitor – [@ancogamer](https://twitter.com/ancogamer), [https://github.com/ancogamer](https://github.com/ancogamer), [https://www.linkedin.com/in/joão-vitor-astori-saletti](https://www.linkedin.com/in/joão-vitor-astori-saletti)
 
