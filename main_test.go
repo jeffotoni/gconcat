@@ -79,7 +79,7 @@ func TestStdout(t *testing.T) {
 	}
 }
 
-func TestConcat(t *testing.T) {
+func TestBuild(t *testing.T) {
 
 	var many1String, many1Int, many1Int8, many1Int16, many1Int32, many1Int64 []interface{}
 	var many1Uint, many1Uint8, many1Uint16, many1Uint32, many1Uint64, many1Uintptr []interface{}
@@ -126,8 +126,8 @@ func TestConcat(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := Concat(tt.args.strs...); got != tt.want {
-				t.Errorf("Concat() = %v, want %v", got, tt.want)
+			if got := Build(tt.args.strs...); got != tt.want {
+				t.Errorf("Build() = %v, want %v", got, tt.want)
 			}
 		})
 	}
