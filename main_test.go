@@ -173,3 +173,10 @@ func TestPrint(t *testing.T) {
 		})
 	}
 }
+
+func BenchmarkBuild(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		Build([]int{1, 2, 3, 4, 5, 56, 6, 7, 7, 778, 8, 88, 8, 8, 8, 8, 8, 8, 9, 9, 123, 4, 4, 5, 6, 7, 77, 8, 8, 99, 9, 93, 3, 3, 3, 3, 45, 5, 6, 6, 7},
+			[]string{"jeff", "otoni", "lima", " ", " vamos testar esta cria "})
+	}
+}
