@@ -13,7 +13,7 @@ func IntToStringFast(a []int) string {
 	for i, v := range a {
 		b[i] = strconv.Itoa(v)
 	}
-	return strings.Join(b, ",")
+	return strings.Join(b, "")
 }
 
 func Int32ToStringFast(a []int32) string {
@@ -25,5 +25,5 @@ func Int32ToStringFast(a []int32) string {
 	for i, v := range a {
 		b[i] = strconv.FormatInt(int64(v), 10)
 	}
-	return strings.Join(b, ",")
+	return strings.Join(b, "")
 }

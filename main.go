@@ -98,7 +98,7 @@ func buildStr(str interface{}) string {
 		return string(str.(string))
 
 	case []string:
-		return strings.Join(str.([]string), " ")
+		return strings.Join(str.([]string), "")
 
 	case float64:
 		return strconv.FormatFloat(str.(float64), 'f', 6, 64)
@@ -116,14 +116,16 @@ func buildStr(str interface{}) string {
 			concat = Build(concat, val)
 		}
 		return concat
-	case uintptr:
-		return string(str.(uintptr))
-	case []uintptr:
-		concat := ""
-		for _, val := range str.([]uintptr) {
-			concat = Build(concat, val)
-		}
-		return concat
+
+	// case uintptr:
+	// 	return string(str.(uintptr))
+	// case []uintptr:
+	// 	concat := ""
+	// 	for _, val := range str.([]uintptr) {
+	// 		concat = Build(concat, val)
+	// 	}
+	// 	return concat
+
 	case complex64:
 		return "not suport complex 64"
 	case complex128:

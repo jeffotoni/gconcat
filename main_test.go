@@ -1,12 +1,13 @@
 package concat
 
 import (
+	"encoding/json"
 	"testing"
 )
 
 func Test_buildStr(t *testing.T) {
 	var many1String, many1Int, many1Int8, many1Int16, many1Int32, many1Int64 interface{}
-	var many1Uint, many1Uint8, many1Uint16, many1Uint32, many1Uint64, many1Uintptr interface{}
+	var many1Uint, many1Uint8, many1Uint16, many1Uint32, many1Uint64 interface{}
 	var many1Float32, many1Float64 interface{}
 
 	many1String = string("21")
@@ -20,7 +21,7 @@ func Test_buildStr(t *testing.T) {
 	many1Uint16 = uint16(100)
 	many1Uint32 = uint32(100)
 	many1Uint64 = uint64(100)
-	many1Uintptr = uintptr(100)
+	//many1Uintptr = uintptr(100)
 
 	many1Float32 = float32(100.01)
 	many1Float64 = float64(100.01)
@@ -44,7 +45,7 @@ func Test_buildStr(t *testing.T) {
 		{"test_buildStr_9", args{str: many1Uint16}, "100"},
 		{"test_buildStr_10", args{str: many1Uint32}, "100"},
 		{"test_buildStr_11", args{str: many1Uint64}, "100"},
-		{"test_buildStr_12", args{str: many1Uintptr}, "d"}, //endereço do ponteiro
+		//{"test_buildStr_12", args{str: many1Uintptr}, "d"}, //endereço do ponteiro
 		{"test_buildStr_13", args{str: many1Float32}, "100.010002"},
 		{"test_buildStr_14", args{str: many1Float64}, "100.010000"},
 	}
@@ -54,27 +55,6 @@ func Test_buildStr(t *testing.T) {
 			if got := buildStr(tt.args.str); got != tt.want {
 				t.Errorf("buildStr() = %v, want %v", got, tt.want)
 			}
-		})
-	}
-}
-
-func TestStdout(t *testing.T) {
-	var manyStdout []interface{}
-	manyStdout = append(manyStdout, []string{"1"})
-
-	type args struct {
-		strs []interface{}
-	}
-	tests := []struct {
-		name string
-		args args
-	}{
-		// TODO: Add test cases.
-		{"test_stdout_1", args{strs: manyStdout}},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			Stdout(tt.args.strs...)
 		})
 	}
 }
@@ -120,7 +100,7 @@ func TestBuild(t *testing.T) {
 		{"test_concat_9", args{strs: many1Uint16}, "1009823"},
 		{"test_concat_10", args{strs: many1Uint32}, "1009823"},
 		{"test_concat_11", args{strs: many1Uint64}, "1009823"},
-		{"test_concat_12", args{strs: many1Uintptr}, "d"}, //endereço do ponteiro
+		//{"test_concat_12", args{strs: many1Uintptr}, "d"}, //endereço do ponteiro
 		{"test_concat_13", args{strs: many1Float32}, "100.010002100.010002"},
 		{"test_concat_14", args{strs: many1Float64}, "100.010000100.010000"},
 	}
@@ -133,50 +113,58 @@ func TestBuild(t *testing.T) {
 	}
 }
 
-func TestPrintln(t *testing.T) {
-	var manyPrintln []interface{}
-	manyPrintln = append(manyPrintln, []string{"1", "2"})
-
-	type args struct {
-		strs []interface{}
-	}
-	tests := []struct {
-		name string
-		args args
-	}{
-		// TODO: Add test cases.
-		{"test_println_1", args{strs: manyPrintln}},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			Println(tt.args.strs...)
-		})
-	}
-}
-
-func TestPrint(t *testing.T) {
-	var manyPrint []interface{}
-	manyPrint = append(manyPrint, []string{"1", "2"})
-	type args struct {
-		strs []interface{}
-	}
-	tests := []struct {
-		name string
-		args args
-	}{
-		// TODO: Add test cases.
-		{"test_print_1", args{strs: manyPrint}},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			Print(tt.args.strs...)
-		})
-	}
-}
-
 func BenchmarkBuild(b *testing.B) {
 	for n := 0; n < b.N; n++ {
-		Build([]int{1, 2, 3, 4, 5, 56, 6, 7, 7, 778, 8, 88, 8, 8, 8, 8, 8, 8, 9, 9, 123, 4, 4, 5, 6, 7, 77, 8, 8, 99, 9, 93, 3, 3, 3, 3, 45, 5, 6, 6, 7},
-			[]string{"jeff", "otoni", "lima", " ", " vamos testar esta cria "})
+		Build(
+			[]int{1, 2, 3, 4, 5, 56, 6, 7, 7, 778, 8, 88, 8, 8, 8, 8, 8, 8, 9, 9, 123, 4, 4, 5, 6, 7, 77, 8, 8, 99, 9, 93, 3, 3, 3, 3, 45, 5, 6, 6, 7},
+			[]string{"jeff", "otoni", "lima", " ", " vamos testar esta cria "},
+			[]string{"jeff", "otoni", "lima", " ", " vamos testar esta cria "},
+			[]string{"jeff", "otoni", "lima", " ", " vamos testar esta cria "},
+			[]string{"jeff", "otoni", "lima", " ", " vamos testar esta cria "},
+			[]string{"jeff", "otoni", "lima", " ", " vamos testar esta cria "},
+			[]string{"jeff", "otoni", "lima", " ", " vamos testar esta cria "},
+			[]string{"jeff", "otoni", "lima", " ", " vamos testar esta cria "},
+			[]string{"jeff", "otoni", "lima", " ", " vamos testar esta cria "},
+			[]string{"jeff", "otoni", "lima", " ", " vamos testar esta cria "},
+			" ",
+			"jeff", "somente", "string heree........",
+		)
+	}
+}
+
+func BenchmarkMarshal(b *testing.B) {
+	type X struct {
+		Num   []int
+		Str1  []string
+		Str2  []string
+		Str3  []string
+		Str4  []string
+		Str5  []string
+		Str6  []string
+		Str7  []string
+		Str8  []string
+		Str9  []string
+		Str10 []string
+	}
+
+	var obj = X{
+		Num:   []int{2, 3, 4, 5, 56, 6, 7, 7, 778, 8, 88, 8, 8, 8, 8, 8, 8, 9, 9, 123, 4, 4, 5, 6, 7, 77, 8, 8, 99, 9, 93, 3, 3, 3, 3, 45, 5, 6, 6, 7},
+		Str1:  []string{"jeff", "otoni", "lima", " ", " vamos testar esta cria "},
+		Str2:  []string{"jeff", "otoni", "lima", " ", " vamos testar esta cria "},
+		Str3:  []string{"jeff", "otoni", "lima", " ", " vamos testar esta cria "},
+		Str4:  []string{"jeff", "otoni", "lima", " ", " vamos testar esta cria "},
+		Str5:  []string{"jeff", "otoni", "lima", " ", " vamos testar esta cria "},
+		Str6:  []string{"jeff", "otoni", "lima", " ", " vamos testar esta cria "},
+		Str7:  []string{"jeff", "otoni", "lima", " ", " vamos testar esta cria "},
+		Str8:  []string{"jeff", "otoni", "lima", " ", " vamos testar esta cria "},
+		Str9:  []string{"jeff", "otoni", "lima", " ", " vamos testar esta cria "},
+		Str10: []string{"jeff", "somente", "string heree........"},
+	}
+
+	for n := 0; n < b.N; n++ {
+		_, err := json.Marshal(&obj)
+		if err != nil {
+			panic(err)
+		}
 	}
 }
