@@ -80,4 +80,4 @@ Distributed under the MIT license. See ``LICENSE`` for more information.
 
 ## Contributing
 
-To contribuit is simples, just clone or fork the repository and send to us the pull request :D
+To contribuit is simples, just clone or fork the repository and send to us the pull request
