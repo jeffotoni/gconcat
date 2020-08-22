@@ -2,9 +2,19 @@ package concat
 
 import (
 	"encoding/json"
+	"strings"
 	"testing"
 )
 
+const (
+	sss = "xfoasneobfasieongasbg"
+	cnt = 10000
+)
+
+var (
+	bbb      = []byte(sss)
+	expected = strings.Repeat(sss, cnt)
+)
 //Concat contaquena
 func ConcatTestLocal(strs ...interface{}) string {
 	str := Build(strs...)
@@ -190,5 +200,20 @@ func BenchmarkMarshal(b *testing.B) {
 		if err != nil {
 			panic(err)
 		}
+	}
+}
+
+func BenchmarkConcatMais(b *testing.B) {
+	var result string
+	for n := 0; n < b.N; n++ {
+		var str string
+		for i := 0; i < cnt; i++ {
+			str += sss
+		}
+		result = str
+	}
+	b.StopTimer()
+	if result != expected {
+		b.Errorf("unexpected result; got=%s, want=%s", string(result), expected)
 	}
 }
