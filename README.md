@@ -51,21 +51,15 @@ $ go get -u github.com/jeffotoni/concat
 #### Test Benchmarking
 
 ```bash
-$ go test -bench=. -count=3
+$ go test -bench . -benchmem
 
 goos: linux
 goarch: amd64
-BenchmarkBuildFast-4   	 1938358	       661 ns/op
-BenchmarkBuildFast-4   	 1976593	       610 ns/op
-BenchmarkBuildFast-4   	 1970155	       639 ns/op
-BenchmarkBuild-4       	  318112	      3816 ns/op
-BenchmarkBuild-4       	  355080	      3438 ns/op
-BenchmarkBuild-4       	  424045	      3465 ns/op
-BenchmarkMarshal-4     	  234531	      4507 ns/op
-BenchmarkMarshal-4     	  257199	      4652 ns/op
-BenchmarkMarshal-4     	  279288	      4706 ns/op
+BenchmarkBuildFast-4     2468268               477 ns/op             160 B/op          6 allocs/op
+BenchmarkBuild-4          476364              2492 ns/op            3238 B/op         27 allocs/op
+BenchmarkMarshal-4        307921              3760 ns/op             768 B/op          1 allocs/op
 PASS
-ok  	_/home/jeffotoni/gitprojetos/concat	13.331s
+ok      _/home/jeffotoni/gitprojetos/concat     5.094s
 
 ```
 
