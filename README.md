@@ -24,8 +24,8 @@ func main() {
 
 	println(concat.Build(ii))
 	println(concat.Build(i))
-	println(concat.Build("jeffotoni", " & ", "joao", " ", 20, "/08/", 2020))
-	println(concat.Build([]string{"2015", " ", "2016", " ", "2017", " ", "2018", " ", "2020"}))
+	println(concat.Build("jeffotoni", "&", "joao", " ", 20, "/08/"))
+	println(concat.Build([]string{"2017", " ", "2018", " ", "2020"}))
 	println(concat.Build([]int{12, 0, 11, 0, 10, 11, 12, 23, 3}))
 	println(concat.Build(10,9,10,20,30,40,"x", "&", "."))
 	println(concat.Build("R$ ",23456.33, " R$ ",123.33, " R$ ",19.11))
