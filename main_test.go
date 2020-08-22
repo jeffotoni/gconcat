@@ -5,6 +5,17 @@ import (
 	"testing"
 )
 
+//Concat contaquena
+func ConcatTestLocal(strs ...interface{}) string {
+	str := Build(strs...)
+	str = Build(str, "\n")
+	return str
+}
+
+func Test_ConcatTestLocal(t *testing.T) {
+	ConcatTestLocal([]string{"21", "joao", "beta"}, "jeffotoni", 19)
+}
+
 func Test_buildStr(t *testing.T) {
 	var many1String, many1Int, many1Int8, many1Int16, many1Int32, many1Int64 interface{}
 	var many1Uint, many1Uint8, many1Uint16, many1Uint32, many1Uint64 interface{}
