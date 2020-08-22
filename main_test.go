@@ -1,4 +1,4 @@
-package concat
+package gconcat
 
 import (
 	"encoding/json"

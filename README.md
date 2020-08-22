@@ -1,4 +1,4 @@
-# concat.Build
+# gconcat.Build
 >Just a simple lib, to concat string in #Go lang
 
 #### Use
@@ -8,7 +8,7 @@ Example Concat Build
 package main
 
 import (
-	"github.com/jeffotoni/concat"
+	"github.com/jeffotoni/gconcat"
 )
 
 func main() {
@@ -22,13 +22,13 @@ func main() {
 	var i interface{}
 	i  = "jeffotoni"
 
-	println(concat.Build(ii))
-	println(concat.Build(i))
-	println(concat.Build("jeffotoni", "&", "joao", " ", 20, "/08/"))
-	println(concat.Build([]string{"2017", " ", "2018", " ", "2020"}))
-	println(concat.Build([]int{12, 0, 11, 0, 10, 11, 12, 23, 3}))
-	println(concat.Build(10,9,10,20,30,40,"x", "&", "."))
-	println(concat.Build("R$ ",23456.33, " R$ ",123.33, " R$ ",19.11))
+	println(gconcat.Build(ii))
+	println(gconcat.Build(i))
+	println(gconcat.Build("jeffotoni", "&", "joao", " ", 20, "/08/"))
+	println(gconcat.Build([]string{"2017", " ", "2018", " ", "2020"}))
+	println(gconcat.Build([]int{12, 0, 11, 0, 10, 11, 12, 23, 3}))
+	println(gconcat.Build(10,9,10,20,30,40,"x", "&", "."))
+	println(gconcat.Build("R$ ",23456.33, " R$ ",123.33, " R$ ",19.11))
 
 }
 ```
@@ -41,7 +41,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/jeffotoni/concat"
+	"github.com/jeffotoni/gconcat"
 )
 
 const PORT = ":8282"
@@ -50,7 +50,7 @@ func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/ping",
 		func(w http.ResponseWriter, r *http.Request) {
-			str := concat.Build(
+			str := gconcat.Build(
                             []int{1, 2, 3, 4, 5}, " ", 
                             []string{"vamos testar nossa concat!!!"},
                     )
