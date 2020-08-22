@@ -28,6 +28,22 @@ func BenchmarkConcatBuildFast(b *testing.B) {
 	}
 }
 
+func Test_buildInterface(t *testing.T) {
+	var i []interface{}
+	i = append(i, "jeffotoni")
+	i = append(i, " ")
+	i = append(i, "joao")
+	i = append(i, " ")
+	i = append(i, 10001)
+
+	want :="jeffotoni joao 10001"
+	got :=Build(i)
+
+	if  got != want {
+		t.Errorf("Test_buildInterface() = %v, want %v", got, want)
+	}
+}
+
 func Test_buildStr(t *testing.T) {
 	var many1String, many1Int, many1Int8, many1Int16, many1Int32, many1Int64 interface{}
 	var many1Uint, many1Uint8, many1Uint16, many1Uint32, many1Uint64 interface{}

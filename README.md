@@ -2,9 +2,15 @@
 >Just a simple lib, to concat string in #Go lang
 
 #### Use
+Example on your project
+```go
+
+
+```
+
 
 Example on your project 
-````go
+```go
 package main
 
 import (

@@ -19,7 +19,19 @@ func buildStr(str interface{}) string {
 	switch str.(type) {
 	case nil:
 		return "nil"
-	//
+	case string:
+		return string(str.(string))
+
+	case []string:
+		return strings.Join(str.([]string), "")
+
+	case []interface{}:
+		concat := ""
+		for _, val := range str.([]interface{}) {
+			concat = Build(concat, val)
+		}
+		return concat
+
 	case bool:
 		return strconv.FormatBool(bool(str.(bool)))
 	//
@@ -98,12 +110,6 @@ func buildStr(str interface{}) string {
 			concat = Build(concat, val)
 		}
 		return concat
-
-	case string:
-		return string(str.(string))
-
-	case []string:
-		return strings.Join(str.([]string), "")
 
 	case float64:
 		return strconv.FormatFloat(str.(float64), 'f', 6, 64)
