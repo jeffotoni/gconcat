@@ -170,7 +170,7 @@ func Int64ToStringFast(a []int64) string {
 	}
 	b := make([]string, len(a))
 	for i, v := range a {
-		b[i] = strconv.FormatInt(int64(str.(int64)), 10)
+		b[i] = strconv.FormatInt(int64(v), 10)
 	}
 	return strings.Join(b, "")
 }
