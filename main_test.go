@@ -113,6 +113,12 @@ func TestBuild(t *testing.T) {
 	}
 }
 
+func BenchmarkBuildFast(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		Build("jeffotoni", " ", "joao saletti", " ano:", 2020, " ", 34.55)
+	}
+}
+
 func BenchmarkBuild(b *testing.B) {
 	for n := 0; n < b.N; n++ {
 		Build(

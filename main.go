@@ -5,6 +5,15 @@ import (
 	"strings"
 )
 
+//Concat
+func Build(strs ...interface{}) string {
+	var sb strings.Builder
+	for _, str := range strs {
+		sb.WriteString(buildStr(str))
+	}
+	return sb.String()
+}
+
 //buildStr monta a string
 func buildStr(str interface{}) string {
 	switch str.(type) {
@@ -82,11 +91,7 @@ func buildStr(str interface{}) string {
 	case uint64:
 		return strconv.FormatUint(uint64(str.(uint64)), 10)
 	case []int64:
-		concat := ""
-		for _, val := range str.([]int64) {
-			concat = Build(concat, val)
-		}
-		return concat
+		return Int64ToStringFast(str.([]int64))
 	case []uint64:
 		concat := ""
 		for _, val := range str.([]uint64) {
@@ -135,4 +140,37 @@ func buildStr(str interface{}) string {
 		break
 	}
 	return ""
+}
+
+func IntToStringFast(a []int) string {
+	if len(a) == 0 {
+		return ""
+	}
+	b := make([]string, len(a))
+	for i, v := range a {
+		b[i] = strconv.Itoa(v)
+	}
+	return strings.Join(b, "")
+}
+
+func Int32ToStringFast(a []int32) string {
+	if len(a) == 0 {
+		return ""
+	}
+	b := make([]string, len(a))
+	for i, v := range a {
+		b[i] = strconv.FormatInt(int64(v), 10)
+	}
+	return strings.Join(b, "")
+}
+
+func Int64ToStringFast(a []int64) string {
+	if len(a) == 0 {
+		return ""
+	}
+	b := make([]string, len(a))
+	for i, v := range a {
+		b[i] = strconv.FormatInt(int64(str.(int64)), 10)
+	}
+	return strings.Join(b, "")
 }
