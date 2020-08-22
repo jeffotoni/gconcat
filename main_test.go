@@ -22,7 +22,7 @@ func ConcatTestLocal(strs ...interface{}) string {
 	return str
 }
 
-func BenchmarkConcatTestLocal(b *testing.B) {
+func BenchmarkConcatBuildFast(b *testing.B) {
 	for n := 0; n < b.N; n++ {
 		ConcatTestLocal([]string{"21", "joao", "beta"}, "jeffotoni", n)
 	}
