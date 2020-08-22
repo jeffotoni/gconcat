@@ -2,12 +2,36 @@
 >Just a simple lib, to concat string in #Go lang
 
 #### Use
-Example on your project
+
+Example Concat Build
 ```go
+package main
 
+import (
+	"github.com/jeffotoni/concat"
+)
 
+func main() {
+	var ii []interface{}
+	ii = append(ii, "jeffotoni")
+	ii = append(ii, " ")
+	ii = append(ii, "joao")
+	ii = append(ii, " ")
+	ii = append(ii, 2021)
+
+	var i interface{}
+	i  = "jeffotoni"
+
+	println(concat.Build(ii))
+	println(concat.Build(i))
+	println(concat.Build("jeffotoni", " & ", "joao", " ", 20, "/08/", 2020))
+	println(concat.Build([]string{"2015", " ", "2016", " ", "2017", " ", "2018", " ", "2020"}))
+	println(concat.Build([]int{12, 0, 11, 0, 10, 11, 12, 23, 3}))
+	println(concat.Build(10,9,10,20,30,40,"x", "&", "."))
+	println(concat.Build("R$ ",23456.33, " R$ ",123.33, " R$ ",19.11))
+
+}
 ```
-
 
 Example on your project 
 ```go
@@ -42,7 +66,7 @@ func main() {
 }
 
 ````
-#### Install Using go mod 
+#### Install Using go mod in your project
 ```bash
 $ go mod init <your-dir>
 $ go run main.go
@@ -51,7 +75,6 @@ $ go run main.go
 #### Another possibility would be
 ```bash
 $ go get -u github.com/jeffotoni/concat
-
 ```
 
 #### Test Benchmarking
