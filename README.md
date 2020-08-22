@@ -1,9 +1,9 @@
 # gconcat.Build
->Just a simple lib, to concat string in #Go lang
+>Just a simple lib, to gconcat string in #Go lang
 
 #### Use
 
-Example Concat Build
+Example Gconcat Build
 ```go
 package main
 
@@ -74,7 +74,7 @@ $ go run main.go
 
 #### Another possibility would be
 ```bash
-$ go get -u github.com/jeffotoni/concat
+$ go get -u github.com/jeffotoni/gconcat
 ```
 
 #### Test Benchmarking
@@ -89,7 +89,7 @@ BenchmarkBuild-4                  469720              2503 ns/op            3238
 BenchmarkMarshal-4                293193              4128 ns/op             768 B/op          1 allocs/op
 BenchmarkConcatMais-4                  8         133299313 ns/op        1086400464 B/op    10041 allocs/op
 PASS
-ok      _/home/jeffotoni/gitprojetos/concat     6.899s
+ok      _/home/jeffotoni/gitprojetos/gconcat     6.899s
 
 ```
 
