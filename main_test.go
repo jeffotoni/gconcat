@@ -9,6 +9,8 @@ func Test_buildStr(t *testing.T) {
 	var many1String, many1Int, many1Int8, many1Int16, many1Int32, many1Int64 interface{}
 	var many1Uint, many1Uint8, many1Uint16, many1Uint32, many1Uint64 interface{}
 	var many1Float32, many1Float64 interface{}
+	var manyBool1 bool = true
+	var manyBool2 bool = false
 
 	many1String = string("21")
 	many1Int = int(100)
@@ -34,20 +36,22 @@ func Test_buildStr(t *testing.T) {
 		want string
 	}{
 		// TODO: Add test cases.
-		{"test_buildStr_1", args{str: many1String}, "21"},
-		{"test_buildStr_2", args{str: many1Int}, "100"},
-		{"test_buildStr_3", args{str: many1Int8}, "100"},
-		{"test_buildStr_4", args{str: many1Int16}, "100"},
-		{"test_buildStr_5", args{str: many1Int32}, "100"},
-		{"test_buildStr_6", args{str: many1Int64}, "100"},
-		{"test_buildStr_7", args{str: many1Uint}, "100"},
-		{"test_buildStr_8", args{str: many1Uint8}, "100"},
-		{"test_buildStr_9", args{str: many1Uint16}, "100"},
-		{"test_buildStr_10", args{str: many1Uint32}, "100"},
-		{"test_buildStr_11", args{str: many1Uint64}, "100"},
-		//{"test_buildStr_12", args{str: many1Uintptr}, "d"}, //endereço do ponteiro
-		{"test_buildStr_13", args{str: many1Float32}, "100.010002"},
-		{"test_buildStr_14", args{str: many1Float64}, "100.010000"},
+		{"test_buildStr_0", args{str: manyBool1}, "true"},
+		{"test_buildStr_1", args{str: manyBool2}, "false"},
+		{"test_buildStr_2", args{str: many1String}, "21"},
+		{"test_buildStr_3", args{str: many1Int}, "100"},
+		{"test_buildStr_4", args{str: many1Int8}, "100"},
+		{"test_buildStr_5", args{str: many1Int16}, "100"},
+		{"test_buildStr_6", args{str: many1Int32}, "100"},
+		{"test_buildStr_7", args{str: many1Int64}, "100"},
+		{"test_buildStr_8", args{str: many1Uint}, "100"},
+		{"test_buildStr_9", args{str: many1Uint8}, "100"},
+		{"test_buildStr_10", args{str: many1Uint16}, "100"},
+		{"test_buildStr_11", args{str: many1Uint32}, "100"},
+		{"test_buildStr_12", args{str: many1Uint64}, "100"},
+		//{"test_buildStr_13", args{str: many1Uintptr}, "d"}, //endereço do ponteiro
+		{"test_buildStr_14", args{str: many1Float32}, "100.010002"},
+		{"test_buildStr_15", args{str: many1Float64}, "100.010000"},
 	}
 
 	for _, tt := range tests {
@@ -89,6 +93,7 @@ func TestBuild(t *testing.T) {
 		want string
 	}{
 		// TODO: Add test cases.
+		{"test_concat_0", args{strs: many1String}, "21joaobeta"},
 		{"test_concat_1", args{strs: many1String}, "21joaobeta"},
 		{"test_concat_2", args{strs: many1Int}, "1009823"},
 		{"test_concat_3", args{strs: many1Int8}, "1009823"},
