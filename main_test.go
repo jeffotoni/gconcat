@@ -12,8 +12,10 @@ func ConcatTestLocal(strs ...interface{}) string {
 	return str
 }
 
-func Test_ConcatTestLocal(t *testing.T) {
-	ConcatTestLocal([]string{"21", "joao", "beta"}, "jeffotoni", 19)
+func BenchmarkConcatTestLocal(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		ConcatTestLocal([]string{"21", "joao", "beta"}, "jeffotoni", n)
+	}
 }
 
 func Test_buildStr(t *testing.T) {
