@@ -52,8 +52,8 @@ func Test_Build_OneStr(t *testing.T) {
 		//{"test_buildStr_12", args{str: many1Uintptr}, "d"}, //endereço do ponteiro
 		{"test_buildStr_", args{str: many1Float32}, "100.010002"},
 		{"test_buildStr_", args{str: many1Float64}, "100.010000"},
-		{"test_buildStr_", args{str: many1bool}, "true"},
-		{"test_buildStr_", args{str: many2bool}, "false"},
+		{"test_buildStr_", args{str: many1bool}, "false"},
+		{"test_buildStr_", args{str: many2bool}, "true"},
 	}
 
 	for _, tt := range tests {
