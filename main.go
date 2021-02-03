@@ -21,6 +21,7 @@ func buildStr(str interface{}) string {
 		return "nil"
 	case string:
 		return string(str.(string))
+
 	case []string:
 		return strings.Join(str.([]string), "")
 
@@ -34,36 +35,63 @@ func buildStr(str interface{}) string {
 	case bool:
 		return strconv.FormatBool(str.(bool))
 	case []bool:
-		return BoolToStringFast(str.([]bool))
-
+		concat := ""
+		for _, val := range str.([]bool) {
+			concat = Build(concat, val)
+		}
+		return concat
+	//
 	case int:
-		return strconv.Itoa(str.(int))
+		return strconv.Itoa(int(str.(int)))
+
 	case []int:
 		return IntToStringFast(str.([]int))
 	case uint:
 		return strconv.FormatUint(uint64(str.(uint)), 10)
 	case []uint:
-		return IntUToStringFast(str.([]uint))
+		concat := ""
+		for _, val := range str.([]uint) {
+			concat = Build(concat, val)
+		}
+		return concat
 	case int8:
 		return strconv.Itoa(int(str.(int8)))
-	//provavelmente funciona para byte, pois é um aliais para uint8 // não testado para isto  @ancogamer
+	//provavelmente funciona para byte, pois é um aliais para uint8
 	case uint8:
 		return strconv.FormatUint(uint64(str.(uint8)), 10)
 	case []int8:
-		return Int8ToStringFast(str.([]int8))
+		concat := ""
+		for _, val := range str.([]int8) {
+			concat = Build(concat, val)
+		}
+		return concat
 
 	case []uint8:
-		return IntU8ToStringFast(str.([]uint8))
+		concat := ""
+		for _, val := range str.([]uint8) {
+			concat = Build(concat, val)
+		}
+		return concat
+
 	case int16:
 		return strconv.Itoa(int(str.(int16)))
 	case uint16:
 		return strconv.FormatUint(uint64(str.(uint16)), 10)
 	case []int16:
-		return Int16ToStringFast(str.([]int16))
-	case []uint16:
-		return IntU16ToStringFast(str.([]uint16))
+		concat := ""
+		for _, val := range str.([]int16) {
+			concat = Build(concat, val)
+		}
+		return concat
 
-	//probably work for rune too, since rune is a alias for int32 //Not tested @ancogamer
+	case []uint16:
+		concat := ""
+		for _, val := range str.([]uint16) {
+			concat = Build(concat, val)
+		}
+		return concat
+
+	//probably work for rune too, since rune is a alias for int32
 	case int32:
 		return strconv.FormatInt(int64(str.(int32)), 10)
 	case uint32:
@@ -71,7 +99,11 @@ func buildStr(str interface{}) string {
 	case []int32:
 		return Int32ToStringFast(str.([]int32))
 	case []uint32:
-		return IntU32ToStringFast(str.([]uint32))
+		concat := ""
+		for _, val := range str.([]uint32) {
+			concat = Build(concat, val)
+		}
+		return concat
 	case int64:
 		return strconv.FormatInt(int64(str.(int64)), 10)
 	case uint64:
@@ -79,15 +111,28 @@ func buildStr(str interface{}) string {
 	case []int64:
 		return Int64ToStringFast(str.([]int64))
 	case []uint64:
-		return IntU64ToStringFast(str.([]uint64))
+		concat := ""
+		for _, val := range str.([]uint64) {
+			concat = Build(concat, val)
+		}
+		return concat
+
 	case float64:
 		return strconv.FormatFloat(str.(float64), 'f', 6, 64)
 	case []float64:
-		return Float64TostringFast(str.([]float64))
+		concat := ""
+		for _, val := range str.([]float64) {
+			concat = Build(concat, val)
+		}
+		return concat
 	case float32:
 		return strconv.FormatFloat(float64(str.(float32)), 'f', 6, 64)
 	case []float32:
-		return Float32TostringFast(str.([]float32))
+		concat := ""
+		for _, val := range str.([]float32) {
+			concat = Build(concat, val)
+		}
+		return concat
 
 	// case uintptr:
 	// 	return string(str.(uintptr))
@@ -99,25 +144,16 @@ func buildStr(str interface{}) string {
 	// 	return concat
 
 	case complex64:
-		return "not suport complex 64, maybe in the future"
+		return "not suport complex 64"
 	case complex128:
-		return "not suport complex 128, maybe in the future"
+		return "not suport complex 128"
 	default:
 		println("type not found")
 		break
 	}
 	return ""
 }
-func BoolToStringFast(a []bool) string {
-	if len(a) == 0 {
-		return ""
-	}
-	b := make([]string, len(a))
-	for i, v := range a {
-		b[i] = strconv.FormatBool(v)
-	}
-	return strings.Join(b, "")
-}
+
 func IntToStringFast(a []int) string {
 	if len(a) == 0 {
 		return ""
@@ -129,28 +165,7 @@ func IntToStringFast(a []int) string {
 	return strings.Join(b, "")
 }
 
-func Int8ToStringFast(a []int8) string {
-	if len(a) == 0 {
-		return ""
-	}
-	b := make([]string, len(a))
-	for i, v := range a {
-		b[i] = strconv.Itoa(int(v))
-	}
-	return strings.Join(b, "")
-}
-
 func Int32ToStringFast(a []int32) string {
-	if len(a) == 0 {
-		return ""
-	}
-	b := make([]string, len(a))
-	for i, v := range a {
-		b[i] = strconv.FormatInt(int64(v), 10)
-	}
-	return strings.Join(b, "")
-}
-func Int16ToStringFast(a []int16) string {
 	if len(a) == 0 {
 		return ""
 	}
@@ -168,79 +183,6 @@ func Int64ToStringFast(a []int64) string {
 	b := make([]string, len(a))
 	for i, v := range a {
 		b[i] = strconv.FormatInt(int64(v), 10)
-	}
-	return strings.Join(b, "")
-}
-
-func IntUToStringFast(a []uint) string {
-	if len(a) == 0 {
-		return ""
-	}
-	b := make([]string, len(a))
-	for i, v := range a {
-		b[i] = strconv.FormatUint(uint64(v), 10)
-	}
-	return strings.Join(b, "")
-}
-func IntU8ToStringFast(a []uint8) string {
-	if len(a) == 0 {
-		return ""
-	}
-	b := make([]string, len(a))
-	for i, v := range a {
-		b[i] = strconv.FormatUint(uint64(v), 10)
-	}
-	return strings.Join(b, "")
-}
-func IntU16ToStringFast(a []uint16) string {
-	if len(a) == 0 {
-		return ""
-	}
-	b := make([]string, len(a))
-	for i, v := range a {
-		b[i] = strconv.FormatUint(uint64(v), 10)
-	}
-	return strings.Join(b, "")
-}
-
-func IntU32ToStringFast(a []uint32) string {
-	if len(a) == 0 {
-		return ""
-	}
-	b := make([]string, len(a))
-	for i, v := range a {
-		b[i] = strconv.FormatUint(uint64(v), 10)
-	}
-	return strings.Join(b, "")
-}
-func IntU64ToStringFast(a []uint64) string {
-	if len(a) == 0 {
-		return ""
-	}
-	b := make([]string, len(a))
-	for i, v := range a {
-		b[i] = strconv.FormatUint(v, 10)
-	}
-	return strings.Join(b, "")
-}
-
-func Float32TostringFast(a []float32) string {
-	if len(a) == 0 {
-		return ""
-	}
-	b := make([]string, len(a))
-	for i, v := range a {
-		b[i] = strconv.FormatFloat(float64(v), 'f', 6, 64)
-	}
-	return strings.Join(b, "")
-}
-func Float64TostringFast(a []float64) string {
-	if len(a) == 0 {
-		return ""
-	}
-	b := make([]string, len(a))
-	for i, v := range a {
-		b[i] = strconv.FormatFloat(v, 'f', 6, 64)
 	}
 	return strings.Join(b, "")
 }
