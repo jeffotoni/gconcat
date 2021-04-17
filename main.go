@@ -133,16 +133,6 @@ func buildStr(str interface{}) string {
 			concat = Build(concat, val)
 		}
 		return concat
-
-	// case uintptr:
-	// 	return string(str.(uintptr))
-	// case []uintptr:
-	// 	concat := ""
-	// 	for _, val := range str.([]uintptr) {
-	// 		concat = Build(concat, val)
-	// 	}
-	// 	return concat
-
 	case complex64:
 		return "not suport complex 64"
 	case complex128:

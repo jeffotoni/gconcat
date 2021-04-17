@@ -3,6 +3,29 @@
 
 #### Use
 
+Example Gconcat set func Concat
+```go
+package main
+
+import (
+	"github.com/jeffotoni/gconcat"
+)
+
+//Concat
+func Concat(strs ...interface{}) string {
+	return gconcat.Build(strs...)
+} 
+
+func main() {
+	var i []interface{}
+	i = append(i, "jeffotoni")
+	i = append(i, " goman")
+	i = append(i, " Year 2021 $")
+	i = append(i, 25.00)
+	println(Concat(i))
+}
+```
+
 Example Gconcat Build
 ```go
 package main
@@ -29,7 +52,6 @@ func main() {
 	println(gconcat.Build([]int{12, 0, 11, 0, 10, 11, 12, 23, 3}))
 	println(gconcat.Build(10,9,10,20,30,40,"x", "&", "."))
 	println(gconcat.Build("R$ ",23456.33, " R$ ",123.33, " R$ ",19.11))
-
 }
 ```
 
