@@ -14,8 +14,8 @@
 [6]: https://coveralls.io/github/jeffotoni/gconcat?branch=master
 [7]: https://travis-ci.com/jeffotoni/gconcat.svg?branch=master
 [8]: https://travis-ci.com/jeffotoni/gconcat
-[9]: https://sourcegraph.com/github.com/imdario/mergo/-/badge.svg
-[10]: https://sourcegraph.com/github.com/imdario/mergo?badge
+[9]: https://sourcegraph.com/github.com/jeffotoni/gconcat/-/badge.svg
+[10]: https://sourcegraph.com/github.com/jeffotoni/gconcat?badge
 
 >A simple lib for concatenation, it accepts several types as a parameter and returns a string. 
 
