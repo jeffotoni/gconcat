@@ -5,12 +5,12 @@ import (
 	"strings"
 )
 
-// Function responsible for abstracting the build function and delivering a Concat
+//Concat Function responsible for abstracting the build function and delivering
 func Concat(str ...interface{}) string {
 	return Build(str...)
 }
 
-// Function responsible for concatenating, and accepting different types
+//Build Function responsible for concatenating, and accepting different types
 func Build(strs ...interface{}) string {
 	var sb strings.Builder
 	for _, str := range strs {
@@ -140,13 +140,12 @@ func buildStr(str interface{}) string {
 		return "not suport complex 128"
 	default:
 		return "not exist type without suport"
-		break
 	}
 
 	return ""
 }
 
-// Function that converts []int to string optimally
+// IntToStringFast Function that converts []int to string optimally
 func IntToStringFast(a []int) string {
 	if len(a) == 0 {
 		return ""
@@ -158,7 +157,7 @@ func IntToStringFast(a []int) string {
 	return strings.Join(b, "")
 }
 
-// Function that converts []int32 to string optimally
+// Int32ToStringFast Function that converts []int32 to string optimally
 func Int32ToStringFast(a []int32) string {
 	if len(a) == 0 {
 		return ""
@@ -170,7 +169,7 @@ func Int32ToStringFast(a []int32) string {
 	return strings.Join(b, "")
 }
 
-// Function that converts []int64 to string optimally
+// Int64ToStringFast Function that converts []int64 to string optimally
 func Int64ToStringFast(a []int64) string {
 	if len(a) == 0 {
 		return ""
