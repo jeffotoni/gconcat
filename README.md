@@ -1,7 +1,32 @@
-# gconcat.Build
->Just a simple lib, to gconcat string in #Go lang
+# gconcat
 
-#### Use
+[![GoDoc][1]][2]
+[![GitHub release][3]][4]
+[![Coverage Status][5]][6]
+[![Build Status][7]][8]
+
+[1]: https://godoc.org/github.com/jeffotoni/gconcat?status.svg
+[2]: https://godoc.org/github.com/jeffotoni/gconcat
+[3]: https://img.shields.io/scrutinizer/coverage/g/jeffotoni/gconcat
+[4]: https://github.com/jeffotoni/gconcat/releases
+[5]: https://coveralls.io/repos/github/jeffotoni/gconcat/badge.svg?branch=master
+[6]: https://coveralls.io/github/jeffotoni/gconcat?branch=master
+[7]: https://travis-ci.org/jeffotoni/gconcat.png
+[8]: https://travis-ci.org/jeffotoni/gconcat
+
+>A simple lib for concatenation, it accepts several types as a parameter and returns a string. 
+
+#### Some types allowed
+> - bool
+> - []int
+> - []int32
+> - []int64
+> - []interface
+> - []string
+> - []uint
+> - []float
+
+#### Usage
 
 Example Gconcat set func Concat
 ```go

@@ -5,6 +5,91 @@ import (
 	"testing"
 )
 
+// go test -v -run ^TestIntToAllFast
+func TestIntToAllFast(t *testing.T) {
+	var a []int
+	s := IntToStringFast(a)
+	if s != "" {
+		t.Errorf("Error IntToStringFast: return empty")
+	}
+
+	var a32 []int32
+	s = Int32ToStringFast(a32)
+	if s != "" {
+		t.Errorf("Error Int32ToStringFast: return empty")
+	}
+
+	var a64 []int64
+	s = Int64ToStringFast(a64)
+	if s != "" {
+		t.Errorf("Error Int64ToStringfast: return empty")
+	}
+
+	var cplx64 complex64
+	s = Concat(cplx64)
+	if s != "not suport complex 64" {
+		t.Errorf("Error complex64 not suport")
+	}
+
+	var cplx128 complex128
+	s = Concat(cplx128)
+	if s != "not suport complex 128" {
+		t.Errorf("Error complex128 not suport")
+	}
+
+	type typeZero struct{}
+	var tn typeZero
+	s = Concat(tn)
+	if s != "not exist type without suport" {
+		t.Errorf("Error type no exist")
+	}
+
+	var i64 int64 = 3456789765423
+	s = Concat(i64)
+	if s != "3456789765423" {
+		t.Errorf("Error type int64")
+	}
+
+	var i32 int32 = 189765423
+	s = Concat(i32)
+	if s != "189765423" {
+		t.Errorf("Error type int32")
+	}
+
+	var it int = 765423
+	s = Concat(it)
+	if s != "765423" {
+		t.Errorf("Error type int")
+	}
+
+	var iv []interface{}
+	s = Concat(iv)
+	if s != "" {
+		t.Errorf("Error type []intterface")
+	}
+
+	var ivv []interface{}
+	ivv = append(ivv, []int{1, 2, 3})
+	ivv = append(ivv, []string{"1", "2", "3"})
+	s = Concat(ivv)
+	var want string = "123123"
+	if s != want {
+		t.Errorf("Error want=%s got=%s", want, s)
+	}
+
+	//var nill *typeZero
+	s = Concat(nil)
+	if s != "nil" {
+		t.Errorf("Error nil")
+	}
+
+	nothing := func() {}
+	s = Concat(nothing)
+	if s != "not exist type without suport" {
+		t.Errorf("Error not exist type")
+	}
+}
+
 //go test -v -run ^Test_Concat_OneStr
 func Test_Concat_OneStr(t *testing.T) {
 	var many1String, many1Int, many1Int8, many1Int16, many1Int32, many1Int64 interface{}

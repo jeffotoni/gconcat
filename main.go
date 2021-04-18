@@ -142,9 +142,10 @@ func buildStr(str interface{}) string {
 	case complex128:
 		return "not suport complex 128"
 	default:
-		println("type not found")
+		return "not exist type without suport"
 		break
 	}
+
 	return ""
 }
 
