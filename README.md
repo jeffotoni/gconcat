@@ -8,7 +8,7 @@
 
 [1]: https://godoc.org/github.com/jeffotoni/gconcat?status.svg
 [2]: https://godoc.org/github.com/jeffotoni/gconcat
-[3]: https://img.shields.io/github/v/release/jeffotoni/gconcat
+[3]: https://img.shields.io/github/v/release/jeffotoni/gconcat?include_prereleases
 [4]: https://github.com/jeffotoni/gconcat/releases
 [5]: https://coveralls.io/repos/github/jeffotoni/gconcat/badge.svg?branch=master
 [6]: https://coveralls.io/github/jeffotoni/gconcat?branch=master
