@@ -50,14 +50,21 @@ func buildStr(str interface{}) string {
 
 	case []int:
 		return IntToStringFast(str.([]int))
-	case uint:
-		return strconv.FormatUint(uint64(str.(uint)), 10)
-	case []uint:
-		concat := ""
-		for _, val := range str.([]uint) {
-			concat = Build(concat, val)
-		}
-		return concat
+
+	case complex64:
+		return "not suport complex 64"
+	case complex128:
+		return "not suport complex 128"
+	default:
+		return buildStr2(str)
+	}
+
+	return ""
+}
+
+func buildStr2(str interface{}) string {
+
+	switch str.(type) {
 	case int8:
 		return strconv.Itoa(int(str.(int8)))
 	case uint8:
@@ -93,6 +100,16 @@ func buildStr(str interface{}) string {
 			concat = Build(concat, val)
 		}
 		return concat
+
+	default:
+		return buildStr3(str)
+	}
+
+	return ""
+}
+
+func buildStr3(str interface{}) string {
+	switch str.(type) {
 	case int32:
 		return strconv.FormatInt(int64(str.(int32)), 10)
 	case uint32:
@@ -117,7 +134,15 @@ func buildStr(str interface{}) string {
 			concat = Build(concat, val)
 		}
 		return concat
+	default:
+		return buildStr4(str)
+	}
 
+	return ""
+}
+
+func buildStr4(str interface{}) string {
+	switch str.(type) {
 	case float64:
 		return strconv.FormatFloat(str.(float64), 'f', 6, 64)
 	case []float64:
@@ -134,10 +159,14 @@ func buildStr(str interface{}) string {
 			concat = Build(concat, val)
 		}
 		return concat
-	case complex64:
-		return "not suport complex 64"
-	case complex128:
-		return "not suport complex 128"
+	case uint:
+		return strconv.FormatUint(uint64(str.(uint)), 10)
+	case []uint:
+		concat := ""
+		for _, val := range str.([]uint) {
+			concat = Build(concat, val)
+		}
+		return concat
 	default:
 		return "not exist type without suport"
 	}
