@@ -19,7 +19,7 @@
 [10]: https://goreportcard.com/report/github.com/jeffotoni/gconcat
 [11]: https://img.shields.io/github/license/jeffotoni/gconcat
 
->A simple lib for concatenation, it accepts several types as a parameter and returns a string. 
+>A simple lib for concatenation, it accepts several types as a parameter and returns a string. A battery of tests was done, there are some complexities that we cannot escape to have the best computational cost 
 
 #### Some types allowed
 > - bool
