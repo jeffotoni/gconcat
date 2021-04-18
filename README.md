@@ -4,7 +4,7 @@
 [![GitHub release][3]][4]
 [![Coverage Status][5]][6]
 [![Build Status][7]][8]
-[![Sourcegraph][9]][10]
+
 
 [1]: https://godoc.org/github.com/jeffotoni/gconcat?status.svg
 [2]: https://godoc.org/github.com/jeffotoni/gconcat
@@ -14,8 +14,7 @@
 [6]: https://coveralls.io/github/jeffotoni/gconcat?branch=master
 [7]: https://travis-ci.com/jeffotoni/gconcat.svg?branch=master
 [8]: https://travis-ci.com/jeffotoni/gconcat
-[9]: https://sourcegraph.com/github.com/jeffotoni/gconcat/-/badge.svg
-[10]: https://sourcegraph.com/github.com/jeffotoni/gconcat?badge
+
 
 >A simple lib for concatenation, it accepts several types as a parameter and returns a string. 
 
