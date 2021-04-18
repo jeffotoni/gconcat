@@ -5,7 +5,7 @@
 [![Coverage Status][5]][6]
 [![Build Status][7]][8]
 [![Go Report Card][9]][10]
-
+[![License][11]][11]
 
 [1]: https://godoc.org/github.com/jeffotoni/gconcat?status.svg
 [2]: https://godoc.org/github.com/jeffotoni/gconcat
@@ -17,6 +17,7 @@
 [8]: https://travis-ci.com/jeffotoni/gconcat
 [9]: https://goreportcard.com/badge/github.com/jeffotoni/gconcat
 [10]: https://goreportcard.com/report/github.com/jeffotoni/gconcat
+[11]: https://img.shields.io/github/license/jeffotoni/gconcat
 
 >A simple lib for concatenation, it accepts several types as a parameter and returns a string. 
 
