@@ -5,7 +5,11 @@ import (
 	"strings"
 )
 
-//Concat
+// Concat
+func Concat(str ...interface{}) string {
+	return Build(str...)
+}
+
 func Build(strs ...interface{}) string {
 	var sb strings.Builder
 	for _, str := range strs {

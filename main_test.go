@@ -5,8 +5,8 @@ import (
 	"testing"
 )
 
-//go test -v -run ^Test_Build_OneStr
-func Test_Build_OneStr(t *testing.T) {
+//go test -v -run ^Test_Concat_OneStr
+func Test_Concat_OneStr(t *testing.T) {
 	var many1String, many1Int, many1Int8, many1Int16, many1Int32, many1Int64 interface{}
 	var many1Uint, many1Uint8, many1Uint16, many1Uint32, many1Uint64 interface{}
 	var many1Float32, many1Float64 interface{}
@@ -38,42 +38,42 @@ func Test_Build_OneStr(t *testing.T) {
 		want string
 	}{
 		// TODO: Add test cases.
-		{"test_buildStr_", args{str: many1String}, "21"},
-		{"test_buildStr_", args{str: many1Int}, "100"},
-		{"test_buildStr_", args{str: many1Int8}, "100"},
-		{"test_buildStr_", args{str: many1Int16}, "100"},
-		{"test_buildStr_", args{str: many1Int32}, "100"},
-		{"test_buildStr_", args{str: many1Int64}, "100"},
-		{"test_buildStr_", args{str: many1Uint}, "100"},
-		{"test_buildStr_", args{str: many1Uint8}, "100"},
-		{"test_buildStr_", args{str: many1Uint16}, "100"},
-		{"test_buildStr_", args{str: many1Uint32}, "100"},
-		{"test_buildStr_", args{str: many1Uint64}, "100"},
-		//{"test_buildStr_12", args{str: many1Uintptr}, "d"}, //endereço do ponteiro
-		{"test_buildStr_", args{str: many1Float32}, "100.010002"},
-		{"test_buildStr_", args{str: many1Float64}, "100.010000"},
-		{"test_buildStr_", args{str: many1bool}, "false"},
-		{"test_buildStr_", args{str: many2bool}, "true"},
+		{"test_ConcatStr_", args{str: many1String}, "21"},
+		{"test_ConcatStr_", args{str: many1Int}, "100"},
+		{"test_ConcatStr_", args{str: many1Int8}, "100"},
+		{"test_ConcatStr_", args{str: many1Int16}, "100"},
+		{"test_ConcatStr_", args{str: many1Int32}, "100"},
+		{"test_ConcatStr_", args{str: many1Int64}, "100"},
+		{"test_ConcatStr_", args{str: many1Uint}, "100"},
+		{"test_ConcatStr_", args{str: many1Uint8}, "100"},
+		{"test_ConcatStr_", args{str: many1Uint16}, "100"},
+		{"test_ConcatStr_", args{str: many1Uint32}, "100"},
+		{"test_ConcatStr_", args{str: many1Uint64}, "100"},
+		//{"test_ConcatStr_12", args{str: many1Uintptr}, "d"}, //endereço do ponteiro
+		{"test_ConcatStr_", args{str: many1Float32}, "100.010002"},
+		{"test_ConcatStr_", args{str: many1Float64}, "100.010000"},
+		{"test_ConcatStr_", args{str: many1bool}, "false"},
+		{"test_ConcatStr_", args{str: many2bool}, "true"},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			tt1 := tt
-			got := Build(tt1.args.str)
+			got := Concat(tt1.args.str)
 			switch {
 			case got == tt1.want:
 				break
 			default:
-				t.Errorf("Build() = %v, want %v", got, tt.want)
+				t.Errorf("Concat() = %v, want %v", got, tt.want)
 			}
 			print("\n", got)
 		})
 	}
 }
 
-//go test -v -run ^Test_Build_Many
-func Test_Build_Many(t *testing.T) {
+//go test -v -run ^Test_Concat_Many
+func Test_Concat_Many(t *testing.T) {
 
 	var many1String, many1Int, many1Int8, many1Int16, many1Int32, many1Int64 []interface{}
 	var many1Uint, many1Uint8, many1Uint16, many1Uint32, many1Uint64, many1Uintptr []interface{}
@@ -124,21 +124,21 @@ func Test_Build_Many(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			//t.Parallel()
 			tt1 := tt
-			got := Build(tt1.args.strs...)
+			got := Concat(tt1.args.strs...)
 			switch {
 			case got == tt1.want:
 				break
 			default:
-				t.Errorf("Build() = %v, want %v", got, tt.want)
+				t.Errorf("Concat() = %v, want %v", got, tt.want)
 			}
 			print("\n", got)
 		})
 	}
 }
 
-func BenchmarkBuild(b *testing.B) {
+func BenchmarkConcat(b *testing.B) {
 	for n := 0; n < b.N; n++ {
-		Build(
+		Concat(
 			[]int{1, 2, 3, 4, 5, 56, 6, 7, 7, 778, 8, 88, 8, 8, 8, 8, 8, 8, 9, 9, 123, 4, 4, 5, 6, 7, 77, 8, 8, 99, 9, 93, 3, 3, 3, 3, 45, 5, 6, 6, 7},
 			[]string{"jeff", "otoni", "lima", " ", " vamos testar esta cria "},
 			[]string{"jeff", "otoni", "lima", " ", " vamos testar esta cria "},

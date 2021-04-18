@@ -8,21 +8,17 @@ Example Gconcat set func Concat
 package main
 
 import (
-	"github.com/jeffotoni/gconcat"
+	g "github.com/jeffotoni/gconcat"
 )
 
 //Concat
-func Concat(strs ...interface{}) string {
-	return gconcat.Build(strs...)
-} 
-
 func main() {
 	var i []interface{}
 	i = append(i, "jeffotoni")
 	i = append(i, " goman")
 	i = append(i, " Year 2021 $")
 	i = append(i, 25.00)
-	println(Concat(i))
+	println(g.Concat(i))
 }
 ```
 
@@ -31,7 +27,7 @@ Example Gconcat Build
 package main
 
 import (
-	"github.com/jeffotoni/gconcat"
+	g "github.com/jeffotoni/gconcat"
 )
 
 func main() {
@@ -45,13 +41,13 @@ func main() {
 	var i interface{}
 	i  = "jeffotoni"
 
-	println(gconcat.Build(ii))
-	println(gconcat.Build(i))
-	println(gconcat.Build("jeffotoni", "&", "joao", " ", 20, "/08/"))
-	println(gconcat.Build([]string{"2017", " ", "2018", " ", "2020"}))
-	println(gconcat.Build([]int{12, 0, 11, 0, 10, 11, 12, 23, 3}))
-	println(gconcat.Build(10,9,10,20,30,40,"x", "&", "."))
-	println(gconcat.Build("R$ ",23456.33, " R$ ",123.33, " R$ ",19.11))
+	println(g.Concat(ii))
+	println(g.Concat(i))
+	println(g.Concat("jeffotoni", "&", "joao", " ", 20, "/08/"))
+	println(g.Concat([]string{"2017", " ", "2018", " ", "2020"}))
+	println(g.Concat([]int{12, 0, 11, 0, 10, 11, 12, 23, 3}))
+	println(g.Concat(10,9,10,20,30,40,"x", "&", "."))
+	println(g.Concat("R$ ",23456.33, " R$ ",123.33, " R$ ",19.11))
 }
 ```
 
@@ -63,7 +59,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/jeffotoni/gconcat"
+	g "github.com/jeffotoni/gconcat"
 )
 
 const PORT = ":8282"
@@ -72,7 +68,7 @@ func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/ping",
 		func(w http.ResponseWriter, r *http.Request) {
-			str := gconcat.Build(
+			str := g.Concat(
                             []int{1, 2, 3, 4, 5}, " ", 
                             []string{"vamos testar nossa concat!!!"},
                     )
