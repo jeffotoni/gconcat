@@ -161,7 +161,7 @@ func Test_Concat_OneStr(t *testing.T) {
 func Test_Concat_Many(t *testing.T) {
 
 	var many1String, many1Int, many1Int8, many1Int16, many1Int32, many1Int64 []interface{}
-	var many1Uint, many1Uint8, many1Uint16, many1Uint32, many1Uint64, many1Uintptr []interface{}
+	var many1Uint, many1Uint8, many1Uint16, many1Uint32, many1Uint64 []interface{}
 	var many1Float32, many1Float64 []interface{}
 	var many1bool []interface{}
 	many1bool = append(many1bool, []bool{true, false})
@@ -176,7 +176,7 @@ func Test_Concat_Many(t *testing.T) {
 	many1Uint16 = append(many1Uint16, []uint16{100, 98, 23})
 	many1Uint32 = append(many1Uint32, []uint32{100, 98, 23})
 	many1Uint64 = append(many1Uint64, []uint64{100, 98, 23})
-	many1Uintptr = append(many1Uintptr, []uintptr{100})
+	//many1Uintptr = append(many1Uintptr, []uintptr{100, 1, 3})
 
 	many1Float32 = append(many1Float32, []float32{100.01, 100.01})
 	many1Float64 = append(many1Float64, []float64{100.01, 100.01})
