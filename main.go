@@ -5,11 +5,12 @@ import (
 	"strings"
 )
 
-// Concat
+// Function responsible for abstracting the build function and delivering a Concat
 func Concat(str ...interface{}) string {
 	return Build(str...)
 }
 
+// Function responsible for concatenating, and accepting different types
 func Build(strs ...interface{}) string {
 	var sb strings.Builder
 	for _, str := range strs {
@@ -18,7 +19,6 @@ func Build(strs ...interface{}) string {
 	return sb.String()
 }
 
-//buildStr monta a string
 func buildStr(str interface{}) string {
 	switch str.(type) {
 	case nil:
@@ -60,7 +60,6 @@ func buildStr(str interface{}) string {
 		return concat
 	case int8:
 		return strconv.Itoa(int(str.(int8)))
-	//provavelmente funciona para byte, pois é um aliais para uint8
 	case uint8:
 		return strconv.FormatUint(uint64(str.(uint8)), 10)
 	case []int8:
@@ -94,8 +93,6 @@ func buildStr(str interface{}) string {
 			concat = Build(concat, val)
 		}
 		return concat
-
-	//probably work for rune too, since rune is a alias for int32
 	case int32:
 		return strconv.FormatInt(int64(str.(int32)), 10)
 	case uint32:
@@ -149,6 +146,7 @@ func buildStr(str interface{}) string {
 	return ""
 }
 
+// Function that converts []int to string optimally
 func IntToStringFast(a []int) string {
 	if len(a) == 0 {
 		return ""
@@ -160,6 +158,7 @@ func IntToStringFast(a []int) string {
 	return strings.Join(b, "")
 }
 
+// Function that converts []int32 to string optimally
 func Int32ToStringFast(a []int32) string {
 	if len(a) == 0 {
 		return ""
@@ -171,6 +170,7 @@ func Int32ToStringFast(a []int32) string {
 	return strings.Join(b, "")
 }
 
+// Function that converts []int64 to string optimally
 func Int64ToStringFast(a []int64) string {
 	if len(a) == 0 {
 		return ""
