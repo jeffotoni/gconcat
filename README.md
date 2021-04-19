@@ -21,19 +21,9 @@
 
 >A simple lib for concatenation, it accepts several types as a parameter and returns a string. A battery of tests was done, there are some complexities that we cannot escape to have the best computational cost 
 
-#### Some types allowed
-> - bool
-> - []int
-> - []int32
-> - []int64
-> - []interface
-> - []string
-> - []uint
-> - []float
+## Example 
 
-#### Usage
-
-Example Gconcat set func Concat
+#### Concatenating some basic types in Go
 ```go
 package main
 
@@ -41,18 +31,13 @@ import (
 	g "github.com/jeffotoni/gconcat"
 )
 
-//Concat
 func main() {
-	var i []interface{}
-	i = append(i, "jeffotoni")
-	i = append(i, " goman")
-	i = append(i, " Year 2021 $")
-	i = append(i, 25.00)
-	println(g.Concat(i))
+	str := g.Concat("/api/v1",39383838, "/", 129494, "/product/", 2012)
+	println(str)
 }
 ```
 
-Example Gconcat Build
+#### Concatenating types using interfaces
 ```go
 package main
 
@@ -81,7 +66,7 @@ func main() {
 }
 ```
 
-Example on your project 
+## Example on your project 
 ```go
 package main
 
@@ -100,7 +85,7 @@ func main() {
 		func(w http.ResponseWriter, r *http.Request) {
 			str := g.Concat(
                             []int{1, 2, 3, 4, 5}, " ", 
-                            []string{"vamos testar nossa concat!!!"},
+                            []string{"Let's test our concat!!!"},
                     )
 		w.Write([]byte(str))
 		})
@@ -113,10 +98,31 @@ func main() {
 	log.Fatal(server.ListenAndServe())
 }
 
-````
-#### Install Using go mod in your project
+```
+
+### Some types allowed
+> - bool
+> - int
+> - int32
+> - int64
+> - interface
+> - string
+> - uint
+> - float32
+> - float64
+> - []int
+> - []int32
+> - []int64
+> - []interface
+> - []string
+> - []uint
+> - []float32
+> - []float64
+
+## Install Using go mod in your project
 ```bash
 $ go mod init <your-dir>
+$ go mod tidy
 $ go run main.go
 ``````
 

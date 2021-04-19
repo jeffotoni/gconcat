@@ -224,16 +224,17 @@ func Test_Concat_Many(t *testing.T) {
 func BenchmarkConcat(b *testing.B) {
 	for n := 0; n < b.N; n++ {
 		Concat(
-			[]int{1, 2, 3, 4, 5, 56, 6, 7, 7, 778, 8, 88, 8, 8, 8, 8, 8, 8, 9, 9, 123, 4, 4, 5, 6, 7, 77, 8, 8, 99, 9, 93, 3, 3, 3, 3, 45, 5, 6, 6, 7},
-			[]string{"jeff", "otoni", "lima", " ", " vamos testar esta cria "},
-			[]string{"jeff", "otoni", "lima", " ", " vamos testar esta cria "},
-			[]string{"jeff", "otoni", "lima", " ", " vamos testar esta cria "},
-			[]string{"jeff", "otoni", "lima", " ", " vamos testar esta cria "},
-			[]string{"jeff", "otoni", "lima", " ", " vamos testar esta cria "},
-			[]string{"jeff", "otoni", "lima", " ", " vamos testar esta cria "},
-			[]string{"jeff", "otoni", "lima", " ", " vamos testar esta cria "},
-			[]string{"jeff", "otoni", "lima", " ", " vamos testar esta cria "},
-			[]string{"jeff", "otoni", "lima", " ", " vamos testar esta cria "},
+			[]int{1, 2, 3, 4, 5, 56, 6, 7, 7, 778, 8, 88, 8, 8, 8, 8, 8, 8, 9, 9, 123, 4, 4, 5, 6, 7, 77,
+				8, 8, 99, 9, 93, 3, 3, 3, 3, 45, 5, 6, 6, 7},
+			[]string{"jeff", "otoni", "lima", " ", " vamos testar concat Go "},
+			[]string{"jeff", "otoni", "lima", " ", " vamos testar concat Go "},
+			[]string{"jeff", "otoni", "lima", " ", " vamos testar concat Go "},
+			[]string{"jeff", "otoni", "lima", " ", " vamos testar concat Go "},
+			[]string{"jeff", "otoni", "lima", " ", " vamos testar concat Go "},
+			[]string{"jeff", "otoni", "lima", " ", " vamos testar concat Go "},
+			[]string{"jeff", "otoni", "lima", " ", " vamos testar concat Go "},
+			[]string{"jeff", "otoni", "lima", " ", " vamos testar concat Go "},
+			[]string{"jeff", "otoni", "lima", " ", " vamos testar concat Go "},
 			" ",
 			"jeff", "somente", "string heree........",
 		)
@@ -256,16 +257,17 @@ func BenchmarkMarshal(b *testing.B) {
 	}
 
 	var obj = X{
-		Num:   []int{2, 3, 4, 5, 56, 6, 7, 7, 778, 8, 88, 8, 8, 8, 8, 8, 8, 9, 9, 123, 4, 4, 5, 6, 7, 77, 8, 8, 99, 9, 93, 3, 3, 3, 3, 45, 5, 6, 6, 7},
-		Str1:  []string{"jeff", "otoni", "lima", " ", " vamos testar esta cria "},
-		Str2:  []string{"jeff", "otoni", "lima", " ", " vamos testar esta cria "},
-		Str3:  []string{"jeff", "otoni", "lima", " ", " vamos testar esta cria "},
-		Str4:  []string{"jeff", "otoni", "lima", " ", " vamos testar esta cria "},
-		Str5:  []string{"jeff", "otoni", "lima", " ", " vamos testar esta cria "},
-		Str6:  []string{"jeff", "otoni", "lima", " ", " vamos testar esta cria "},
-		Str7:  []string{"jeff", "otoni", "lima", " ", " vamos testar esta cria "},
-		Str8:  []string{"jeff", "otoni", "lima", " ", " vamos testar esta cria "},
-		Str9:  []string{"jeff", "otoni", "lima", " ", " vamos testar esta cria "},
+		Num: []int{2, 3, 4, 5, 56, 6, 7, 7, 778, 8, 88, 8, 8, 8, 8, 8, 8, 9, 9, 123, 4, 4, 5, 6, 7,
+			77, 8, 8, 99, 9, 93, 3, 3, 3, 3, 45, 5, 6, 6, 7},
+		Str1:  []string{"jeff", "otoni", "lima", " ", " vamos testar concat Go "},
+		Str2:  []string{"jeff", "otoni", "lima", " ", " vamos testar concat Go "},
+		Str3:  []string{"jeff", "otoni", "lima", " ", " vamos testar concat Go "},
+		Str4:  []string{"jeff", "otoni", "lima", " ", " vamos testar concat Go "},
+		Str5:  []string{"jeff", "otoni", "lima", " ", " vamos testar concat Go "},
+		Str6:  []string{"jeff", "otoni", "lima", " ", " vamos testar concat Go "},
+		Str7:  []string{"jeff", "otoni", "lima", " ", " vamos testar concat Go "},
+		Str8:  []string{"jeff", "otoni", "lima", " ", " vamos testar concat Go "},
+		Str9:  []string{"jeff", "otoni", "lima", " ", " vamos testar concat Go "},
 		Str10: []string{"jeff", "somente", "string heree........"},
 	}
 
