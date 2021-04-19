@@ -1,3 +1,9 @@
+// @autor @jeffotoni
+// Concatenation package, accepts different types of data.
+// Very flexible and easy to use. In our day-to-day lives, we often encounter
+// the need for concatenations throughout our project. This lib was born to
+// make our daily lives a little more flexible when dealing with concatenations.
+
 package gconcat
 
 import (
@@ -5,12 +11,14 @@ import (
 	"strings"
 )
 
-//Concat Function responsible for abstracting the build function and delivering
+// Concat Function responsible for abstracting the build function and delivering
+// The result will be  Concat(int, []int, []int32, []string, string)
 func Concat(str ...interface{}) string {
 	return Build(str...)
 }
 
-//Build Function responsible for concatenating, and accepting different types
+// Build Function responsible for concatenating, and accepting different types
+// The result will be Build(int, []int, []int32, []string, string)
 func Build(strs ...interface{}) string {
 	var sb strings.Builder
 	for _, str := range strs {
@@ -19,159 +27,152 @@ func Build(strs ...interface{}) string {
 	return sb.String()
 }
 
-func buildStr(str interface{}) string {
+// buildStr Function responsible abstracting and case some types
+// buildStr(nil, string, []string, []interface{}, bool, []bool, int, []int)
+func buildStr(str interface{}) (concat string) {
 	switch str.(type) {
 	case nil:
-		return "nil"
+		concat = "nil"
 	case string:
-		return string(str.(string))
-
+		concat = string(str.(string))
 	case []string:
-		return strings.Join(str.([]string), "")
-
+		concat = strings.Join(str.([]string), "")
 	case []interface{}:
-		concat := ""
+		tmp := ""
 		for _, val := range str.([]interface{}) {
-			concat = Build(concat, val)
+			tmp = Build(tmp, val)
 		}
-		return concat
-
+		concat = tmp
 	case bool:
-		return strconv.FormatBool(str.(bool))
+		concat = strconv.FormatBool(str.(bool))
 	case []bool:
-		concat := ""
+		tmp := ""
 		for _, val := range str.([]bool) {
-			concat = Build(concat, val)
+			tmp = Build(tmp, val)
 		}
-		return concat
-	//
+		concat = tmp
 	case int:
-		return strconv.Itoa(int(str.(int)))
-
+		concat = strconv.Itoa(int(str.(int)))
 	case []int:
-		return IntToStringFast(str.([]int))
-
+		concat = IntToStringFast(str.([]int))
 	case complex64:
-		return "not suport complex 64"
+		concat = "not suport complex 64"
 	case complex128:
-		return "not suport complex 128"
+		concat = "not suport complex 128"
 	default:
-		return buildStr2(str)
+		concat = buildStr2(str)
 	}
-
-	return ""
+	return
 }
 
-func buildStr2(str interface{}) string {
-
+// buildStr2 Function responsible abstracting and case some types
+// buildStr2(int8, uint8, []int8, []uint8, int16, uint16, []int16, []uint16)
+func buildStr2(str interface{}) (concat string) {
 	switch str.(type) {
 	case int8:
-		return strconv.Itoa(int(str.(int8)))
+		concat = strconv.Itoa(int(str.(int8)))
 	case uint8:
-		return strconv.FormatUint(uint64(str.(uint8)), 10)
+		concat = strconv.FormatUint(uint64(str.(uint8)), 10)
 	case []int8:
-		concat := ""
+		tmp := ""
 		for _, val := range str.([]int8) {
-			concat = Build(concat, val)
+			tmp = Build(tmp, val)
 		}
-		return concat
-
+		concat = tmp
 	case []uint8:
-		concat := ""
+		tmp := ""
 		for _, val := range str.([]uint8) {
-			concat = Build(concat, val)
+			tmp = Build(tmp, val)
 		}
-		return concat
-
+		concat = tmp
 	case int16:
-		return strconv.Itoa(int(str.(int16)))
+		concat = strconv.Itoa(int(str.(int16)))
 	case uint16:
-		return strconv.FormatUint(uint64(str.(uint16)), 10)
+		concat = strconv.FormatUint(uint64(str.(uint16)), 10)
 	case []int16:
-		concat := ""
+		tmp := ""
 		for _, val := range str.([]int16) {
-			concat = Build(concat, val)
+			tmp = Build(tmp, val)
 		}
-		return concat
-
+		concat = tmp
 	case []uint16:
-		concat := ""
+		tmp := ""
 		for _, val := range str.([]uint16) {
-			concat = Build(concat, val)
+			tmp = Build(tmp, val)
 		}
-		return concat
-
+		concat = tmp
 	default:
-		return buildStr3(str)
+		concat = buildStr3(str)
 	}
-
-	return ""
+	return
 }
 
-func buildStr3(str interface{}) string {
+// buildStr3 Function responsible abstracting and case some types
+// buildStr3(int32, uint32, []int32, []uint32, int64, uint64, []int64, []uint64)
+func buildStr3(str interface{}) (concat string) {
 	switch str.(type) {
 	case int32:
-		return strconv.FormatInt(int64(str.(int32)), 10)
+		concat = strconv.FormatInt(int64(str.(int32)), 10)
 	case uint32:
-		return strconv.FormatUint(uint64(str.(uint32)), 10)
+		concat = strconv.FormatUint(uint64(str.(uint32)), 10)
 	case []int32:
-		return Int32ToStringFast(str.([]int32))
+		concat = Int32ToStringFast(str.([]int32))
 	case []uint32:
-		concat := ""
+		tmp := ""
 		for _, val := range str.([]uint32) {
-			concat = Build(concat, val)
+			tmp = Build(tmp, val)
 		}
-		return concat
+		concat = tmp
 	case int64:
-		return strconv.FormatInt(int64(str.(int64)), 10)
+		concat = strconv.FormatInt(int64(str.(int64)), 10)
 	case uint64:
-		return strconv.FormatUint(uint64(str.(uint64)), 10)
+		concat = strconv.FormatUint(uint64(str.(uint64)), 10)
 	case []int64:
-		return Int64ToStringFast(str.([]int64))
+		concat = Int64ToStringFast(str.([]int64))
 	case []uint64:
-		concat := ""
+		tmp := ""
 		for _, val := range str.([]uint64) {
-			concat = Build(concat, val)
+			tmp = Build(tmp, val)
 		}
-		return concat
+		concat = tmp
 	default:
-		return buildStr4(str)
+		concat = buildStr4(str)
 	}
-
-	return ""
+	return
 }
 
-func buildStr4(str interface{}) string {
+// buildStr4 Function responsible abstracting and case some types
+// buildStr4(float64, []float64, float32, []float32, uint, []uint)
+func buildStr4(str interface{}) (concat string) {
 	switch str.(type) {
 	case float64:
-		return strconv.FormatFloat(str.(float64), 'f', 6, 64)
+		concat = strconv.FormatFloat(str.(float64), 'f', 6, 64)
 	case []float64:
-		concat := ""
+		tmp := ""
 		for _, val := range str.([]float64) {
-			concat = Build(concat, val)
+			tmp = Build(tmp, val)
 		}
-		return concat
+		concat = tmp
 	case float32:
-		return strconv.FormatFloat(float64(str.(float32)), 'f', 6, 64)
+		concat = strconv.FormatFloat(float64(str.(float32)), 'f', 6, 64)
 	case []float32:
-		concat := ""
+		tmp := ""
 		for _, val := range str.([]float32) {
-			concat = Build(concat, val)
+			tmp = Build(tmp, val)
 		}
-		return concat
+		concat = tmp
 	case uint:
-		return strconv.FormatUint(uint64(str.(uint)), 10)
+		concat = strconv.FormatUint(uint64(str.(uint)), 10)
 	case []uint:
-		concat := ""
+		tmp := ""
 		for _, val := range str.([]uint) {
-			concat = Build(concat, val)
+			tmp = Build(tmp, val)
 		}
-		return concat
+		concat = tmp
 	default:
-		return "not exist type without suport"
+		concat = "not exist type without suport"
 	}
-
-	return ""
+	return
 }
 
 // IntToStringFast Function that converts []int to string optimally
