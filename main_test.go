@@ -13,7 +13,7 @@ func ExampleConcat() {
 	s := Concat("/api/v1/", 39383838, "/", 129494, "/product/", 2012)
 	s = Concat(s, ":", 33.22, []string{" - ", "jeffotoni", "-", "2021"})
 	fmt.Println(s)
-	// Output: /api/v1/39383838/129494/product/2012:33.22 - jeffotoni-2021
+	// Output: /api/v1/39383838/129494/product/2012:33.220000 - jeffotoni-2021
 }
 
 // This function is named ExampleBuild()
