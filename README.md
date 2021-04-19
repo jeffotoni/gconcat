@@ -138,17 +138,18 @@ $ go test -bench . -benchmem
 goarch: amd64
 pkg: github.com/jeffotoni/gconcat
 cpu: Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz
-BenchmarkStringPlus-12         	22920072	        57.53 ns/op	      80 B/op	       1 allocs/op
-BenchmarkStringLongPlus-12     	12399344	        91.54 ns/op	     416 B/op	       1 allocs/op
-BenchmarkConcatNoPlus-12       	 3659144	       547.9 ns/op	     464 B/op	       7 allocs/op
-BenchmarkConcatIntString-12    	 5304790	       217.8 ns/op	     128 B/op	       6 allocs/op
-BenchmarkLongJoin-12           	10140075	       111.0 ns/op	     448 B/op	       1 allocs/op
-BenchmarkLongSprintf-12        	 3758727	       322.5 ns/op	     480 B/op	       5 allocs/op
-BenchmarkBuilder-12            	 4021644	       265.1 ns/op	    2396 B/op	       0 allocs/op
-BenchmarkConcatVector-12       	  238450	      6137 ns/op	    4616 B/op	      84 allocs/op
-BenchmarkMarshal-12            	  411598	      2906 ns/op	     768 B/op	       1 allocs/op
+BenchmarkStringPlus-12         	12953655	        91.08 ns/op	     416 B/op	       1 allocs/op
+BenchmarkConcatStr-12          	11909199	       106.1 ns/op	     416 B/op	       1 allocs/op
+BenchmarkConcatStrInt-12       	 3907837	       310.4 ns/op	     952 B/op	       7 allocs/op
+BenchmarkConcat-12             	 3916066	       320.3 ns/op	     976 B/op	       8 allocs/op
+BenchmarkConcatIntString-12    	 5969743	       212.5 ns/op	     128 B/op	       6 allocs/op
+BenchmarkLongJoin-12           	11099569	       108.5 ns/op	     448 B/op	       1 allocs/op
+BenchmarkLongSprintf-12        	 4332783	       327.4 ns/op	     480 B/op	       5 allocs/op
+BenchmarkBuilder-12            	 5473576	       207.1 ns/op	    2201 B/op	       0 allocs/op
+BenchmarkConcatVector-12       	  237378	      5200 ns/op	    4616 B/op	      84 allocs/op
+BenchmarkMarshal-12            	  382440	      2939 ns/op	     768 B/op	       1 allocs/op
 PASS
-ok  	github.com/jeffotoni/gconcat	13.893s
+ok  	github.com/jeffotoni/gconcat	14.925s
 ```
 
 #### Creators
