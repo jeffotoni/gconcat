@@ -32,7 +32,16 @@ import (
 )
 
 func main() {
+	// accepting all types 
 	str := g.Concat("/api/v1", "/", 39383838, "/", 129494, "/product/", 2012)
+	println(str)
+
+	// accepting only string
+	str := g.ConcatStr("jeffotoni", "/", "2021", "/", "product")
+	println(str)
+
+	// accepting only string and int
+	str := g.ConcatStrInt("jeffotoni", "/", 2021, "/", "product", "/", 1001)
 	println(str)
 }
 ```
