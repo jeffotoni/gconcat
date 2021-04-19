@@ -32,6 +32,48 @@ func ExampleIntToStringFast() {
 	// Output: 34567104599
 }
 
+// This function is named ExampleConcatStr()
+// it with the Examples type.
+func ExampleConcatStr() {
+	s := ConcatStr("jeffotoni", "/", "2021")
+	fmt.Println(s)
+	// Output: jeffotoni/2021
+}
+
+// This function is named ExampleConcatStrInt()
+// it with the Examples type.
+func ExampleConcatStrInt() {
+	s := ConcatStrInt("jeffotoni", "/", 2021, "-", 1000, "/", 239393)
+	fmt.Println(s)
+	// Output: jeffotoni/2021-1000/239393
+}
+
+// go test -v -run ^TestConcatStr
+func TestConcatStr(t *testing.T) {
+	s := ConcatStr("jeffotoni", "concat", "go", "only")
+	if s != "jeffotoniconcatgoonly" {
+		t.Errorf("Error type string to ConcatStr")
+	}
+
+	s = ConcatStr()
+	if s != "" {
+		t.Errorf("Error type string to ConcatStr length zero")
+	}
+}
+
+// go test -v -run ^TestConcatStrInt
+func TestConcatStrInt(t *testing.T) {
+	s := ConcatStrInt("jeffotoni", 2021, "concat", 100, "go", 9800, "only")
+	if s != "jeffotoni2021concat100go9800only" {
+		t.Errorf("Error type string to ConcatStr")
+	}
+
+	s = ConcatStrInt()
+	if s != "" {
+		t.Errorf("Error type string to ConcatStr length zero")
+	}
+}
+
 // go test -v -run ^TestSomeType
 func TestIntType(t *testing.T) {
 	var i64 int64 = 3456789765423
@@ -262,24 +304,30 @@ func Test_Concat_Many(t *testing.T) {
 	}
 }
 
-var str, longStr string = "string_jeffotoni", `qwertyuiopqwertyuiopqwertyuio
+var longStr string = `qwertyuiopqwertyuiopqwertyuio
 qwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiop`
 
 func BenchmarkStringPlus(b *testing.B) {
-	for n := 0; n < b.N; n++ {
-		_ = "string_jeffotoni" + str + str + str + str
-	}
-}
-
-func BenchmarkStringLongPlus(b *testing.B) {
 	for n := 0; n < b.N; n++ {
 		_ = "string_jeffotoni" + longStr + longStr + longStr + longStr
 	}
 }
 
-func BenchmarkConcatNoPlus(b *testing.B) {
+func BenchmarkConcatStr(b *testing.B) {
 	for n := 0; n < b.N; n++ {
-		Concat("string_jeffotoni", longStr, str, longStr, str)
+		_ = ConcatStr("string_jeffotoni", longStr, longStr, longStr, longStr)
+	}
+}
+
+func BenchmarkConcatStrInt(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		ConcatStrInt("string_jeffotoni", 2021, longStr, longStr, 99, longStr, 100, longStr)
+	}
+}
+
+func BenchmarkConcat(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		Concat("string_jeffotoni", longStr, longStr, longStr, longStr)
 	}
 }
 

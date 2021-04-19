@@ -28,6 +28,14 @@ func Concat(str ...interface{}) string {
 // Build Function responsible for concatenating, and accepting different types
 // The result will be Build(int, []int, []int32, []string, string)
 func Build(strs ...interface{}) string {
+	// testing various ways to improve
+	// performance is using Builder
+	//
+	// sv := make([]string, len(strs))
+	// for _, str := range strs {
+	// 	sv = append(sv, buildStr(str))
+	// }
+	// return strings.Join(sv, "")
 	var sb strings.Builder
 	for _, str := range strs {
 		sb.WriteString(buildStr(str))
@@ -217,4 +225,35 @@ func Int64ToStringFast(a []int64) string {
 		b[i] = strconv.FormatInt(int64(v), 10)
 	}
 	return strings.Join(b, "")
+}
+
+// ConcatStr Function that converts only string
+func ConcatStr(strs ...string) (concat string) {
+	if len(strs) == 0 {
+		return
+	}
+	concat = strings.Join(strs, "")
+	return
+}
+
+// ConcatStrInt Function that converts only string and Int
+func ConcatStrInt(strs ...interface{}) (concat string) {
+	if len(strs) == 0 {
+		return
+	}
+	//sv := make([]string, len(strs))
+	var sb strings.Builder
+	for _, val := range strs {
+		switch val.(type) {
+		case string:
+			sb.WriteString(string(val.(string)))
+			//sv = append(sv, string(val.(string)))
+		case int:
+			sb.WriteString(strconv.Itoa(int(val.(int))))
+			//sv = append(sv, strconv.Itoa(int(val.(int))))
+		}
+	}
+	concat = sb.String()
+	//concat = strings.Join(sv, "")
+	return
 }
