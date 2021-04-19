@@ -7,6 +7,30 @@ import (
 	"testing"
 )
 
+// This function is named ExampleConcat()
+// it with the Examples type.
+func ExampleConcat() {
+	s := Concat("/api/v1/", 39383838, "/", 129494, "/product/", 2012)
+	fmt.Println(s)
+	// Output: /api/v1/39383838/129494/product/2012
+}
+
+// This function is named ExampleBuild()
+// it with the Examples type.
+func ExampleBuild() {
+	s := Build("jeffotoni", " test example ", 2021)
+	fmt.Println(s)
+	// Output: jeffotoni test example 2021
+}
+
+// This function is named ExampleIntToStringFast()
+// it with the Examples type.
+func ExampleIntToStringFast() {
+	s := IntToStringFast([]int{3, 4, 5, 6, 7, 10, 45, 99})
+	fmt.Println(s)
+	// Output: 34567104599
+}
+
 // go test -v -run ^TestSomeType
 func TestIntType(t *testing.T) {
 	var i64 int64 = 3456789765423

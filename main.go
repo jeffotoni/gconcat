@@ -1,8 +1,16 @@
-// @autor @jeffotoni
-// Concatenation package, accepts different types of data.
+// Package gconcat ccepts different types of data.
 // Very flexible and easy to use. In our day-to-day lives, we often encounter
 // the need for concatenations throughout our project. This lib was born to
 // make our daily lives a little more flexible when dealing with concatenations.
+//
+// Notice that this doc is written in godoc itself as package documentation.
+// The defined types are just for making the table of contents at the
+// head of the page; they have no meanings as types.
+//
+// If you have any suggestion or comment, please feel free to open an issue on
+// this tutorial's GitHub page!
+//
+// By @jeffotoni
 
 package gconcat
 

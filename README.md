@@ -32,7 +32,7 @@ import (
 )
 
 func main() {
-	str := g.Concat("/api/v1",39383838, "/", 129494, "/product/", 2012)
+	str := g.Concat("/api/v1", "/", 39383838, "/", 129494, "/product/", 2012)
 	println(str)
 }
 ```
