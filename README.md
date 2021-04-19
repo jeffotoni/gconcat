@@ -135,16 +135,20 @@ $ go get -u github.com/jeffotoni/gconcat
 
 ```bash
 $ go test -bench . -benchmem
-goos: linux
 goarch: amd64
-BenchmarkConcatBuildFast-4       4322348               301 ns/op             150 B/op          5 allocs/op
-BenchmarkBuildFast-4             2482591               468 ns/op             160 B/op          6 allocs/op
-BenchmarkBuild-4                  469720              2503 ns/op            3238 B/op         27 allocs/op
-BenchmarkMarshal-4                293193              4128 ns/op             768 B/op          1 allocs/op
-BenchmarkConcatMais-4                  8         133299313 ns/op        1086400464 B/op    10041 allocs/op
+pkg: github.com/jeffotoni/gconcat
+cpu: Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz
+BenchmarkStringPlus-12         	22920072	        57.53 ns/op	      80 B/op	       1 allocs/op
+BenchmarkStringLongPlus-12     	12399344	        91.54 ns/op	     416 B/op	       1 allocs/op
+BenchmarkConcatNoPlus-12       	 3659144	       547.9 ns/op	     464 B/op	       7 allocs/op
+BenchmarkConcatIntString-12    	 5304790	       217.8 ns/op	     128 B/op	       6 allocs/op
+BenchmarkLongJoin-12           	10140075	       111.0 ns/op	     448 B/op	       1 allocs/op
+BenchmarkLongSprintf-12        	 3758727	       322.5 ns/op	     480 B/op	       5 allocs/op
+BenchmarkBuilder-12            	 4021644	       265.1 ns/op	    2396 B/op	       0 allocs/op
+BenchmarkConcatVector-12       	  238450	      6137 ns/op	    4616 B/op	      84 allocs/op
+BenchmarkMarshal-12            	  411598	      2906 ns/op	     768 B/op	       1 allocs/op
 PASS
-ok      _/home/jeffotoni/gitprojetos/gconcat     6.899s
-
+ok  	github.com/jeffotoni/gconcat	13.893s
 ```
 
 #### Creators

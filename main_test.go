@@ -2,6 +2,8 @@ package gconcat
 
 import (
 	"encoding/json"
+	"fmt"
+	"strings"
 	"testing"
 )
 
@@ -235,11 +237,63 @@ func Test_Concat_Many(t *testing.T) {
 	}
 }
 
-func BenchmarkConcat(b *testing.B) {
+var str, longStr string = "string_jeffotoni", `qwertyuiopqwertyuiopqwertyuio
+qwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiop`
+
+func BenchmarkStringPlus(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		_ = "string_jeffotoni" + str + str + str + str
+	}
+}
+
+func BenchmarkStringLongPlus(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		_ = "string_jeffotoni" + longStr + longStr + longStr + longStr
+	}
+}
+
+func BenchmarkConcatNoPlus(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		Concat("string_jeffotoni", longStr, str, longStr, str)
+	}
+}
+
+func BenchmarkConcatIntString(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		Concat(2021, "jeffotoni", "Go", "is love", " ", 1233, "jeff", 99, "somente", "string heree........")
+	}
+}
+
+func BenchmarkLongJoin(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		_ = strings.Join([]string{"string_jeffotoni%s", longStr, longStr, longStr, longStr}, "")
+	}
+}
+
+func BenchmarkLongSprintf(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		_ = fmt.Sprintf("string_jeffotoni%s%s%s%s", longStr, longStr, longStr, longStr)
+	}
+}
+
+func BenchmarkBuilder(b *testing.B) {
+	var bb strings.Builder
+	for n := 0; n < b.N; n++ {
+		bb.WriteString("string_jeffotoni")
+		bb.WriteString(longStr)
+		bb.WriteString(longStr)
+		bb.WriteString(longStr)
+		bb.WriteString(longStr)
+	}
+}
+
+func BenchmarkConcatVector(b *testing.B) {
 	for n := 0; n < b.N; n++ {
 		Concat(
-			[]int{1, 2, 3, 4, 5, 56, 6, 7, 7, 778, 8, 88, 8, 8, 8, 8, 8, 8, 9, 9, 123, 4, 4, 5, 6, 7, 77,
+			[]int{1, 2, 3, 4, 5, 56, 6, 7, 7, 778, 8, 88, 8,
+				8, 8, 8, 8, 8, 9, 9, 123, 4, 4, 5, 6, 7, 77,
 				8, 8, 99, 9, 93, 3, 3, 3, 3, 45, 5, 6, 6, 7},
+			[]float32{1.1, 2.2, 3.4, 4.4, 5.0, 56.9, 6.0, 7.8},
 			[]string{"jeff", "otoni", "lima", " ", " vamos testar concat Go "},
 			[]string{"jeff", "otoni", "lima", " ", " vamos testar concat Go "},
 			[]string{"jeff", "otoni", "lima", " ", " vamos testar concat Go "},
@@ -249,8 +303,6 @@ func BenchmarkConcat(b *testing.B) {
 			[]string{"jeff", "otoni", "lima", " ", " vamos testar concat Go "},
 			[]string{"jeff", "otoni", "lima", " ", " vamos testar concat Go "},
 			[]string{"jeff", "otoni", "lima", " ", " vamos testar concat Go "},
-			" ",
-			"jeff", "somente", "string heree........",
 		)
 	}
 }
@@ -271,8 +323,9 @@ func BenchmarkMarshal(b *testing.B) {
 	}
 
 	var obj = X{
-		Num: []int{2, 3, 4, 5, 56, 6, 7, 7, 778, 8, 88, 8, 8, 8, 8, 8, 8, 9, 9, 123, 4, 4, 5, 6, 7,
-			77, 8, 8, 99, 9, 93, 3, 3, 3, 3, 45, 5, 6, 6, 7},
+		Num: []int{1, 2, 3, 4, 5, 56, 6, 7, 7, 778, 8, 88, 8,
+			8, 8, 8, 8, 8, 9, 9, 123, 4, 4, 5, 6, 7, 77,
+			8, 8, 99, 9, 93, 3, 3, 3, 3, 45, 5, 6, 6, 7},
 		Str1:  []string{"jeff", "otoni", "lima", " ", " vamos testar concat Go "},
 		Str2:  []string{"jeff", "otoni", "lima", " ", " vamos testar concat Go "},
 		Str3:  []string{"jeff", "otoni", "lima", " ", " vamos testar concat Go "},
