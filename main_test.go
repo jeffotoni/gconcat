@@ -10,6 +10,8 @@ import (
 // This function is named ExampleConcat()
 // it with the Examples type.
 func ExampleConcat() {
+	// This example Concat function accepts all types
+	// specific func (...interface{}).
 	s := Concat("/api/v1/", 39383838, "/", 129494, "/product/", 2012)
 	s = Concat(s, ":", 33.22, []string{" - ", "jeffotoni", "-", "2021"})
 	fmt.Println(s)
@@ -19,22 +21,18 @@ func ExampleConcat() {
 // This function is named ExampleBuild()
 // it with the Examples type.
 func ExampleBuild() {
+	// This example Build function accepts all types
+	// specific func (...interface{}).
 	s := Build("jeffotoni", " test example ", 2021)
 	fmt.Println(s)
 	// Output: jeffotoni test example 2021
 }
 
-// This function is named ExampleIntToStringFast()
-// it with the Examples type.
-func ExampleIntToStringFast() {
-	s := IntToStringFast([]int{3, 4, 5, 6, 7, 10, 45, 99})
-	fmt.Println(s)
-	// Output: 34567104599
-}
-
 // This function is named ExampleConcatStr()
 // it with the Examples type.
 func ExampleConcatStr() {
+	// This example ConcatStr function accepts only type string
+	// specific func (...string).
 	s := ConcatStr("jeffotoni", "/", "2021")
 	fmt.Println(s)
 	// Output: jeffotoni/2021
@@ -43,9 +41,41 @@ func ExampleConcatStr() {
 // This function is named ExampleConcatStrInt()
 // it with the Examples type.
 func ExampleConcatStrInt() {
+	// This example ConcatStrInt function accepts only type string and int
+	// specific func (...interface{}).
 	s := ConcatStrInt("jeffotoni", "/", 2021, "-", 1000, "/", 239393)
 	fmt.Println(s)
 	// Output: jeffotoni/2021-1000/239393
+}
+
+// This function is named ExampleIntToStringFast()
+// it with the Examples type.
+func ExampleIntToStringFast() {
+	// This example IntToStringFast function accepts only type []int
+	// specific func ([]int).
+	s := IntToStringFast([]int{3, 4, 5, 6, 7, 10, 45, 99})
+	fmt.Println(s)
+	// Output: 34567104599
+}
+
+// This function is named Int32ToStringFast()
+// it with the Examples type.
+func ExampleInt32ToStringFast() {
+	// This example Int32ToStringFast function accepts only type []int
+	// specific func ([]int32).
+	s := Int32ToStringFast([]int32{3, 4, 5, 6, 7, 10, 45, 99})
+	fmt.Println(s)
+	// Output: 34567104599
+}
+
+// This function is named Int32ToStringFast()
+// it with the Examples type.
+func ExampleInt64ToStringFast() {
+	// This example Int64ToStringFast function accepts only type []int
+	// specific func ([]int64).
+	s := Int64ToStringFast([]int64{3, 4, 5, 6, 7, 10, 45, 99})
+	fmt.Println(s)
+	// Output: 34567104599
 }
 
 // go test -v -run ^TestConcatStr
