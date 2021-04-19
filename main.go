@@ -11,7 +11,6 @@
 // this tutorial's GitHub page!
 //
 // By @jeffotoni
-
 package gconcat
 
 import (
