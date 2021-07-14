@@ -14,6 +14,7 @@
 package gconcat
 
 import (
+	"fmt"
 	"log"
 	"reflect"
 	"strconv"
@@ -35,7 +36,7 @@ func ConcatFunc(f ...interface{}) string {
 	for _, val := range f {
 		switch v := val.(type) {
 		case nil, func(), struct{}:
-			tmp = fmt.Sprintf("%v%v", tmp, "")
+			tmp = fmt.Sprint(tmp, "")
 		case error:
 			log.Fatalf("Error AddFunc return:  %v", v.Error())
 		default:
@@ -43,18 +44,17 @@ func ConcatFunc(f ...interface{}) string {
 			case reflect.Slice:
 				s := reflect.ValueOf(v)
 				for i := 0; i < s.Len(); i++ {
-					tmp = fmt.Sprintf("%v%v", tmp, s.Index(i))
+					tmp = fmt.Sprint(tmp, s.Index(i))
 				}
 			default:
-				tmp = fmt.Sprintf("%v%v", tmp, v)
+				tmp = fmt.Sprint(tmp, v)
 
 			}
 
 		}
 
 	}
-	return tmp
-
+	return string(tmp)
 }
 
 // Build Function responsible for concatenating, and accepting different types
