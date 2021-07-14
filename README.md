@@ -43,6 +43,14 @@ func main() {
 	// accepting only string and int
 	str := g.ConcatStrInt("jeffotoni", "/", 2021, "/", "product", "/", 1001)
 	println(str)
+
+	// accepting returns of params from functions
+	str := g.ConcatFunc(foo())
+	println(str)
+
+	// combine types e functions returns
+	str := g.Concat("jeffotoni",g.ConcatFunc(bar()),"/",2021)
+	println(str)
 }
 ```
 
