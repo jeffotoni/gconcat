@@ -35,6 +35,7 @@ func Build(strs ...interface{}) string {
 	// 	sv = append(sv, buildStr(str))
 	// }
 	// return strings.Join(sv, "")
+
 	var sb strings.Builder
 	for _, str := range strs {
 		sb.WriteString(buildStr(str))
