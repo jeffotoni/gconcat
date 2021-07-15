@@ -15,7 +15,6 @@ package gconcat
 
 import (
 	"fmt"
-	"log"
 	// "reflect"
 	"strconv"
 	"strings"
@@ -38,7 +37,7 @@ func ConcatFunc(f ...interface{}) string {
 		case nil, func(), struct{}:
 			tmp = fmt.Sprint(tmp, "")
 		case error:
-			log.Fatalf("Error AddFunc return:  %v", v.Error())
+			tmp = fmt.Sprint(tmp, v)
 		default:
 			f := NewFormat()
 			tmp = f.Format(tmp, v)
