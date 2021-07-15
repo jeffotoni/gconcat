@@ -16,7 +16,7 @@ package gconcat
 import (
 	"fmt"
 	"log"
-	"reflect"
+	// "reflect"
 	"strconv"
 	"strings"
 )
@@ -40,19 +40,19 @@ func ConcatFunc(f ...interface{}) string {
 		case error:
 			log.Fatalf("Error AddFunc return:  %v", v.Error())
 		default:
-			switch reflect.TypeOf(v).Kind() {
-			case reflect.Slice:
-				s := reflect.ValueOf(v)
-				for i := 0; i < s.Len(); i++ {
-					tmp = fmt.Sprint(tmp, s.Index(i))
-				}
-			default:
-				tmp = fmt.Sprint(tmp, v)
-
-			}
-
+			f := NewFormat()
+			tmp = f.Format(tmp, v)
+			// switch reflect.TypeOf(v).Kind() {
+			// case reflect.Slice:
+			// s := reflect.ValueOf(v)
+			// for i := 0; i < s.Len(); i++ {
+			// tmp = fmt.Sprint(tmp, s.Index(i))
+			// }
+			// default:
+			// tmp = fmt.Sprint(tmp, v)
+			//
+			// }
 		}
-
 	}
 	return string(tmp)
 }

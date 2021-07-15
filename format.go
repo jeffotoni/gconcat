@@ -1,7 +1,7 @@
 //Module responsible for handling the verification of
 // use cases regarding the various types of language
 
-package main
+package gconcat
 
 import (
 	"fmt"

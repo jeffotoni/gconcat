@@ -94,7 +94,7 @@ func TestConcatStr(t *testing.T) {
 // go test -v -run ^TestConcatFuncMany
 func TestConcatFuncMany(t *testing.T) {
 	// example function of simple returns
-	fn := func(i ...interface{}) interface{} {
+	fn := func(i interface{}) interface{} {
 		return i
 	}
 
