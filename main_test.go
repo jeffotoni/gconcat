@@ -102,6 +102,7 @@ func TestConcatFuncMany(t *testing.T) {
 	var many1Uint, many1Uint8, many1Uint16, many1Uint32, many1Uint64 interface{}
 	var many1Float32, many1Float64 interface{}
 	var many1bool, many2bool interface{}
+	var manyNil interface{}
 
 	many1bool = false
 	many2bool = true
@@ -118,6 +119,7 @@ func TestConcatFuncMany(t *testing.T) {
 	many1Uint64 = uint64(100)
 	many1Float32 = float32(100.01)
 	many1Float64 = float64(100.01)
+	manyNil = nil
 	type args struct {
 		str interface{}
 	}
@@ -142,6 +144,7 @@ func TestConcatFuncMany(t *testing.T) {
 		{"test_ConcatFunc_", args{str: many1Float64}, "100.010000"},
 		{"test_ConcatFunc_", args{str: many1bool}, "false"},
 		{"test_ConcatFunc_", args{str: many2bool}, "true"},
+		{"test_ConcatFunc_", args{str: manyNil}, ""},
 	}
 
 	for _, tt := range tests {
