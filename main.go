@@ -14,6 +14,8 @@
 package gconcat
 
 import (
+	"fmt"
+	// "reflect"
 	"strconv"
 	"strings"
 )
@@ -22,6 +24,36 @@ import (
 // The result will be  Concat(int, []int, []int32, []string, string)
 func Concat(str ...interface{}) string {
 	return Build(str...)
+}
+
+//ConcatFunc will be responsible for concatenating the function's return into a string.
+//nil return parameters are ignored.
+//parameters with valid errors are still triggered and must be corrected.
+func ConcatFunc(f ...interface{}) string {
+	var tmp string
+
+	for _, val := range f {
+		switch v := val.(type) {
+		case nil, func(), struct{}:
+			tmp = fmt.Sprint(tmp, "")
+		case error:
+			tmp = fmt.Sprint(tmp, v)
+		default:
+			f := NewFormat()
+			tmp = f.Format(tmp, v)
+			// switch reflect.TypeOf(v).Kind() {
+			// case reflect.Slice:
+			// s := reflect.ValueOf(v)
+			// for i := 0; i < s.Len(); i++ {
+			// tmp = fmt.Sprint(tmp, s.Index(i))
+			// }
+			// default:
+			// tmp = fmt.Sprint(tmp, v)
+			//
+			// }
+		}
+	}
+	return string(tmp)
 }
 
 // Build Function responsible for concatenating, and accepting different types
@@ -35,6 +67,7 @@ func Build(strs ...interface{}) string {
 	// 	sv = append(sv, buildStr(str))
 	// }
 	// return strings.Join(sv, "")
+
 	var sb strings.Builder
 	for _, str := range strs {
 		sb.WriteString(buildStr(str))

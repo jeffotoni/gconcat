@@ -2,6 +2,7 @@ package gconcat
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"strings"
 	"testing"
@@ -89,6 +90,128 @@ func TestConcatStr(t *testing.T) {
 	if s != "" {
 		t.Errorf("Error type string to ConcatStr length zero")
 	}
+}
+
+// go test -v -run ^TestConcatFuncMany
+func TestConcatFuncMany(t *testing.T) {
+	// example function of simple returns
+	fn := func(i interface{}) interface{} {
+		return i
+	}
+
+	var many1String, many1Int, many1Int8, many1Int16, many1Int32, many1Int64 interface{}
+	var many1Uint, many1Uint8, many1Uint16, many1Uint32, many1Uint64 interface{}
+	var many1Float32, many1Float64 interface{}
+	var many1bool, many2bool interface{}
+
+	many1bool = false
+	many2bool = true
+	many1String = "21"
+	many1Int = 100
+	many1Int8 = int8(100)
+	many1Int16 = int16(100)
+	many1Int32 = int32(100)
+	many1Int64 = int64(100)
+	many1Uint = uint(100)
+	many1Uint8 = uint8(100)
+	many1Uint16 = uint16(100)
+	many1Uint32 = uint32(100)
+	many1Uint64 = uint64(100)
+	many1Float32 = float32(100.01)
+	many1Float64 = float64(100.01)
+	type args struct {
+		str interface{}
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		// TODO: Add test cases.
+		{"test_ConcatFunc_", args{str: many1String}, "21"},
+		{"test_ConcatFunc_", args{str: many1Int}, "100"},
+		{"test_ConcatFunc_", args{str: many1Int8}, "100"},
+		{"test_ConcatFunc_", args{str: many1Int16}, "100"},
+		{"test_ConcatFunc_", args{str: many1Int32}, "100"},
+		{"test_ConcatFunc_", args{str: many1Int64}, "100"},
+		{"test_ConcatFunc_", args{str: many1Uint}, "100"},
+		{"test_ConcatFunc_", args{str: many1Uint8}, "100"},
+		{"test_ConcatFunc_", args{str: many1Uint16}, "100"},
+		{"test_ConcatFunc_", args{str: many1Uint32}, "100"},
+		{"test_ConcatFunc_", args{str: many1Uint64}, "100"},
+		{"test_ConcatFunc_", args{str: many1Float32}, "100.010002"},
+		{"test_ConcatFunc_", args{str: many1Float64}, "100.010000"},
+		{"test_ConcatFunc_", args{str: many1bool}, "false"},
+		{"test_ConcatFunc_", args{str: many2bool}, "true"},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			tt1 := tt
+			got := ConcatFunc(fn(tt1.args.str))
+			switch {
+			case got == tt1.want:
+				break
+			default:
+				t.Errorf("ConcatFunc() = %v, want %v", got, tt.want)
+			}
+			print("\n", got)
+		})
+	}
+}
+
+//go test -v -run ^TestConcatFuncNil
+func TestConcatFuncNil(t *testing.T) {
+	typeNil := func() interface{} {
+		return nil
+	}
+	s := ConcatFunc(typeNil())
+	if s != "" {
+		t.Errorf("TestConcatFuncNil() = %v, want %v", s, "")
+	}
+}
+
+//go test -v -run ^TestConcatFuncError
+func TestConcatFuncError(t *testing.T) {
+	typeError := func() error {
+		return errors.New("error")
+	}
+	s := ConcatFunc(typeError())
+	if s != "error" {
+		t.Errorf("TestConcatFuncError() = %v, want %v", s, "error")
+	}
+}
+
+// go test -v -run ^TestConcatFuncSlice
+func TestConcatFuncSlice(t *testing.T) {
+	// example functions of simple returns
+	sliceString := func() []string {
+		return []string{"jeffotoni", "func"}
+	}
+	sliceInt := func() []int {
+		return []int{20, 21}
+	}
+
+	sliceBool := func() []bool {
+		return []bool{true, false}
+	}
+
+	s := ConcatFunc(sliceString())
+	if s != "jeffotonifunc" {
+		t.Errorf("ConcatFunc() = %v, want %v", s, "jeffotonifunc")
+	}
+
+	i := ConcatFunc(sliceInt())
+	if i != "2021" {
+		t.Errorf("ConcatFunc() = %v, want %v", i, "2021")
+	}
+
+	b := ConcatFunc(sliceBool())
+	if b != "truefalse" {
+		t.Errorf("ConcatFunc() = %v, want %v", b, "truefalse")
+	}
+
 }
 
 // go test -v -run ^TestConcatStrInt
