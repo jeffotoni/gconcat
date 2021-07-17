@@ -91,11 +91,11 @@ func buildStr(str interface{}) (concat string) {
 	case bool:
 		concat = strconv.FormatBool(str.(bool))
 	case []bool:
-		concat = BoolToStringFast(str.([]bool))
+		concat = ConcatBool(str.([]bool))
 	case int:
 		concat = strconv.Itoa(int(str.(int)))
 	case []int:
-		concat = IntToStringFast(str.([]int))
+		concat = ConcatInt(str.([]int))
 	case complex64:
 		concat = "not suport complex 64"
 	case complex128:
@@ -113,19 +113,19 @@ func buildStr2(str interface{}) (concat string) {
 	case int8:
 		concat = strconv.Itoa(int(str.(int8)))
 	case []int8:
-		concat = Int8ToStringFast(str.([]int8))
+		concat = ConcatInt8(str.([]int8))
 	case uint8:
 		concat = strconv.FormatUint(uint64(str.(uint8)), 10)
 	case []uint8:
-		concat = Uint8ToStringFast(str.([]uint8))
+		concat = ConcatUint8(str.([]uint8))
 	case int16:
 		concat = strconv.Itoa(int(str.(int16)))
 	case []int16:
-		concat = Int16ToStringFast(str.([]int16))
+		concat = ConcatInt16(str.([]int16))
 	case uint16:
 		concat = strconv.FormatUint(uint64(str.(uint16)), 10)
 	case []uint16:
-		concat = Uint16ToStringFast(str.([]uint16))
+		concat = ConcatUint16(str.([]uint16))
 	default:
 		concat = buildStr3(str)
 	}
@@ -141,17 +141,17 @@ func buildStr3(str interface{}) (concat string) {
 	case uint32:
 		concat = strconv.FormatUint(uint64(str.(uint32)), 10)
 	case []int32:
-		concat = Int32ToStringFast(str.([]int32))
+		concat = ConcatInt32(str.([]int32))
 	case []uint32:
-		concat = Uint32ToStringFast(str.([]uint32))
+		concat = ConcatUint32(str.([]uint32))
 	case int64:
 		concat = strconv.FormatInt(int64(str.(int64)), 10)
 	case uint64:
 		concat = strconv.FormatUint(uint64(str.(uint64)), 10)
 	case []int64:
-		concat = Int64ToStringFast(str.([]int64))
+		concat = ConcatInt64(str.([]int64))
 	case []uint64:
-		concat = Uint64ToStringFast(str.([]uint64))
+		concat = ConcatUint64(str.([]uint64))
 	default:
 		concat = buildStr4(str)
 	}
@@ -165,184 +165,20 @@ func buildStr4(str interface{}) (concat string) {
 	case float64:
 		concat = strconv.FormatFloat(str.(float64), 'f', 6, 64)
 	case []float64:
-		concat = Float64ToStringFast(str.([]float64))
+		concat = ConcatFloat64(str.([]float64))
 	case float32:
 		concat = strconv.FormatFloat(float64(str.(float32)), 'f', 6, 64)
 	case []float32:
-		concat = Float32ToStringFast(str.([]float32))
+		concat = ConcatFloat32(str.([]float32))
 	case uint:
 		concat = strconv.FormatUint(uint64(str.(uint)), 10)
 	case []uint:
-		concat = UintToStringFast(str.([]uint))
+		concat = ConcatUint(str.([]uint))
 	default:
 		fmt.Println(x)
 		concat = "not exist type without suport"
 	}
 	return
-}
-
-// BoolToStringFast Function that converts []bool to string optimally
-func BoolToStringFast(a []bool) string {
-	if len(a) == 0 {
-		return ""
-	}
-	b := make([]string, len(a))
-	for i, v := range a {
-		b[i] = strconv.FormatBool(v)
-	}
-	return strings.Join(b, "")
-}
-
-// Int8ToStringFast Function that converts []int8 to string optimally
-func Int8ToStringFast(a []int8) string {
-	if len(a) == 0 {
-		return ""
-	}
-	b := make([]string, len(a))
-	for i, v := range a {
-		b[i] = strconv.Itoa(int(v))
-	}
-	return strings.Join(b, "")
-}
-
-// Int16ToStringFast Function that converts []int16 to string optimally
-func Int16ToStringFast(a []int16) string {
-	if len(a) == 0 {
-		return ""
-	}
-	b := make([]string, len(a))
-	for i, v := range a {
-		b[i] = strconv.Itoa(int(v))
-	}
-	return strings.Join(b, "")
-}
-
-// Uint8ToStringFast Function that converts []uint8 to string optimally
-func Uint8ToStringFast(a []uint8) string {
-	if len(a) == 0 {
-		return ""
-	}
-	b := make([]string, len(a))
-	for i, v := range a {
-		b[i] = strconv.FormatUint(uint64(v), 10)
-	}
-	return strings.Join(b, "")
-}
-
-// Uint16ToStringFast Function that converts []uint16 to string optimally
-func Uint16ToStringFast(a []uint16) string {
-	if len(a) == 0 {
-		return ""
-	}
-	b := make([]string, len(a))
-	for i, v := range a {
-		b[i] = strconv.FormatUint(uint64(v), 10)
-	}
-	return strings.Join(b, "")
-}
-
-// Uint32ToStringFast Function that converts []uint32 to string optimally
-func Uint32ToStringFast(a []uint32) string {
-	if len(a) == 0 {
-		return ""
-	}
-	b := make([]string, len(a))
-	for i, v := range a {
-		b[i] = strconv.FormatUint(uint64(v), 10)
-	}
-	return strings.Join(b, "")
-}
-
-// Uint64ToStringFast Function that converts []uint64 to string optimally
-func Uint64ToStringFast(a []uint64) string {
-	if len(a) == 0 {
-		return ""
-	}
-	b := make([]string, len(a))
-	for i, v := range a {
-		b[i] = strconv.FormatUint(uint64(v), 10)
-	}
-	return strings.Join(b, "")
-}
-
-// IntToStringFastLowAllocsHigh Function that converts []int to string optimally
-func IntToStringFastLowAllocsHigh(a []int) (tmp string) {
-	for _, v := range a {
-		tmp = fmt.Sprint(tmp, v)
-	}
-	return
-}
-
-// Float64ToStringFast Function that converts []float64 to string optimally
-func Float64ToStringFast(a []float64) string {
-	if len(a) == 0 {
-		return ""
-	}
-	b := make([]string, len(a))
-	for i, v := range a {
-		b[i] = strconv.FormatFloat(v, 'f', 6, 64)
-	}
-	return strings.Join(b, "")
-}
-
-// IntToStringFast Function that converts []int to string optimally
-func IntToStringFast(a []int) string {
-	if len(a) == 0 {
-		return ""
-	}
-	b := make([]string, len(a))
-	for i, v := range a {
-		b[i] = strconv.Itoa(v)
-	}
-	return strings.Join(b, "")
-}
-
-// UintToStringFast Function that converts []uint to string optimally
-func UintToStringFast(a []uint) string {
-	if len(a) == 0 {
-		return ""
-	}
-	b := make([]string, len(a))
-	for i, v := range a {
-		b[i] = strconv.FormatUint(uint64(v), 10)
-	}
-	return strings.Join(b, "")
-}
-
-// Float32ToStringFast Function that converts []float32 to string optimally
-func Float32ToStringFast(a []float32) string {
-	if len(a) == 0 {
-		return ""
-	}
-	b := make([]string, len(a))
-	for i, v := range a {
-		b[i] = strconv.FormatFloat(float64(v), 'f', 6, 64)
-	}
-	return strings.Join(b, "")
-}
-
-// Int32ToStringFast Function that converts []int32 to string optimally
-func Int32ToStringFast(a []int32) string {
-	if len(a) == 0 {
-		return ""
-	}
-	b := make([]string, len(a))
-	for i, v := range a {
-		b[i] = strconv.FormatInt(int64(v), 10)
-	}
-	return strings.Join(b, "")
-}
-
-// Int64ToStringFast Function that converts []int64 to string optimally
-func Int64ToStringFast(a []int64) string {
-	if len(a) == 0 {
-		return ""
-	}
-	b := make([]string, len(a))
-	for i, v := range a {
-		b[i] = strconv.FormatInt(int64(v), 10)
-	}
-	return strings.Join(b, "")
 }
 
 // ConcatStr Function that converts only string
@@ -370,4 +206,168 @@ func ConcatStrInt(strs ...interface{}) (concat string) {
 	}
 	concat = sb.String()
 	return
+}
+
+// ConcatBool Function that converts []bool to string optimally
+func ConcatBool(a []bool) string {
+	if len(a) == 0 {
+		return ""
+	}
+	b := make([]string, len(a))
+	for i, v := range a {
+		b[i] = strconv.FormatBool(v)
+	}
+	return strings.Join(b, "")
+}
+
+// ConcatInt Function that converts []int to string optimally
+func ConcatInt(a []int) string {
+	if len(a) == 0 {
+		return ""
+	}
+	b := make([]string, len(a))
+	for i, v := range a {
+		b[i] = strconv.Itoa(v)
+	}
+	return strings.Join(b, "")
+}
+
+// ConcatIntFast Function that converts []int to string optimally
+func ConcatIntFast(a []int) (tmp string) {
+	for _, v := range a {
+		tmp = fmt.Sprint(tmp, v)
+	}
+	return
+}
+
+// ConcatInt8 Function that converts []int8 to string optimally
+func ConcatInt8(a []int8) string {
+	if len(a) == 0 {
+		return ""
+	}
+	b := make([]string, len(a))
+	for i, v := range a {
+		b[i] = strconv.Itoa(int(v))
+	}
+	return strings.Join(b, "")
+}
+
+// ConcatInt16 Function that converts []int16 to string optimally
+func ConcatInt16(a []int16) string {
+	if len(a) == 0 {
+		return ""
+	}
+	b := make([]string, len(a))
+	for i, v := range a {
+		b[i] = strconv.Itoa(int(v))
+	}
+	return strings.Join(b, "")
+}
+
+// ConcatInt32 Function that converts []int32 to string optimally
+func ConcatInt32(a []int32) string {
+	if len(a) == 0 {
+		return ""
+	}
+	b := make([]string, len(a))
+	for i, v := range a {
+		b[i] = strconv.FormatInt(int64(v), 10)
+	}
+	return strings.Join(b, "")
+}
+
+// ConcatInt64 Function that converts []int64 to string optimally
+func ConcatInt64(a []int64) string {
+	if len(a) == 0 {
+		return ""
+	}
+	b := make([]string, len(a))
+	for i, v := range a {
+		b[i] = strconv.FormatInt(int64(v), 10)
+	}
+	return strings.Join(b, "")
+}
+
+// ConcatUint Function that converts []uint to string optimally
+func ConcatUint(a []uint) string {
+	if len(a) == 0 {
+		return ""
+	}
+	b := make([]string, len(a))
+	for i, v := range a {
+		b[i] = strconv.FormatUint(uint64(v), 10)
+	}
+	return strings.Join(b, "")
+}
+
+// ConcatUint8 Function that converts []uint8 to string optimally
+func ConcatUint8(a []uint8) string {
+	if len(a) == 0 {
+		return ""
+	}
+	b := make([]string, len(a))
+	for i, v := range a {
+		b[i] = strconv.FormatUint(uint64(v), 10)
+	}
+	return strings.Join(b, "")
+}
+
+// ConcatUint16 Function that converts []uint16 to string optimally
+func ConcatUint16(a []uint16) string {
+	if len(a) == 0 {
+		return ""
+	}
+	b := make([]string, len(a))
+	for i, v := range a {
+		b[i] = strconv.FormatUint(uint64(v), 10)
+	}
+	return strings.Join(b, "")
+}
+
+// ConcatUint32 Function that converts []uint32 to string optimally
+func ConcatUint32(a []uint32) string {
+	if len(a) == 0 {
+		return ""
+	}
+	b := make([]string, len(a))
+	for i, v := range a {
+		b[i] = strconv.FormatUint(uint64(v), 10)
+	}
+	return strings.Join(b, "")
+}
+
+// ConcatUint64 Function that converts []uint64 to string optimally
+func ConcatUint64(a []uint64) string {
+	if len(a) == 0 {
+		return ""
+	}
+	b := make([]string, len(a))
+	for i, v := range a {
+		b[i] = strconv.FormatUint(uint64(v), 10)
+	}
+	return strings.Join(b, "")
+}
+
+// ConcatFloat32 Function that converts []float32 to string optimally
+func ConcatFloat32(a []float32) string {
+	if len(a) == 0 {
+		return ""
+	}
+	b := make([]string, len(a))
+	for i, v := range a {
+		b[i] = strconv.FormatFloat(float64(v), 'f', 6, 64)
+	}
+	return strings.Join(b, "")
+}
+
+// ConcatFloat64 Function that converts []float64 to string optimally
+func ConcatFloat64(a []float64) string {
+	if len(a) == 0 {
+		return ""
+	}
+	b := make([]string, len(a))
+	for i, v := range a {
+		b[i] = strconv.FormatFloat(v, 'f', 6, 64)
+	}
+	return strings.Join(b, "")
 }

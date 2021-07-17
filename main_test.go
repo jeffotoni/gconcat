@@ -51,30 +51,30 @@ func ExampleConcatStrInt() {
 
 // This function is named ExampleIntToStringFast()
 // it with the Examples type.
-func ExampleIntToStringFast() {
-	// This example IntToStringFast function accepts only type []int
+func ExampleConcatInt() {
+	// This example ConcatInt function accepts only type []int
 	// specific func ([]int).
-	s := IntToStringFast([]int{3, 4, 5, 6, 7, 10, 45, 99})
+	s := ConcatInt([]int{3, 4, 5, 6, 7, 10, 45, 99})
 	fmt.Println(s)
 	// Output: 34567104599
 }
 
 // This function is named Int32ToStringFast()
 // it with the Examples type.
-func ExampleInt32ToStringFast() {
-	// This example Int32ToStringFast function accepts only type []int
+func ExampleConcatInt32() {
+	// This example ConcatInt32 function accepts only type []int
 	// specific func ([]int32).
-	s := Int32ToStringFast([]int32{3, 4, 5, 6, 7, 10, 45, 99})
+	s := ConcatInt32([]int32{3, 4, 5, 6, 7, 10, 45, 99})
 	fmt.Println(s)
 	// Output: 34567104599
 }
 
 // This function is named Int32ToStringFast()
 // it with the Examples type.
-func ExampleInt64ToStringFast() {
-	// This example Int64ToStringFast function accepts only type []int
+func ExampleConcatInt64() {
+	// This example ConcatInt64 function accepts only type []int
 	// specific func ([]int64).
-	s := Int64ToStringFast([]int64{3, 4, 5, 6, 7, 10, 45, 99})
+	s := ConcatInt64([]int64{3, 4, 5, 6, 7, 10, 45, 99})
 	fmt.Println(s)
 	// Output: 34567104599
 }
@@ -276,7 +276,7 @@ func TestConcatStrInt(t *testing.T) {
 	}
 }
 
-// go test -v -run ^TestSomeType
+// go test -v -run ^TestIntType
 func TestIntType(t *testing.T) {
 	var i64 int64 = 3456789765423
 	s := Concat(i64)
@@ -354,22 +354,22 @@ func TestComplex(t *testing.T) {
 	}
 }
 
-// go test -v -run ^TestIntoTypes
-func TestIntoTypes(t *testing.T) {
+// go test -v -run ^TestIntTypes
+func TestIntTypes(t *testing.T) {
 	var a []int
-	s := IntToStringFast(a)
+	s := ConcatInt(a)
 	if s != "" {
 		t.Errorf("Error IntToStringFast: return empty")
 	}
 
 	var a32 []int32
-	s = Int32ToStringFast(a32)
+	s = ConcatInt32(a32)
 	if s != "" {
 		t.Errorf("Error Int32ToStringFast: return empty")
 	}
 
 	var a64 []int64
-	s = Int64ToStringFast(a64)
+	s = ConcatInt64(a64)
 	if s != "" {
 		t.Errorf("Error Int64ToStringfast: return empty")
 	}
