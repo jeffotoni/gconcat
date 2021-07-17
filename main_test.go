@@ -79,6 +79,55 @@ func ExampleInt64ToStringFast() {
 	// Output: 34567104599
 }
 
+// This function is named ExampleIntToConcatFunc()
+// it with the Examples type.
+func ExampleIntToConcatFunc() {
+	// This example ExampleIntToConcatFunc function accepts only return type int
+	// specific func (<anything>) return int
+	s := ConcatFunc(func(a, b, c int) int {
+		return a + b*c
+	}(1, 2, 3))
+	fmt.Println(s)
+	// Output: 7
+}
+
+// This function is named ExampleAnyToConcatFunc()
+// it with the Examples type.
+func ExampleAnyToConcatFunc() {
+	// This example ExampleAnyToConcatFunc function accepts only return type string
+	// specific func (<anything>) return string
+	f1 := func(a float64) float64 {
+		return 1 * 2.2
+	}(float64(55.55))
+
+	f2 := func(s string) string {
+		return s + "2021"
+	}(" hello ")
+
+	f3 := func(a int) int {
+		return a * 2
+	}(3)
+
+	f4 := func(a []int) (t []int) {
+		for _, v := range a {
+			t = append(t, v*2)
+		}
+		return
+	}([]int{4, 5, 6, 7, 8})
+
+	f5 := func(a []int) (t []float64) {
+		for _, v := range a {
+			t = append(t, float64(v)*1.2)
+		}
+		return
+	}([]int{4.0, 5.0, 6.0, 7.0, 8.0})
+
+	s1 := Concat([]bool{true, false, true})
+	s := ConcatFunc(f1, f2, f3, f4, f5)
+	fmt.Println(s + " " + s1)
+	// Output: 2.2 hello 202168101214164.867.1999999999999998.49.6 truefalsetrue
+}
+
 // go test -v -run ^TestConcatStr
 func TestConcatStr(t *testing.T) {
 	s := ConcatStr("jeffotoni", "concat", "go", "only")
@@ -460,9 +509,57 @@ func Test_Concat_Many(t *testing.T) {
 var longStr string = `qwertyuiopqwertyuiopqwertyuio
 qwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiopqwertyuiop`
 
-func BenchmarkStringPlus(b *testing.B) {
+func BenchmarkConcatVector(b *testing.B) {
 	for n := 0; n < b.N; n++ {
-		_ = "string_jeffotoni" + longStr + longStr + longStr + longStr
+		_ = Concat(
+			[]int{1, 2, 3, 4, 5, 56, 6, 7, 7, 778, 8, 88, 8},
+			//[]float32{1.1, 2.2, 3.4, 4.4, 5.0, 56.9, 6.0, 7.8},
+			[]float64{1.1, 2.2, 3.4, 4.4, 5.0, 56.9, 6.0, 7.8},
+			[]string{"jeff", "otoni", "lima", " ", " vamos testar concat Go "},
+			//[]string{"jeff", "otoni", "lima", " ", " vamos testar concat Go "},
+			// []string{"jeff", "otoni", "lima", " ", " vamos testar concat Go "},
+			// []string{"jeff", "otoni", "lima", " ", " vamos testar concat Go "},
+			// []string{"jeff", "otoni", "lima", " ", " vamos testar concat Go "},
+			// []string{"jeff", "otoni", "lima", " ", " vamos testar concat Go "},
+			// []string{"jeff", "otoni", "lima", " ", " vamos testar concat Go "},
+			// []string{"jeff", "otoni", "lima", " ", " vamos testar concat Go "},
+			// []string{"jeff", "otoni", "lima", " ", " vamos testar concat Go "},
+		)
+	}
+}
+
+func BenchmarkConcatFuncString(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		_ = ConcatFunc(func(a, b, c int) string { return "jeffstring" }(1, 2, 3))
+	}
+}
+
+func BenchmarkConcatFuncInt(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		_ = ConcatFunc(func(a, b, c int) int { return 1345 }(1, 2, 3))
+	}
+}
+
+func BenchmarkConcatFuncStringVector(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		_ = ConcatFunc(func(a, b, c int) []string {
+			var vect []string
+			vect = append(vect, "jeff")
+			return vect
+		}(1, 2, 3))
+	}
+}
+
+func BenchmarkConcatFuncFuncAny(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		f1 := func(a int) int {
+			return a * 3
+		}(n)
+
+		f2 := func(s string) string {
+			return s + "2021"
+		}(" hello ")
+		_ = ConcatFunc(f1, f2)
 	}
 }
 
@@ -510,26 +607,6 @@ func BenchmarkBuilder(b *testing.B) {
 		bb.WriteString(longStr)
 		bb.WriteString(longStr)
 		bb.WriteString(longStr)
-	}
-}
-
-func BenchmarkConcatVector(b *testing.B) {
-	for n := 0; n < b.N; n++ {
-		Concat(
-			[]int{1, 2, 3, 4, 5, 56, 6, 7, 7, 778, 8, 88, 8,
-				8, 8, 8, 8, 8, 9, 9, 123, 4, 4, 5, 6, 7, 77,
-				8, 8, 99, 9, 93, 3, 3, 3, 3, 45, 5, 6, 6, 7},
-			[]float32{1.1, 2.2, 3.4, 4.4, 5.0, 56.9, 6.0, 7.8},
-			[]string{"jeff", "otoni", "lima", " ", " vamos testar concat Go "},
-			[]string{"jeff", "otoni", "lima", " ", " vamos testar concat Go "},
-			[]string{"jeff", "otoni", "lima", " ", " vamos testar concat Go "},
-			[]string{"jeff", "otoni", "lima", " ", " vamos testar concat Go "},
-			[]string{"jeff", "otoni", "lima", " ", " vamos testar concat Go "},
-			[]string{"jeff", "otoni", "lima", " ", " vamos testar concat Go "},
-			[]string{"jeff", "otoni", "lima", " ", " vamos testar concat Go "},
-			[]string{"jeff", "otoni", "lima", " ", " vamos testar concat Go "},
-			[]string{"jeff", "otoni", "lima", " ", " vamos testar concat Go "},
-		)
 	}
 }
 

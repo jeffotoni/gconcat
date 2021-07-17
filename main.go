@@ -15,7 +15,7 @@ package gconcat
 
 import (
 	"fmt"
-	// "reflect"
+	"reflect"
 	"strconv"
 	"strings"
 )
@@ -39,18 +39,15 @@ func ConcatFunc(f ...interface{}) string {
 		case error:
 			tmp = fmt.Sprint(tmp, v)
 		default:
-			f := NewFormat()
-			tmp = f.Format(tmp, v)
-			// switch reflect.TypeOf(v).Kind() {
-			// case reflect.Slice:
-			// s := reflect.ValueOf(v)
-			// for i := 0; i < s.Len(); i++ {
-			// tmp = fmt.Sprint(tmp, s.Index(i))
-			// }
-			// default:
-			// tmp = fmt.Sprint(tmp, v)
-			//
-			// }
+			switch reflect.TypeOf(v).Kind() {
+			case reflect.Slice:
+				s := reflect.ValueOf(v)
+				for i := 0; i < s.Len(); i++ {
+					tmp = fmt.Sprint(tmp, s.Index(i))
+				}
+			default:
+				tmp = fmt.Sprint(tmp, v)
+			}
 		}
 	}
 	return string(tmp)
@@ -94,11 +91,7 @@ func buildStr(str interface{}) (concat string) {
 	case bool:
 		concat = strconv.FormatBool(str.(bool))
 	case []bool:
-		tmp := ""
-		for _, val := range str.([]bool) {
-			tmp = Build(tmp, val)
-		}
-		concat = tmp
+		concat = BoolToStringFast(str.([]bool))
 	case int:
 		concat = strconv.Itoa(int(str.(int)))
 	case []int:
@@ -119,36 +112,20 @@ func buildStr2(str interface{}) (concat string) {
 	switch str.(type) {
 	case int8:
 		concat = strconv.Itoa(int(str.(int8)))
+	case []int8:
+		concat = Int8ToStringFast(str.([]int8))
 	case uint8:
 		concat = strconv.FormatUint(uint64(str.(uint8)), 10)
-	case []int8:
-		tmp := ""
-		for _, val := range str.([]int8) {
-			tmp = Build(tmp, val)
-		}
-		concat = tmp
 	case []uint8:
-		tmp := ""
-		for _, val := range str.([]uint8) {
-			tmp = Build(tmp, val)
-		}
-		concat = tmp
+		concat = Uint8ToStringFast(str.([]uint8))
 	case int16:
 		concat = strconv.Itoa(int(str.(int16)))
+	case []int16:
+		concat = Int16ToStringFast(str.([]int16))
 	case uint16:
 		concat = strconv.FormatUint(uint64(str.(uint16)), 10)
-	case []int16:
-		tmp := ""
-		for _, val := range str.([]int16) {
-			tmp = Build(tmp, val)
-		}
-		concat = tmp
 	case []uint16:
-		tmp := ""
-		for _, val := range str.([]uint16) {
-			tmp = Build(tmp, val)
-		}
-		concat = tmp
+		concat = Uint16ToStringFast(str.([]uint16))
 	default:
 		concat = buildStr3(str)
 	}
@@ -166,11 +143,7 @@ func buildStr3(str interface{}) (concat string) {
 	case []int32:
 		concat = Int32ToStringFast(str.([]int32))
 	case []uint32:
-		tmp := ""
-		for _, val := range str.([]uint32) {
-			tmp = Build(tmp, val)
-		}
-		concat = tmp
+		concat = Uint32ToStringFast(str.([]uint32))
 	case int64:
 		concat = strconv.FormatInt(int64(str.(int64)), 10)
 	case uint64:
@@ -178,11 +151,7 @@ func buildStr3(str interface{}) (concat string) {
 	case []int64:
 		concat = Int64ToStringFast(str.([]int64))
 	case []uint64:
-		tmp := ""
-		for _, val := range str.([]uint64) {
-			tmp = Build(tmp, val)
-		}
-		concat = tmp
+		concat = Uint64ToStringFast(str.([]uint64))
 	default:
 		concat = buildStr4(str)
 	}
@@ -192,35 +161,128 @@ func buildStr3(str interface{}) (concat string) {
 // buildStr4 Function responsible abstracting and case some types
 // buildStr4(float64, []float64, float32, []float32, uint, []uint)
 func buildStr4(str interface{}) (concat string) {
-	switch str.(type) {
+	switch x := str.(type) {
 	case float64:
 		concat = strconv.FormatFloat(str.(float64), 'f', 6, 64)
 	case []float64:
-		tmp := ""
-		for _, val := range str.([]float64) {
-			tmp = Build(tmp, val)
-		}
-		concat = tmp
+		concat = Float64ToStringFast(str.([]float64))
 	case float32:
 		concat = strconv.FormatFloat(float64(str.(float32)), 'f', 6, 64)
 	case []float32:
-		tmp := ""
-		for _, val := range str.([]float32) {
-			tmp = Build(tmp, val)
-		}
-		concat = tmp
+		concat = Float32ToStringFast(str.([]float32))
 	case uint:
 		concat = strconv.FormatUint(uint64(str.(uint)), 10)
 	case []uint:
-		tmp := ""
-		for _, val := range str.([]uint) {
-			tmp = Build(tmp, val)
-		}
-		concat = tmp
+		concat = UintToStringFast(str.([]uint))
 	default:
+		fmt.Println(x)
 		concat = "not exist type without suport"
 	}
 	return
+}
+
+// BoolToStringFast Function that converts []bool to string optimally
+func BoolToStringFast(a []bool) string {
+	if len(a) == 0 {
+		return ""
+	}
+	b := make([]string, len(a))
+	for i, v := range a {
+		b[i] = strconv.FormatBool(v)
+	}
+	return strings.Join(b, "")
+}
+
+// Int8ToStringFast Function that converts []int8 to string optimally
+func Int8ToStringFast(a []int8) string {
+	if len(a) == 0 {
+		return ""
+	}
+	b := make([]string, len(a))
+	for i, v := range a {
+		b[i] = strconv.Itoa(int(v))
+	}
+	return strings.Join(b, "")
+}
+
+// Int16ToStringFast Function that converts []int16 to string optimally
+func Int16ToStringFast(a []int16) string {
+	if len(a) == 0 {
+		return ""
+	}
+	b := make([]string, len(a))
+	for i, v := range a {
+		b[i] = strconv.Itoa(int(v))
+	}
+	return strings.Join(b, "")
+}
+
+// Int8ToStringFast Function that converts []uint8 to string optimally
+func Uint8ToStringFast(a []uint8) string {
+	if len(a) == 0 {
+		return ""
+	}
+	b := make([]string, len(a))
+	for i, v := range a {
+		b[i] = strconv.FormatUint(uint64(v), 10)
+	}
+	return strings.Join(b, "")
+}
+
+// Uint16ToStringFast Function that converts []uint16 to string optimally
+func Uint16ToStringFast(a []uint16) string {
+	if len(a) == 0 {
+		return ""
+	}
+	b := make([]string, len(a))
+	for i, v := range a {
+		b[i] = strconv.FormatUint(uint64(v), 10)
+	}
+	return strings.Join(b, "")
+}
+
+// Uint32ToStringFast Function that converts []uint32 to string optimally
+func Uint32ToStringFast(a []uint32) string {
+	if len(a) == 0 {
+		return ""
+	}
+	b := make([]string, len(a))
+	for i, v := range a {
+		b[i] = strconv.FormatUint(uint64(v), 10)
+	}
+	return strings.Join(b, "")
+}
+
+// Uint64ToStringFast Function that converts []uint64 to string optimally
+func Uint64ToStringFast(a []uint64) string {
+	if len(a) == 0 {
+		return ""
+	}
+	b := make([]string, len(a))
+	for i, v := range a {
+		b[i] = strconv.FormatUint(uint64(v), 10)
+	}
+	return strings.Join(b, "")
+}
+
+// IntToStringFastLowAllocsHigh Function that converts []int to string optimally
+func IntToStringFastLowAllocsHigh(a []int) (tmp string) {
+	for _, v := range a {
+		tmp = fmt.Sprint(tmp, v)
+	}
+	return
+}
+
+// Float64ToStringFast Function that converts []float64 to string optimally
+func Float64ToStringFast(a []float64) string {
+	if len(a) == 0 {
+		return ""
+	}
+	b := make([]string, len(a))
+	for i, v := range a {
+		b[i] = strconv.FormatFloat(v, 'f', 6, 64)
+	}
+	return strings.Join(b, "")
 }
 
 // IntToStringFast Function that converts []int to string optimally
@@ -231,6 +293,30 @@ func IntToStringFast(a []int) string {
 	b := make([]string, len(a))
 	for i, v := range a {
 		b[i] = strconv.Itoa(v)
+	}
+	return strings.Join(b, "")
+}
+
+// UintToStringFast Function that converts []uint to string optimally
+func UintToStringFast(a []uint) string {
+	if len(a) == 0 {
+		return ""
+	}
+	b := make([]string, len(a))
+	for i, v := range a {
+		b[i] = strconv.FormatUint(uint64(v), 10)
+	}
+	return strings.Join(b, "")
+}
+
+// Float32ToStringFast Function that converts []float32 to string optimally
+func Float32ToStringFast(a []float32) string {
+	if len(a) == 0 {
+		return ""
+	}
+	b := make([]string, len(a))
+	for i, v := range a {
+		b[i] = strconv.FormatFloat(float64(v), 'f', 6, 64)
 	}
 	return strings.Join(b, "")
 }
@@ -273,19 +359,15 @@ func ConcatStrInt(strs ...interface{}) (concat string) {
 	if len(strs) == 0 {
 		return
 	}
-	//sv := make([]string, len(strs))
 	var sb strings.Builder
 	for _, val := range strs {
 		switch val.(type) {
 		case string:
 			sb.WriteString(string(val.(string)))
-			//sv = append(sv, string(val.(string)))
 		case int:
 			sb.WriteString(strconv.Itoa(int(val.(int))))
-			//sv = append(sv, strconv.Itoa(int(val.(int))))
 		}
 	}
 	concat = sb.String()
-	//concat = strings.Join(sv, "")
 	return
 }
