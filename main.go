@@ -181,6 +181,18 @@ func buildStr4(str interface{}) (concat string) {
 	return
 }
 
+// ConcatString Function that converts only string
+func ConcatString(strs ...string) (concat string) {
+	concat = ConcatStr(strs...)
+	return
+}
+
+// ConcatStringInt Function that converts only string
+func ConcatStringInt(strs ...interface{}) (concat string) {
+	concat = ConcatStrInt(strs...)
+	return
+}
+
 // ConcatStr Function that converts only string
 func ConcatStr(strs ...string) (concat string) {
 	if len(strs) == 0 {
@@ -230,14 +242,6 @@ func ConcatInt(a []int) string {
 		b[i] = strconv.Itoa(v)
 	}
 	return strings.Join(b, "")
-}
-
-// ConcatIntFast Function that converts []int to string optimally
-func ConcatIntFast(a []int) (tmp string) {
-	for _, v := range a {
-		tmp = fmt.Sprint(tmp, v)
-	}
-	return
 }
 
 // ConcatInt8 Function that converts []int8 to string optimally

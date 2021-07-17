@@ -370,20 +370,6 @@ func TestIntTypes(t *testing.T) {
 		t.Errorf("Error ConcatInt: %v, want %v", si, "23")
 	}
 
-	//[]int fast empty
-	var af []int
-	saf := ConcatIntFast(af)
-	if saf != "" {
-		t.Errorf("Error ConcatIntFast: return empty")
-	}
-
-	//[]int fast
-	var aif []int = []int{23}
-	sif := ConcatIntFast(aif)
-	if sif != "23" {
-		t.Errorf("Error ConcatIntFast: %v, want %v", sif, "23")
-	}
-
 	//[]int8 empty
 	var ei8 []int8
 	se8 := ConcatInt8(ei8)
