@@ -217,7 +217,7 @@ func Int16ToStringFast(a []int16) string {
 	return strings.Join(b, "")
 }
 
-// Int8ToStringFast Function that converts []uint8 to string optimally
+// Uint8ToStringFast Function that converts []uint8 to string optimally
 func Uint8ToStringFast(a []uint8) string {
 	if len(a) == 0 {
 		return ""
