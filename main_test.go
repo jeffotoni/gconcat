@@ -356,23 +356,267 @@ func TestComplex(t *testing.T) {
 
 // go test -v -run ^TestIntTypes
 func TestIntTypes(t *testing.T) {
+	//[]int empty
 	var a []int
 	s := ConcatInt(a)
 	if s != "" {
-		t.Errorf("Error IntToStringFast: return empty")
+		t.Errorf("Error ConcatInt: return empty")
 	}
 
-	var a32 []int32
-	s = ConcatInt32(a32)
-	if s != "" {
-		t.Errorf("Error Int32ToStringFast: return empty")
+	//[]int
+	var ai []int = []int{23}
+	si := ConcatInt(ai)
+	if si != "23" {
+		t.Errorf("Error ConcatInt: %v, want %v", si, "23")
 	}
 
-	var a64 []int64
-	s = ConcatInt64(a64)
-	if s != "" {
-		t.Errorf("Error Int64ToStringfast: return empty")
+	//[]int fast empty
+	var af []int
+	saf := ConcatIntFast(af)
+	if saf != "" {
+		t.Errorf("Error ConcatIntFast: return empty")
 	}
+
+	//[]int fast
+	var aif []int = []int{23}
+	sif := ConcatIntFast(aif)
+	if sif != "23" {
+		t.Errorf("Error ConcatIntFast: %v, want %v", sif, "23")
+	}
+
+	//[]int8 empty
+	var ei8 []int8
+	se8 := ConcatInt8(ei8)
+	if se8 != "" {
+		t.Errorf("Error ConcatInt8: return empty")
+	}
+
+	//[]int8
+	var i8 []int8 = []int8{int8(23)}
+	si8 := ConcatInt8(i8)
+	if si8 != "23" {
+		t.Errorf("Error ConcatInt8: %v, want %v", si8, "23")
+	}
+
+	//[]int16 empty
+	var ei16 []int16
+	se16 := ConcatInt16(ei16)
+	if se16 != "" {
+		t.Errorf("Error ConcatInt16: return empty")
+	}
+
+	//[]int16
+	var i16 []int16 = []int16{int16(23)}
+	si16 := ConcatInt16(i16)
+	if si16 != "23" {
+		t.Errorf("Error ConcatInt16: %v, want %v", si16, "23")
+	}
+
+	//[]int32 empty
+	var ei32 []int32
+	se32 := ConcatInt32(ei32)
+	if se32 != "" {
+		t.Errorf("Error ConcatInt32: return empty")
+	}
+
+	//[]int32
+	var i32 []int32 = []int32{int32(23)}
+	s32 := ConcatInt32(i32)
+	if s32 != "23" {
+		t.Errorf("Error ConcatInt32: %v, want %v", s32, "23")
+	}
+
+	//[]int64 empty
+	var ei64 []int64
+	se64 := ConcatInt64(ei64)
+	if se64 != "" {
+		t.Errorf("Error ConcatInt64: return empty")
+	}
+
+	//[]int64 empty
+	var i64 []int64 = []int64{int64(23)}
+	s64 := ConcatInt64(i64)
+	if s64 != "23" {
+		t.Errorf("Error ConcatInt64: %v, want %v", s64, "23")
+	}
+}
+
+// go test -v -run ^TestUIntTypes
+func TestUIntTypes(t *testing.T) {
+	//[]uint empty
+	var a []uint
+	s := ConcatUint(a)
+	if s != "" {
+		t.Errorf("Error ConcatUint: return empty")
+	}
+
+	//[]uint
+	var ai []uint = []uint{23}
+	si := ConcatUint(ai)
+	if si != "23" {
+		t.Errorf("Error ConcatUint: %v, want %v", si, "23")
+	}
+
+	//[]uint8 empty
+	var eu8 []uint8
+	se8 := ConcatUint8(eu8)
+	if se8 != "" {
+		t.Errorf("Error ConcatUint8: return empty")
+	}
+
+	//[]uint8
+	var u8 []uint8 = []uint8{uint8(23)}
+	su8 := ConcatUint8(u8)
+	if su8 != "23" {
+		t.Errorf("Error ConcatUint8: %v, want %v", su8, "23")
+	}
+
+	//[]uint16 empty
+	var eu16 []uint16
+	se16 := ConcatUint16(eu16)
+	if se16 != "" {
+		t.Errorf("Error ConcatUint16: return empty")
+	}
+
+	//[]uint16
+	var u16 []uint16 = []uint16{uint16(23)}
+	su16 := ConcatUint16(u16)
+	if su16 != "23" {
+		t.Errorf("Error ConcatUint16: %v, want %v", su16, "23")
+	}
+
+	//[]uint32 empty
+	var eu32 []uint32
+	se32 := ConcatUint32(eu32)
+	if se32 != "" {
+		t.Errorf("Error ConcatUint32: return empty")
+	}
+
+	//[]uint32
+	var u32 []uint32 = []uint32{uint32(23)}
+	su32 := ConcatUint32(u32)
+	if su32 != "23" {
+		t.Errorf("Error ConcatUint32: %v, want %v", su32, "23")
+	}
+
+	//[]uint64 empty
+	var eu64 []uint64
+	se64 := ConcatUint64(eu64)
+	if se64 != "" {
+		t.Errorf("Error ConcatUint64: return empty")
+	}
+
+	//[]uint64
+	var u64 []uint64 = []uint64{uint64(23)}
+	su64 := ConcatUint64(u64)
+	if su64 != "23" {
+		t.Errorf("Error ConcatUint64: %v, want %v", su64, "23")
+	}
+}
+
+//go test -v -run ^TestConcatBool
+func TestConcatBool(t *testing.T) {
+	//[]bool empty
+	var be []bool
+	sbe := ConcatBool(be)
+	if sbe != "" {
+		t.Errorf("Error ConcatBool: return empty")
+	}
+	//[]bool
+	var b []bool = []bool{true}
+	sb := ConcatBool(b)
+	if sb != "true" {
+		t.Errorf("Error ConcatBool: %v, want %v", sb, "")
+	}
+}
+
+//go test -v -run ^TestConcatFloats
+func TestConcatFloats(t *testing.T) {
+	//[]float32 empty
+	var ef32 []float32
+	sef32 := ConcatFloat32(ef32)
+	if sef32 != "" {
+		t.Errorf("Error ConcatFloat32: return empty")
+	}
+	//[]float32
+	var f32 []float32 = []float32{float32(23)}
+	sf32 := ConcatFloat32(f32)
+	if sf32 != "23.000000" {
+		t.Errorf("Error ConcatFloat32: %v, want %v", sf32, "23.000000")
+	}
+	//[]float64 empty
+	var ef64 []float64
+	sef64 := ConcatFloat64(ef64)
+	if sef64 != "" {
+		t.Errorf("Error ConcatFloat64: return empty")
+	}
+	//[]float64
+	var f64 []float64 = []float64{float64(23)}
+	sf64 := ConcatFloat64(f64)
+	if sf64 != "23.000000" {
+		t.Errorf("Error ConcatFloat64: %v, want %v", sf64, "23.000000")
+	}
+}
+
+// go test -v -run ^TestConcatMany
+func TestConcatMany(t *testing.T) {
+	// int8
+	var i8 int8 = int8(23)
+	si8 := Concat(i8)
+	if si8 != "23" {
+		t.Errorf("Error TestConcatMany for int8: %v, want %v", si8, "23")
+	}
+	// uint8
+	var ui uint = uint(23)
+	su := Concat(ui)
+	if su != "23" {
+		t.Errorf("Error TestConcatMany for uint: %v, want %v", su, "23")
+	}
+
+	// uint8
+	var ui8 uint8 = uint8(23)
+	su8 := Concat(ui8)
+	if su8 != "23" {
+		t.Errorf("Error TestConcatMany for uint8: %v, want %v", su8, "23")
+	}
+	// int16
+	var i16 int16 = int16(23)
+	si16 := Concat(i16)
+	if si16 != "23" {
+		t.Errorf("Error TestConcatMany for int16: %v, want %v", si16, "23")
+	}
+	// uint16
+	var ui16 uint16 = uint16(23)
+	su16 := Concat(ui16)
+	if su16 != "23" {
+		t.Errorf("Error TestConcatMany for uint16: %v, want %v", su16, "23")
+	}
+	// uint32
+	var ui32 uint32 = uint32(23)
+	su32 := Concat(ui32)
+	if su32 != "23" {
+		t.Errorf("Error TestConcatMany for uint32: %v, want %v", su32, "23")
+	}
+	// uint64
+	var ui64 uint64 = uint64(23)
+	su64 := Concat(ui64)
+	if su64 != "23" {
+		t.Errorf("Error TestConcatMany for uint64: %v, want %v", su64, "23")
+	}
+
+	// float32
+	var f32 float32 = float32(23)
+	sf32 := Concat(f32)
+	if sf32 != "23.000000" {
+		t.Errorf("Error TestConcatMany for float32: %v, want %v", sf32, "23.000000")
+	}
+	// float64
+	var f64 float64 = float64(23)
+	sf64 := Concat(f64)
+	if sf64 != "23.000000" {
+		t.Errorf("Error TestConcatMany for float64: %v, want %v", su16, "23.000000")
+	}
+
 }
 
 //go test -v -run ^Test_Concat_OneStr
