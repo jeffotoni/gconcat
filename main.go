@@ -91,11 +91,11 @@ func buildStr(str interface{}) (concat string) {
 	case bool:
 		concat = strconv.FormatBool(str.(bool))
 	case []bool:
-		concat = ConcatBool(str.([]bool))
+		concat = ConcatSliceBool(str.([]bool))
 	case int:
 		concat = strconv.Itoa(int(str.(int)))
 	case []int:
-		concat = ConcatInt(str.([]int))
+		concat = ConcatSliceInt(str.([]int))
 	case complex64:
 		concat = "not suport complex 64"
 	case complex128:
@@ -113,19 +113,19 @@ func buildStr2(str interface{}) (concat string) {
 	case int8:
 		concat = strconv.Itoa(int(str.(int8)))
 	case []int8:
-		concat = ConcatInt8(str.([]int8))
+		concat = ConcatSliceInt8(str.([]int8))
 	case uint8:
 		concat = strconv.FormatUint(uint64(str.(uint8)), 10)
 	case []uint8:
-		concat = ConcatUint8(str.([]uint8))
+		concat = ConcatSliceUint8(str.([]uint8))
 	case int16:
 		concat = strconv.Itoa(int(str.(int16)))
 	case []int16:
-		concat = ConcatInt16(str.([]int16))
+		concat = ConcatSliceInt16(str.([]int16))
 	case uint16:
 		concat = strconv.FormatUint(uint64(str.(uint16)), 10)
 	case []uint16:
-		concat = ConcatUint16(str.([]uint16))
+		concat = ConcatSliceUint16(str.([]uint16))
 	default:
 		concat = buildStr3(str)
 	}
@@ -141,17 +141,17 @@ func buildStr3(str interface{}) (concat string) {
 	case uint32:
 		concat = strconv.FormatUint(uint64(str.(uint32)), 10)
 	case []int32:
-		concat = ConcatInt32(str.([]int32))
+		concat = ConcatSliceInt32(str.([]int32))
 	case []uint32:
-		concat = ConcatUint32(str.([]uint32))
+		concat = ConcatSliceUint32(str.([]uint32))
 	case int64:
 		concat = strconv.FormatInt(int64(str.(int64)), 10)
 	case uint64:
 		concat = strconv.FormatUint(uint64(str.(uint64)), 10)
 	case []int64:
-		concat = ConcatInt64(str.([]int64))
+		concat = ConcatSliceInt64(str.([]int64))
 	case []uint64:
-		concat = ConcatUint64(str.([]uint64))
+		concat = ConcatSliceUint64(str.([]uint64))
 	default:
 		concat = buildStr4(str)
 	}
@@ -165,15 +165,15 @@ func buildStr4(str interface{}) (concat string) {
 	case float64:
 		concat = strconv.FormatFloat(str.(float64), 'f', 6, 64)
 	case []float64:
-		concat = ConcatFloat64(str.([]float64))
+		concat = ConcatSliceFloat64(str.([]float64))
 	case float32:
 		concat = strconv.FormatFloat(float64(str.(float32)), 'f', 6, 64)
 	case []float32:
-		concat = ConcatFloat32(str.([]float32))
+		concat = ConcatSliceFloat32(str.([]float32))
 	case uint:
 		concat = strconv.FormatUint(uint64(str.(uint)), 10)
 	case []uint:
-		concat = ConcatUint(str.([]uint))
+		concat = ConcatSliceUint(str.([]uint))
 	default:
 		concat = "<not exist type without suport>"
 	}
@@ -219,9 +219,9 @@ func ConcatStrInt(strs ...interface{}) string {
 	return sb.String()
 }
 
-// ConcatBool Function that converts []bool to string optimally
-// ConcatBool(a []bool)
-func ConcatBool(a []bool) string {
+// ConcatSliceBool Function that converts []bool to string optimally
+// ConcatSliceBool(a []bool)
+func ConcatSliceBool(a []bool) string {
 	if len(a) == 0 {
 		return ""
 	}
@@ -232,9 +232,9 @@ func ConcatBool(a []bool) string {
 	return strings.Join(b, "")
 }
 
-// ConcatInt Function that converts []int to string optimally
-// ConcatInt(a []int)
-func ConcatInt(a []int) string {
+// ConcatSliceInt Function that converts []int to string optimally
+// ConcatSliceInt(a []int)
+func ConcatSliceInt(a []int) string {
 	if len(a) == 0 {
 		return ""
 	}
@@ -245,9 +245,9 @@ func ConcatInt(a []int) string {
 	return strings.Join(b, "")
 }
 
-// ConcatInt8 Function that converts []int8 to string optimally
-// ConcatInt8(a []int8)
-func ConcatInt8(a []int8) string {
+// ConcatSliceInt8 Function that converts []int8 to string optimally
+// ConcatSliceInt8(a []int8)
+func ConcatSliceInt8(a []int8) string {
 	if len(a) == 0 {
 		return ""
 	}
@@ -258,9 +258,9 @@ func ConcatInt8(a []int8) string {
 	return strings.Join(b, "")
 }
 
-// ConcatInt16 Function that converts []int16 to string optimally
-// ConcatInt16(a []int16)
-func ConcatInt16(a []int16) string {
+// ConcatSliceInt16 Function that converts []int16 to string optimally
+// ConcatSliceInt16(a []int16)
+func ConcatSliceInt16(a []int16) string {
 	if len(a) == 0 {
 		return ""
 	}
@@ -271,9 +271,9 @@ func ConcatInt16(a []int16) string {
 	return strings.Join(b, "")
 }
 
-// ConcatInt32 Function that converts []int32 to string optimally
-// ConcatInt32(a []int32)
-func ConcatInt32(a []int32) string {
+// ConcatSliceInt32 Function that converts []int32 to string optimally
+// ConcatSliceInt32(a []int32)
+func ConcatSliceInt32(a []int32) string {
 	if len(a) == 0 {
 		return ""
 	}
@@ -284,9 +284,9 @@ func ConcatInt32(a []int32) string {
 	return strings.Join(b, "")
 }
 
-// ConcatInt64 Function that converts []int64 to string optimally
-// ConcatInt64(a []int64)
-func ConcatInt64(a []int64) string {
+// ConcatSliceInt64 Function that converts []int64 to string optimally
+// ConcatSliceInt64(a []int64)
+func ConcatSliceInt64(a []int64) string {
 	if len(a) == 0 {
 		return ""
 	}
@@ -297,9 +297,9 @@ func ConcatInt64(a []int64) string {
 	return strings.Join(b, "")
 }
 
-// ConcatUint Function that converts []uint to string optimally
-// ConcatUint(a []uint)
-func ConcatUint(a []uint) string {
+// ConcatSliceUint Function that converts []uint to string optimally
+// ConcatSliceUint(a []uint)
+func ConcatSliceUint(a []uint) string {
 	if len(a) == 0 {
 		return ""
 	}
@@ -310,9 +310,9 @@ func ConcatUint(a []uint) string {
 	return strings.Join(b, "")
 }
 
-// ConcatUint8 Function that converts []uint8 to string optimally
-// ConcatUint8(a []uint8)
-func ConcatUint8(a []uint8) string {
+// ConcatSliceUint8 Function that converts []uint8 to string optimally
+// ConcatSliceUint8(a []uint8)
+func ConcatSliceUint8(a []uint8) string {
 	if len(a) == 0 {
 		return ""
 	}
@@ -323,9 +323,9 @@ func ConcatUint8(a []uint8) string {
 	return strings.Join(b, "")
 }
 
-// ConcatUint16 Function that converts []uint16 to string optimally
-// ConcatUint16(a []uint16)
-func ConcatUint16(a []uint16) string {
+// ConcatSliceUint16 Function that converts []uint16 to string optimally
+// ConcatSliceUint16(a []uint16)
+func ConcatSliceUint16(a []uint16) string {
 	if len(a) == 0 {
 		return ""
 	}
@@ -336,9 +336,9 @@ func ConcatUint16(a []uint16) string {
 	return strings.Join(b, "")
 }
 
-// ConcatUint32 Function that converts []uint32 to string optimally
-// ConcatUint32(a []uint32)
-func ConcatUint32(a []uint32) string {
+// ConcatSliceUint32 Function that converts []uint32 to string optimally
+// ConcatSliceUint32(a []uint32)
+func ConcatSliceUint32(a []uint32) string {
 	if len(a) == 0 {
 		return ""
 	}
@@ -349,9 +349,9 @@ func ConcatUint32(a []uint32) string {
 	return strings.Join(b, "")
 }
 
-// ConcatUint64 Function that converts []uint64 to string optimally
-// ConcatUint64(a []uint64)
-func ConcatUint64(a []uint64) string {
+// ConcatSliceUint64 Function that converts []uint64 to string optimally
+// ConcatSliceUint64(a []uint64)
+func ConcatSliceUint64(a []uint64) string {
 	if len(a) == 0 {
 		return ""
 	}
@@ -362,9 +362,9 @@ func ConcatUint64(a []uint64) string {
 	return strings.Join(b, "")
 }
 
-// ConcatFloat32 Function that converts []float32 to string optimally
-// ConcatFloat32(a []float32)
-func ConcatFloat32(a []float32) string {
+// ConcatSliceFloat32 Function that converts []float32 to string optimally
+// ConcatSliceFloat32(a []float32)
+func ConcatSliceFloat32(a []float32) string {
 	if len(a) == 0 {
 		return ""
 	}
@@ -375,9 +375,9 @@ func ConcatFloat32(a []float32) string {
 	return strings.Join(b, "")
 }
 
-// ConcatFloat64 Function that converts []float64 to string optimally
-// ConcatFloat64(a []float64)
-func ConcatFloat64(a []float64) string {
+// ConcatSliceFloat64 Function that converts []float64 to string optimally
+// ConcatSliceFloat64(a []float64)
+func ConcatSliceFloat64(a []float64) string {
 	if len(a) == 0 {
 		return ""
 	}

@@ -54,6 +54,41 @@ func main() {
 }
 ```
 
+#### Concatenating specific functions Go
+```go
+package main
+
+import (
+	g "github.com/jeffotoni/gconcat"
+)
+
+func main() {
+	// accepting all types 
+	str := g.Concat("/api/v1", "/", 39383838, "/", 129494, "/product/", 2012)
+	println(str)
+
+	// accepting only string
+	str := g.ConcatStr("jeffotoni", "/", "2021", "/", "product")
+	println(str)
+
+	// accepting only string
+	str := g.ConcatString("jeffotoni", "/", "2021", "/", "product")
+	println(str)
+
+	// accepting only string and int
+	str := g.ConcatStrInt("jeffotoni", "/", 2021, "/", "product", "/", 1001)
+	println(str)
+
+	// accepting only string and int
+	str := g.ConcatStringInt("jeffotoni", "/", 2021, "/", "product", "/", 1001)
+	println(str)
+
+	// accepting only int
+	str := g.ConcatSliceInt([]int{3,4,678,33,77},[]int{9,6,4,6,7})
+	println(str)
+}
+```
+
 #### Concatenating types using interfaces
 ```go
 package main
@@ -205,7 +240,7 @@ BenchmarkConcatFuncFuncAny-12         	 4006081	       304.6 ns/op	      87 B/op
 BenchmarkConcatStr-12                 	11044234	       109.1 ns/op	     416 B/op	       1 allocs/op
 BenchmarkConcatStrInt-12              	 3676225	       326.4 ns/op	     952 B/op	       7 allocs/op
 BenchmarkConcat-12                    	 3574280	       340.3 ns/op	     976 B/op	       8 allocs/op
-BenchmarkConcatIntString-12           	 5670842	       209.0 ns/op	     128 B/op	       6 allocs/op
+BenchmarkConcatSliceIntString-12           	 5670842	       209.0 ns/op	     128 B/op	       6 allocs/op
 BenchmarkLongJoin-12                  	10456964	       112.6 ns/op	     448 B/op	       1 allocs/op
 BenchmarkLongSprintf-12               	 3954552	       300.3 ns/op	     480 B/op	       5 allocs/op
 BenchmarkBuilder-12                   	 4020152	       264.7 ns/op	    2397 B/op	       0 allocs/op
