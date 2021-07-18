@@ -86,6 +86,9 @@ func main() {
 	// accepting only int
 	str := g.ConcatSliceInt([]int{3,4,678,33,77},[]int{9,6,4,6,7})
 	println(str)
+
+	str := g.ConcatSliceFloat32([]float32{3.1,4.0,67.89,33.88,77.666},[]float32{9.8,6.9,45.55,6.0,7.0})
+	println(str)
 }
 ```
 
