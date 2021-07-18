@@ -68,26 +68,26 @@ func main() {
 	println(str)
 
 	// accepting only string
-	str := g.ConcatStr("jeffotoni", "/", "2021", "/", "product")
+	str = g.ConcatStr("jeffotoni", "/", "2021", "/", "product")
 	println(str)
 
 	// accepting only string
-	str := g.ConcatString("jeffotoni", "/", "2021", "/", "product")
+	str = g.ConcatString("jeffotoni", "/", "2021", "/", "product")
 	println(str)
 
 	// accepting only string and int
-	str := g.ConcatStrInt("jeffotoni", "/", 2021, "/", "product", "/", 1001)
+	str = g.ConcatStrInt("jeffotoni", "/", 2021, "/", "product", "/", 1001)
 	println(str)
 
 	// accepting only string and int
-	str := g.ConcatStringInt("jeffotoni", "/", 2021, "/", "product", "/", 1001)
+	str = g.ConcatStringInt("jeffotoni", "/", 2021, "/", "product", "/", 1001)
 	println(str)
 
 	// accepting only int
-	str := g.ConcatSliceInt([]int{3,4,678,33,77},[]int{9,6,4,6,7})
+	str = g.ConcatSliceInt([]int{3,4,678,33,77},[]int{9,6,4,6,7})
 	println(str)
 
-	str := g.ConcatSliceFloat32([]float32{3.1,4.0,67.89,33.88,77.666},[]float32{9.8,6.9,45.55,6.0,7.0})
+	str = g.ConcatSliceFloat32([]float32{3.1,4.0,67.89,33.88,77.666})
 	println(str)
 }
 ```
