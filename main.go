@@ -161,7 +161,7 @@ func buildStr3(str interface{}) (concat string) {
 // buildStr4 Function responsible abstracting and case some types
 // buildStr4(float64, []float64, float32, []float32, uint, []uint)
 func buildStr4(str interface{}) (concat string) {
-	switch x := str.(type) {
+	switch str.(type) {
 	case float64:
 		concat = strconv.FormatFloat(str.(float64), 'f', 6, 64)
 	case []float64:
@@ -175,37 +175,37 @@ func buildStr4(str interface{}) (concat string) {
 	case []uint:
 		concat = ConcatUint(str.([]uint))
 	default:
-		fmt.Println(x)
-		concat = "not exist type without suport"
+		concat = "<not exist type without suport>"
 	}
 	return
 }
 
 // ConcatString Function that converts only string
-func ConcatString(strs ...string) (concat string) {
-	concat = ConcatStr(strs...)
-	return
+// ConcatString(strs ...string)
+func ConcatString(strs ...string) string {
+	return ConcatStr(strs...)
 }
 
 // ConcatStringInt Function that converts only string
-func ConcatStringInt(strs ...interface{}) (concat string) {
-	concat = ConcatStrInt(strs...)
-	return
+// ConcatStringInt(strs ...interface{})
+func ConcatStringInt(strs ...interface{}) string {
+	return ConcatStrInt(strs...)
 }
 
 // ConcatStr Function that converts only string
-func ConcatStr(strs ...string) (concat string) {
+// ConcatStr(strs ...string)
+func ConcatStr(strs ...string) string {
 	if len(strs) == 0 {
-		return
+		return ""
 	}
-	concat = strings.Join(strs, "")
-	return
+	return strings.Join(strs, "")
 }
 
 // ConcatStrInt Function that converts only string and Int
-func ConcatStrInt(strs ...interface{}) (concat string) {
+// ConcatStrInt(strs ...interface{})
+func ConcatStrInt(strs ...interface{}) string {
 	if len(strs) == 0 {
-		return
+		return ""
 	}
 	var sb strings.Builder
 	for _, val := range strs {
@@ -216,11 +216,11 @@ func ConcatStrInt(strs ...interface{}) (concat string) {
 			sb.WriteString(strconv.Itoa(int(val.(int))))
 		}
 	}
-	concat = sb.String()
-	return
+	return sb.String()
 }
 
 // ConcatBool Function that converts []bool to string optimally
+// ConcatBool(a []bool)
 func ConcatBool(a []bool) string {
 	if len(a) == 0 {
 		return ""
@@ -233,6 +233,7 @@ func ConcatBool(a []bool) string {
 }
 
 // ConcatInt Function that converts []int to string optimally
+// ConcatInt(a []int)
 func ConcatInt(a []int) string {
 	if len(a) == 0 {
 		return ""
@@ -245,6 +246,7 @@ func ConcatInt(a []int) string {
 }
 
 // ConcatInt8 Function that converts []int8 to string optimally
+// ConcatInt8(a []int8)
 func ConcatInt8(a []int8) string {
 	if len(a) == 0 {
 		return ""
@@ -257,6 +259,7 @@ func ConcatInt8(a []int8) string {
 }
 
 // ConcatInt16 Function that converts []int16 to string optimally
+// ConcatInt16(a []int16)
 func ConcatInt16(a []int16) string {
 	if len(a) == 0 {
 		return ""
@@ -269,6 +272,7 @@ func ConcatInt16(a []int16) string {
 }
 
 // ConcatInt32 Function that converts []int32 to string optimally
+// ConcatInt32(a []int32)
 func ConcatInt32(a []int32) string {
 	if len(a) == 0 {
 		return ""
@@ -281,6 +285,7 @@ func ConcatInt32(a []int32) string {
 }
 
 // ConcatInt64 Function that converts []int64 to string optimally
+// ConcatInt64(a []int64)
 func ConcatInt64(a []int64) string {
 	if len(a) == 0 {
 		return ""
@@ -293,6 +298,7 @@ func ConcatInt64(a []int64) string {
 }
 
 // ConcatUint Function that converts []uint to string optimally
+// ConcatUint(a []uint)
 func ConcatUint(a []uint) string {
 	if len(a) == 0 {
 		return ""
@@ -305,6 +311,7 @@ func ConcatUint(a []uint) string {
 }
 
 // ConcatUint8 Function that converts []uint8 to string optimally
+// ConcatUint8(a []uint8)
 func ConcatUint8(a []uint8) string {
 	if len(a) == 0 {
 		return ""
@@ -317,6 +324,7 @@ func ConcatUint8(a []uint8) string {
 }
 
 // ConcatUint16 Function that converts []uint16 to string optimally
+// ConcatUint16(a []uint16)
 func ConcatUint16(a []uint16) string {
 	if len(a) == 0 {
 		return ""
@@ -329,6 +337,7 @@ func ConcatUint16(a []uint16) string {
 }
 
 // ConcatUint32 Function that converts []uint32 to string optimally
+// ConcatUint32(a []uint32)
 func ConcatUint32(a []uint32) string {
 	if len(a) == 0 {
 		return ""
@@ -341,6 +350,7 @@ func ConcatUint32(a []uint32) string {
 }
 
 // ConcatUint64 Function that converts []uint64 to string optimally
+// ConcatUint64(a []uint64)
 func ConcatUint64(a []uint64) string {
 	if len(a) == 0 {
 		return ""
@@ -353,6 +363,7 @@ func ConcatUint64(a []uint64) string {
 }
 
 // ConcatFloat32 Function that converts []float32 to string optimally
+// ConcatFloat32(a []float32)
 func ConcatFloat32(a []float32) string {
 	if len(a) == 0 {
 		return ""
@@ -365,6 +376,7 @@ func ConcatFloat32(a []float32) string {
 }
 
 // ConcatFloat64 Function that converts []float64 to string optimally
+// ConcatFloat64(a []float64)
 func ConcatFloat64(a []float64) string {
 	if len(a) == 0 {
 		return ""

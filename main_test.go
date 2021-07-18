@@ -276,6 +276,25 @@ func TestConcatStrInt(t *testing.T) {
 	}
 }
 
+// go test -v -run ^TestStringType
+func TestStringType(t *testing.T) {
+	var st string = "765423-2021"
+	s := ConcatString(st)
+	if s != "765423-2021" {
+		t.Errorf("Error type string")
+	}
+}
+
+// go test -v -run ^TestStringIntType
+func TestStringIntType(t *testing.T) {
+	var st string = "765423-2021-"
+	var it int = 765423
+	s := ConcatStringInt(st, it)
+	if s != "765423-2021-765423" {
+		t.Errorf("Error type string and int")
+	}
+}
+
 // go test -v -run ^TestIntType
 func TestIntType(t *testing.T) {
 	var i64 int64 = 3456789765423
@@ -320,7 +339,7 @@ func TestZero(t *testing.T) {
 	type typeZero struct{}
 	var tn typeZero
 	s := Concat(tn)
-	if s != "not exist type without suport" {
+	if s != "<not exist type without suport>" {
 		t.Errorf("Error type no exist")
 	}
 
@@ -334,7 +353,7 @@ func TestZero(t *testing.T) {
 func TestWithFunc(t *testing.T) {
 	nothing := func() {}
 	s := Concat(nothing)
-	if s != "not exist type without suport" {
+	if s != "<not exist type without suport>" {
 		t.Errorf("Error not exist type")
 	}
 }
