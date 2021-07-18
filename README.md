@@ -89,6 +89,9 @@ func main() {
 
 	str = g.ConcatSliceFloat32([]float32{3.1,4.0,67.89,33.88,77.666})
 	println(str)
+
+	str = g.ConcatSliceBool([]bool{true, false, true})
+	println(str)
 }
 ```
 
