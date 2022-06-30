@@ -40,6 +40,13 @@ func main() {
 	str := g.ConcatStr("jeffotoni", "/", "2021", "/", "product")
 	println(str)
 
+	// accepting only string
+	str := g.ConcatStrCopy("jeffotoni", "/", "2021", "/", "product")
+	println(str)
+
+	str := g.CopyStr("jeffotoni", "/", "2021", "/", "product")
+	println(str)
+
 	// accepting only string and int
 	str := g.ConcatStrInt("jeffotoni", "/", 2021, "/", "product", "/", 1001)
 	println(str)

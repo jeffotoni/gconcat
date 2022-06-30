@@ -814,7 +814,19 @@ func BenchmarkConcatFuncFuncAny(b *testing.B) {
 
 func BenchmarkConcatStr(b *testing.B) {
 	for n := 0; n < b.N; n++ {
-		_ = ConcatStr("string_jeffotoni", longStr, longStr, longStr, longStr)
+		_ = ConcatStr("string_jeffotoni here:", longStr, longStr, longStr, longStr, " go is life ", "2022")
+	}
+}
+
+func BenchmarkCopyStr(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		_ = CopyStr("string_jeffotoni here:", longStr, longStr, longStr, longStr, " go is life ", "2022")
+	}
+}
+
+func BenchmarkConcatStrCopy(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		_ = ConcatStrCopy("string_jeffotoni here:", longStr, longStr, longStr, longStr, " go is life ", "2022")
 	}
 }
 

@@ -58,13 +58,6 @@ func ConcatFunc(f ...interface{}) string {
 func Build(strs ...interface{}) string {
 	// testing various ways to improve
 	// performance is using Builder
-	//
-	// sv := make([]string, len(strs))
-	// for _, str := range strs {
-	// 	sv = append(sv, buildStr(str))
-	// }
-	// return strings.Join(sv, "")
-
 	var sb strings.Builder
 	for _, str := range strs {
 		sb.WriteString(buildStr(str))
@@ -199,6 +192,21 @@ func ConcatStr(strs ...string) string {
 		return ""
 	}
 	return strings.Join(strs, "")
+}
+
+func ConcatStrCopy(strs ...string) string {
+	if len(strs) == 0 {
+		return ""
+	}
+	bs := make([]byte, 0, len(strs))
+	bl := 0
+	for _, val := range strs {
+		bl += copy(bs[bl:], val)
+	}
+	return string(bs)
+}
+func CopyStr(strs ...string) string {
+	return ConcatStrCopy(strs...)
 }
 
 // ConcatStrInt Function that converts only string and Int
