@@ -198,7 +198,13 @@ func ConcatStrCopy(strs ...string) string {
 	if len(strs) == 0 {
 		return ""
 	}
-	bs := make([]byte, 0, len(strs))
+
+	i := 0
+	for _, val := range strs {
+		i += len(val)
+	}
+
+	bs := make([]byte, i, i)
 	bl := 0
 	for _, val := range strs {
 		bl += copy(bs[bl:], val)
