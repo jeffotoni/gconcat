@@ -16,7 +16,7 @@ func ExampleConcat() {
 	s := Concat("/api/v1/", 39383838, "/", 129494, "/product/", 2012)
 	s = Concat(s, ":", 33.22, []string{" - ", "jeffotoni", "-", "2021"})
 	fmt.Println(s)
-	// Output: /api/v1/39383838/129494/product/2012:33.220000 - jeffotoni-2021
+	// Output: /api/v1/39383838/129494/product/2012:33.22 - jeffotoni-2021
 }
 
 // This function is named ExampleBuild()
@@ -210,7 +210,7 @@ func TestConcatFuncMany(t *testing.T) {
 	}
 }
 
-//go test -v -run ^TestConcatFuncNil
+// go test -v -run ^TestConcatFuncNil
 func TestConcatFuncNil(t *testing.T) {
 	typeNil := func() interface{} {
 		return nil
@@ -221,7 +221,7 @@ func TestConcatFuncNil(t *testing.T) {
 	}
 }
 
-//go test -v -run ^TestConcatFuncError
+// go test -v -run ^TestConcatFuncError
 func TestConcatFuncError(t *testing.T) {
 	typeError := func() error {
 		return errors.New("error")
@@ -519,7 +519,7 @@ func TestUIntTypes(t *testing.T) {
 	}
 }
 
-//go test -v -run ^TestConcatSliceBool
+// go test -v -run ^TestConcatSliceBool
 func TestConcatSliceBool(t *testing.T) {
 	//[]bool empty
 	var be []bool
@@ -535,7 +535,7 @@ func TestConcatSliceBool(t *testing.T) {
 	}
 }
 
-//go test -v -run ^TestConcatFloats
+// go test -v -run ^TestConcatFloats
 func TestConcatFloats(t *testing.T) {
 	//[]float32 empty
 	var ef32 []float32
@@ -612,19 +612,19 @@ func TestConcatMany(t *testing.T) {
 	// float32
 	var f32 float32 = float32(23)
 	sf32 := Concat(f32)
-	if sf32 != "23.000000" {
+	if sf32 != "23" {
 		t.Errorf("Error TestConcatMany for float32: %v, want %v", sf32, "23.000000")
 	}
 	// float64
 	var f64 float64 = float64(23)
 	sf64 := Concat(f64)
-	if sf64 != "23.000000" {
+	if sf64 != "23" {
 		t.Errorf("Error TestConcatMany for float64: %v, want %v", su16, "23.000000")
 	}
 
 }
 
-//go test -v -run ^Test_Concat_OneStr
+// go test -v -run ^Test_Concat_OneStr
 func Test_Concat_OneStr(t *testing.T) {
 	var many1String, many1Int, many1Int8, many1Int16, many1Int32, many1Int64 interface{}
 	var many1Uint, many1Uint8, many1Uint16, many1Uint32, many1Uint64 interface{}
@@ -656,7 +656,6 @@ func Test_Concat_OneStr(t *testing.T) {
 		args args
 		want string
 	}{
-		// TODO: Add test cases.
 		{"test_ConcatStr_", args{str: many1String}, "21"},
 		{"test_ConcatStr_", args{str: many1Int}, "100"},
 		{"test_ConcatStr_", args{str: many1Int8}, "100"},
@@ -691,7 +690,7 @@ func Test_Concat_OneStr(t *testing.T) {
 	}
 }
 
-//go test -v -run ^Test_Concat_Many
+// go test -v -run ^Test_Concat_Many
 func Test_Concat_Many(t *testing.T) {
 
 	var many1String, many1Int, many1Int8, many1Int16, many1Int32, many1Int64 []interface{}
@@ -908,4 +907,101 @@ func BenchmarkMarshal(b *testing.B) {
 			panic(err)
 		}
 	}
+}
+
+// go test -v -failfast -run ^TestConcatFunc$
+func TestConcatFunc(t *testing.T) {
+	type args struct {
+		f []interface{}
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		{
+			name: "test",
+			args: args{
+				f: []interface{}{
+					func(a, b, c int) int {
+						return a + b*c
+					}(1, 2, 3),
+				},
+			},
+			want: "7",
+		},
+		{
+			name: "test with function as result",
+			args: args{
+				f: []interface{}{
+					func(a, b, c int) func() int {
+						return func() int { x := 0; return x }
+					}(1, 2, 3),
+				},
+			},
+			want: "0",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := ConcatFunc(tt.args.f...); got != tt.want {
+				t.Errorf("ConcatFunc() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+var concatFuncResp string
+
+func BenchmarkConcatFunc(b *testing.B) {
+
+	for i := 0; i < b.N; i++ {
+		concatFuncResp = ConcatFunc(func(a, b, c int) int {
+			return a + b*c
+		}(1, 2, 3), []int{1, 2, 3, 4})
+	}
+
+}
+
+// go test -v -failfast -run ^TestConcatFuncOLD$
+func TestConcatFuncOLD(t *testing.T) {
+	type args struct {
+		f []interface{}
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		{
+			name: "test",
+			args: args{
+				f: []interface{}{
+					func(a, b, c int) int {
+						return a + b*c
+					}(1, 2, 3),
+				},
+			},
+			want: "7",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := ConcatFuncOLD(tt.args.f...); got != tt.want {
+				t.Errorf("ConcatFuncOLD() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+var concatFuncRespOLD string
+
+func BenchmarkConcatFuncOLD(b *testing.B) {
+
+	for i := 0; i < b.N; i++ {
+		concatFuncRespOLD = ConcatFuncOLD(func(a, b, c int) int {
+			return a + b*c
+		}(1, 2, 3), []int{1, 2, 3, 4})
+	}
+
 }
