@@ -189,7 +189,10 @@ func buildStr4(str interface{}) (concat string) {
 }
 
 // buildStr5 Function responsible abstracting cases where interface is reflect.Value
-// buildStr5( string, struct EXPORTED FIELDS VALUES, digest result of func(), bool, slice,array, int, int8, int16, int32, int64, uint, uint8, uint16, uint32, uint64, float32, float64)
+// buildStr5( string, struct EXPORTED FIELDS VALUES AND EXPORTED METHODS, digest result of func() function with paramters are not supported,
+// bool, slice,array, int, int8, int16, int32, int64, uint, uint8, uint16, uint32, uint64, float32, float64)
+//
+// For the struct methods, if the struct has exported method, it will first concat the values inside the struct. ex Struct{A:10} with method TurnTo20( return 20), will be concat 1020
 func buildStr5(str interface{}) (concat string) {
 	switch str.(type) {
 	case reflect.Value:
@@ -273,6 +276,9 @@ func buildStr5(str interface{}) (concat string) {
 		}
 		if k == reflect.Func { // calling back buildStr5 to run over reflect types
 			var tmp strings.Builder
+			if v.IsNil() {
+				return
+			}
 			s := v.Call([]reflect.Value{})
 			for i := 0; i < len(s); i++ {
 				tmp.WriteString(buildStr5(s[i]))
@@ -288,6 +294,7 @@ func buildStr5(str interface{}) (concat string) {
 					tmp.WriteString(buildStr5(v.FieldByName(exF[i].Name)))
 				}
 			}
+
 			concat = tmp.String()
 			return
 		}
@@ -306,8 +313,7 @@ func buildStr5(str interface{}) (concat string) {
 		}
 		if k == reflect.Pointer {
 		}
-		if k == reflect.Uintptr {
-		}
+
 		*/
 	default: // case the reflect type isn't already reflect.Value, we reflect the type and call the function again.
 		concat = buildStr5(reflect.ValueOf(str))

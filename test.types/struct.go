@@ -5,7 +5,7 @@ type Y struct {
 	X string
 }
 
-func (Y) WorkingInternalVar(i string) (a Y) {
+func (Y) workingInternalVar(i string) (a Y) {
 	a.i = i
 	a.X = "exported"
 	return
