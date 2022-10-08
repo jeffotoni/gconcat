@@ -1165,19 +1165,29 @@ func Test_buildStr5(t *testing.T) {
 			},
 			wantConcat: "foo",
 		},
-		/*
-			{
-				name: "reflect func imported interface Potato calling method Fries",
-				args: args{
-					str: reflect.ValueOf(func() testtypes.Potato {
-						z := testtypes.Y{
-							X: "foo",
-						}
-						return z
-					}()),
-				},
-				wantConcat: "foo",
-			},*/
+		{
+			name: "reflect func test",
+			args: args{
+				str: reflect.ValueOf(func() interface{} {
+					z := testtypes.Y{
+						X: "foo",
+					}
+
+					return z.Fries("batata")
+				}()),
+			},
+			wantConcat: "good",
+		},
+		{
+			name: "reflect func with func",
+			args: args{
+				str: reflect.ValueOf(func() func(int) int {
+					var x func(int) int
+					return x
+				}()),
+			},
+			wantConcat: "good",
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
