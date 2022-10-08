@@ -189,12 +189,13 @@ func buildStr4(str interface{}) (concat string) {
 }
 
 // buildStr5 Function responsible abstracting cases where interface is reflect.Value
-// buildStr5( string, result func(), bool, slice,array, int, int8, int16, int32, int64, uint, uint8, uint16, uint32, uint64, float32, float64)
+// buildStr5( string, struct EXPORTED FIELDS VALUES, digest result of func(), bool, slice,array, int, int8, int16, int32, int64, uint, uint8, uint16, uint32, uint64, float32, float64)
 func buildStr5(str interface{}) (concat string) {
 	switch str.(type) {
 	case reflect.Value:
 		v := str.(reflect.Value)
 		k := v.Kind()
+		fmt.Println(k)
 		if k == reflect.Bool {
 			if v.Interface().(bool) {
 				concat = "true"
@@ -280,20 +281,28 @@ func buildStr5(str interface{}) (concat string) {
 			concat = tmp.String()
 			return
 		}
-		// TODO REMOVE when new handling of reflect type arrives
-		concat = fmt.Sprint(v)
-		return
-		/* TODO
 		if k == reflect.Struct {
 			var tmp strings.Builder
-			for i := 0; i < v.NumField(); i++ { // calling back buildStr5 to run over reflect types
-				tmp.WriteString(buildStr5(v.Field(i)))
+			exF := reflect.VisibleFields(v.Type())
+			for i := 0; i < len(exF); i++ {
+				if exF[i].IsExported() {
+					tmp.WriteString(buildStr5(v.FieldByName(exF[i].Name)))
+				}
 			}
 			concat = tmp.String()
 			return
 		}
+
+		// TODO REMOVE when new handling of reflect type arrives
+		concat = fmt.Sprint(v)
+		return
+		/* TODO
+
 		if k == reflect.Interface {
+			fmt.Println("to aqui")
+			v.Interface()
 		}
+
 		if k == reflect.Map {
 		}
 		if k == reflect.Pointer {

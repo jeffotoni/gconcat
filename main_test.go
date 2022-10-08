@@ -7,6 +7,8 @@ import (
 	"reflect"
 	"strings"
 	"testing"
+
+	testtypes "github.com/jeffotoni/gconcat/test.types"
 )
 
 // This function is named ExampleConcat()
@@ -1009,6 +1011,7 @@ func BenchmarkConcatFuncOLD(b *testing.B) {
 
 // go test -v -failfast -run ^Test_buildStr5$
 func Test_buildStr5(t *testing.T) {
+
 	type args struct {
 		str interface{}
 	}
@@ -1143,6 +1146,38 @@ func Test_buildStr5(t *testing.T) {
 			},
 			wantConcat: "12",
 		},
+		{
+			name: "reflect interface int inside",
+			args: args{
+				str: reflect.ValueOf(interface{}(1)),
+			},
+			wantConcat: "1",
+		},
+		{
+			name: "reflect func imported struct Y, print internal exported fields only",
+			args: args{
+				str: reflect.ValueOf(func() testtypes.Y {
+					z := testtypes.Y{
+						X: "foo",
+					}
+					return z
+				}()),
+			},
+			wantConcat: "foo",
+		},
+		/*
+			{
+				name: "reflect func imported interface Potato calling method Fries",
+				args: args{
+					str: reflect.ValueOf(func() testtypes.Potato {
+						z := testtypes.Y{
+							X: "foo",
+						}
+						return z
+					}()),
+				},
+				wantConcat: "foo",
+			},*/
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
