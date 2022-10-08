@@ -195,7 +195,6 @@ func buildStr5(str interface{}) (concat string) {
 	case reflect.Value:
 		v := str.(reflect.Value)
 		k := v.Kind()
-		fmt.Println(k)
 		if k == reflect.Bool {
 			if v.Interface().(bool) {
 				concat = "true"
