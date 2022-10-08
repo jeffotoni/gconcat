@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"reflect"
 	"strings"
 	"testing"
 )
@@ -1004,4 +1005,150 @@ func BenchmarkConcatFuncOLD(b *testing.B) {
 		}(1, 2, 3), []int{1, 2, 3, 4})
 	}
 
+}
+
+// go test -v -failfast -run ^Test_buildStr5$
+func Test_buildStr5(t *testing.T) {
+	type args struct {
+		str interface{}
+	}
+	tests := []struct {
+		name       string
+		args       args
+		wantConcat string
+	}{
+		{
+			name: "reflect bool",
+			args: args{
+				str: reflect.ValueOf(true),
+			},
+			wantConcat: "true",
+		},
+		{
+			name: "reflect bool",
+			args: args{
+				str: reflect.ValueOf(false),
+			},
+			wantConcat: "false",
+		},
+		{
+			name: "reflect int",
+			args: args{
+				str: reflect.ValueOf(int(1)),
+			},
+			wantConcat: "1",
+		},
+		{
+			name: "reflect int8",
+			args: args{
+				str: reflect.ValueOf(int8(1)),
+			},
+			wantConcat: "1",
+		},
+		{
+			name: "reflect int16",
+			args: args{
+				str: reflect.ValueOf(int16(1)),
+			},
+			wantConcat: "1",
+		},
+		{
+			name: "reflect int32",
+			args: args{
+				str: reflect.ValueOf(int32(1)),
+			},
+			wantConcat: "1",
+		},
+		{
+			name: "reflect int64",
+			args: args{
+				str: reflect.ValueOf(int64(1)),
+			},
+			wantConcat: "1",
+		},
+		{
+			name: "reflect uint8",
+			args: args{
+				str: reflect.ValueOf(uint8(1)),
+			},
+			wantConcat: "1",
+		},
+		{
+			name: "reflect uint16",
+			args: args{
+				str: reflect.ValueOf(uint16(1)),
+			},
+			wantConcat: "1",
+		},
+		{
+			name: "reflect uint32",
+			args: args{
+				str: reflect.ValueOf(uint32(1)),
+			},
+			wantConcat: "1",
+		},
+		{
+			name: "reflect uint64",
+			args: args{
+				str: reflect.ValueOf(uint64(1)),
+			},
+			wantConcat: "1",
+		},
+		{
+			name: "reflect float32",
+			args: args{
+				str: reflect.ValueOf(float32(1)),
+			},
+			wantConcat: "1",
+		},
+		{
+			name: "reflect float64",
+			args: args{
+				str: reflect.ValueOf(float64(1)),
+			},
+			wantConcat: "1",
+		},
+		{
+			name: "reflect string",
+			args: args{
+				str: reflect.ValueOf("potato"),
+			},
+			wantConcat: "potato",
+		},
+		{
+			name: "reflect slice int",
+			args: args{
+				str: reflect.ValueOf([]int{1}),
+			},
+			wantConcat: "1",
+		},
+		{
+			name: "reflect array int",
+			args: args{
+				str: reflect.ValueOf([1]int{1}),
+			},
+			wantConcat: "1",
+		},
+		{
+			name: "reflect func int",
+			args: args{
+				str: reflect.ValueOf(func() int { x := 1; return x }),
+			},
+			wantConcat: "1",
+		},
+		{
+			name: "reflect func slice",
+			args: args{
+				str: reflect.ValueOf(func() []int { x := []int{1, 2}; return x }),
+			},
+			wantConcat: "12",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if gotConcat := buildStr5(tt.args.str); gotConcat != tt.wantConcat {
+				t.Errorf("buildStr5() = %v, want %v", gotConcat, tt.wantConcat)
+			}
+		})
+	}
 }
