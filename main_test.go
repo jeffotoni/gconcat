@@ -1186,7 +1186,7 @@ func Test_buildStr5(t *testing.T) {
 					return x
 				}()),
 			},
-			wantConcat: "good",
+			wantConcat: "",
 		},
 	}
 	for _, tt := range tests {
