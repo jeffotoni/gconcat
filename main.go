@@ -21,15 +21,13 @@ import (
 )
 
 // Concat Function responsible for abstracting the build function and delivering
-// The result will be  Concat(int, []int, []int32, []string, string)
+// The result will be  Concat(int, []int, []int32, []string, string, bool, reflect.Value(string, bool, int, int8, int16, int32, int64, uint, uint8, uint16, uint32, uint64, float32, float64))
 func Concat(str ...interface{}) string {
 	return Build(str...)
 }
 
-//ConcatFunc will be responsible for concatenating the function's return into a string.
-//nil return parameters are ignored.
-//parameters with valid errors are still triggered and must be corrected.
-func ConcatFunc(f ...interface{}) string {
+// ConcatFuncOLD is deprecated.
+func ConcatFuncOLD(f ...interface{}) string {
 	var tmp string
 
 	for _, val := range f {
@@ -53,8 +51,25 @@ func ConcatFunc(f ...interface{}) string {
 	return string(tmp)
 }
 
+// ConcatFunc will be responsible for concatenating the function's return into a string.
+// nil return parameters are ignored.
+// parameters with valid errors are still triggered and must be corrected.
+func ConcatFunc(f ...interface{}) string {
+	var tmpS strings.Builder
+	for _, val := range f {
+		switch v := val.(type) {
+		case nil, func(), struct{}:
+		case error:
+			tmpS.WriteString(v.Error())
+		default: // TODO REMOVE WHEN buildStr1 to buildStr4 be capable of not use reflect package
+			tmpS.WriteString(buildStr5(reflect.ValueOf(v)))
+		}
+	}
+	return tmpS.String()
+}
+
 // Build Function responsible for concatenating, and accepting different types
-// The result will be Build(int, []int, []int32, []string, string)
+// The result will be BuildConcat(int, []int, []int32, []string, string, bool, reflect.Value(string, bool, int, int8, int16, int32, int64, uint, uint8, uint16, uint32, uint64, float32, float64))
 func Build(strs ...interface{}) string {
 	// testing various ways to improve
 	// performance is using Builder
@@ -156,11 +171,11 @@ func buildStr3(str interface{}) (concat string) {
 func buildStr4(str interface{}) (concat string) {
 	switch str.(type) {
 	case float64:
-		concat = strconv.FormatFloat(str.(float64), 'f', 6, 64)
+		concat = strconv.FormatFloat(str.(float64), 'f', -1, 64)
 	case []float64:
 		concat = ConcatSliceFloat64(str.([]float64))
 	case float32:
-		concat = strconv.FormatFloat(float64(str.(float32)), 'f', 6, 64)
+		concat = strconv.FormatFloat(float64(str.(float32)), 'f', -1, 64)
 	case []float32:
 		concat = ConcatSliceFloat32(str.([]float32))
 	case uint:
@@ -168,8 +183,141 @@ func buildStr4(str interface{}) (concat string) {
 	case []uint:
 		concat = ConcatSliceUint(str.([]uint))
 	default:
-		concat = "<not exist type without suport>"
+		concat = buildStr5(str)
 	}
+	return
+}
+
+// buildStr5 Function responsible abstracting cases where interface is reflect.Value
+// buildStr5( string, struct EXPORTED FIELDS VALUES, digest result of func(), bool, slice,array, int, int8, int16, int32, int64, uint, uint8, uint16, uint32, uint64, float32, float64)
+func buildStr5(str interface{}) (concat string) {
+	switch str.(type) {
+	case reflect.Value:
+		v := str.(reflect.Value)
+		k := v.Kind()
+		fmt.Println(k)
+		if k == reflect.Bool {
+			if v.Interface().(bool) {
+				concat = "true"
+				return
+			}
+			concat = "false"
+			return
+		}
+		if k == reflect.Int {
+			concat = strconv.FormatInt(int64(v.Interface().(int)), 10)
+			return
+		}
+		if k == reflect.Int8 {
+			concat = strconv.FormatInt(int64(v.Interface().(int8)), 10)
+			return
+		}
+		if k == reflect.Int16 {
+			concat = strconv.FormatInt(int64(v.Interface().(int16)), 10)
+			return
+		}
+		if k == reflect.Int32 {
+			concat = strconv.FormatInt(int64(v.Interface().(int32)), 10)
+			return
+		}
+		if k == reflect.Int64 {
+			concat = strconv.FormatInt(v.Interface().(int64), 10)
+			return
+		}
+		if k == reflect.Uint {
+			concat = strconv.FormatUint(uint64(v.Interface().(uint)), 10)
+			return
+		}
+		if k == reflect.Uint8 {
+			concat = strconv.FormatUint(uint64(v.Interface().(uint8)), 10)
+			return
+		}
+		if k == reflect.Uint16 {
+			concat = strconv.FormatUint(uint64(v.Interface().(uint16)), 10)
+			return
+		}
+		if k == reflect.Uint32 {
+			concat = strconv.FormatUint(uint64(v.Interface().(uint32)), 10)
+			return
+		}
+		if k == reflect.Uint64 {
+			concat = strconv.FormatUint(v.Interface().(uint64), 10)
+			return
+		}
+		if k == reflect.Float32 {
+			concat = strconv.FormatFloat(float64(v.Interface().(float32)), 'f', -1, 64)
+			return
+		}
+		if k == reflect.Float64 {
+			concat = strconv.FormatFloat(v.Interface().(float64), 'f', -1, 64)
+			return
+		}
+		if k == reflect.String {
+			concat = v.Interface().(string)
+			return
+		}
+		if k == reflect.Slice {
+			var tmp strings.Builder
+			for i := 0; i < v.Len(); i++ {
+				tmp.WriteString(Build(v.Index(i)))
+			}
+			concat = tmp.String()
+			return
+		}
+		if k == reflect.Array {
+			var tmp strings.Builder
+			for i := 0; i < v.Len(); i++ {
+				tmp.WriteString(Build(v.Index(i)))
+			}
+			concat = tmp.String()
+			return
+		}
+		if k == reflect.Func { // calling back buildStr5 to run over reflect types
+			var tmp strings.Builder
+			s := v.Call([]reflect.Value{})
+			for i := 0; i < len(s); i++ {
+				tmp.WriteString(buildStr5(s[i]))
+			}
+			concat = tmp.String()
+			return
+		}
+		if k == reflect.Struct {
+			var tmp strings.Builder
+			exF := reflect.VisibleFields(v.Type())
+			for i := 0; i < len(exF); i++ {
+				if exF[i].IsExported() {
+					tmp.WriteString(buildStr5(v.FieldByName(exF[i].Name)))
+				}
+			}
+			concat = tmp.String()
+			return
+		}
+
+		// TODO REMOVE when new handling of reflect type arrives
+		concat = fmt.Sprint(v)
+		return
+		/* TODO
+
+		if k == reflect.Interface {
+			fmt.Println("to aqui")
+			v.Interface()
+		}
+
+		if k == reflect.Map {
+		}
+		if k == reflect.Pointer {
+		}
+		if k == reflect.Uintptr {
+		}
+		*/
+	default: // case the reflect type isn't already reflect.Value, we reflect the type and call the function again.
+		concat = buildStr5(reflect.ValueOf(str))
+		if concat == "" {
+			break
+		}
+		return
+	}
+	concat = "<not exist type without suport>"
 	return
 }
 
