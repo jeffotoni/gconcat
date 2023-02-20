@@ -1,23 +1,6 @@
 # gconcat
 
-[![GoDoc][1]][2]
-[![GitHub release][3]][4]
-[![Coverage Status][5]][6]
-[![Build Status][7]][8]
-[![Go Report Card][9]][10]
-[![License][11]][11]
-
-[1]: https://godoc.org/github.com/jeffotoni/gconcat?status.svg
-[2]: https://godoc.org/github.com/jeffotoni/gconcat
-[3]: https://img.shields.io/github/v/release/jeffotoni/gconcat?include_prereleases
-[4]: https://github.com/jeffotoni/gconcat/releases
-[5]: https://coveralls.io/repos/github/jeffotoni/gconcat/badge.svg?branch=master
-[6]: https://coveralls.io/github/jeffotoni/gconcat?branch=master
-[7]: https://travis-ci.com/jeffotoni/gconcat.svg?branch=master
-[8]: https://travis-ci.com/jeffotoni/gconcat
-[9]: https://goreportcard.com/badge/github.com/jeffotoni/gconcat
-[10]: https://goreportcard.com/report/github.com/jeffotoni/gconcat
-[11]: https://img.shields.io/github/license/jeffotoni/gconcat
+[![GoDoc](https://godoc.org/github.com/jeffotoni/gconcat?status.svg)](https://godoc.org/github.com/jeffotoni/gconcat) [![Github Release](https://img.shields.io/github/v/release/jeffotoni/gconcat?include_prereleases)](https://img.shields.io/github/v/release/jeffotoni/gconcat) [![CircleCI](https://dl.circleci.com/status-badge/img/gh/jeffotoni/gconcat/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/jeffotoni/gconcat/tree/master) [![Go Report](https://goreportcard.com/badge/github.com/jeffotoni/gconcat)](https://goreportcard.com/badge/github.com/jeffotoni/gconcat) [![License](https://img.shields.io/github/license/jeffotoni/gconcat)](https://img.shields.io/github/license/jeffotoni/gconcat) ![CircleCI](https://img.shields.io/circleci/build/github/jeffotoni/gconcat/master) ![Coveralls](https://img.shields.io/coverallsCoverage/github/jeffotoni/gconcat)
 
 >A simple lib for concatenation, it accepts several types as a parameter and returns a string. A battery of tests was done, there are some complexities that we cannot escape to have the best computational cost 
 
