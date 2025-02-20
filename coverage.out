@@ -1,4 +1,6 @@
 mode: atomic
+github.com/jeffotoni/gconcat/test.types/struct.go:8.45,12.2 3 0
+github.com/jeffotoni/gconcat/test.types/struct.go:14.31,16.2 1 0
 github.com/jeffotoni/gconcat/main.go:25.40,27.2 1 51
 github.com/jeffotoni/gconcat/main.go:30.45,33.24 2 1
 github.com/jeffotoni/gconcat/main.go:33.24,34.26 1 1

@@ -82,27 +82,23 @@ func ExampleConcatSliceInt64() {
 	// Output: 34567104599
 }
 
-// This function is named ExampleIntToConcatFunc()
+// This function is named ExampleConcatFunc()
 // it with the Examples type.
-func ExampleIntToConcatFunc() {
-	// This example ExampleIntToConcatFunc function accepts only return type int
+func ExampleConcatFunc() {
+	// This example ExampleConcatFunc function accepts only return type int
 	// specific func (<anything>) return int
-	s := ConcatFunc(func(a, b, c int) int {
+	s0 := ConcatFunc(func(a, b, c int) int {
 		return a + b*c
 	}(1, 2, 3))
-	fmt.Println(s)
-	// Output: 7
-}
 
-// This function is named ExampleAnyToConcatFunc()
-// it with the Examples type.
-func ExampleAnyToConcatFunc() {
-	// This example ExampleAnyToConcatFunc function accepts only return type string
+	// This example ExampleConcatFunc function accepts only return type float64
 	// specific func (<anything>) return string
 	f1 := func(a float64) float64 {
 		return 1 * 2.2
 	}(float64(55.55))
 
+	// This example ExampleConcatFunc function accepts only return type string
+	// specific func (<anything>) return string
 	f2 := func(s string) string {
 		return s + "2021"
 	}(" hello ")
@@ -111,6 +107,8 @@ func ExampleAnyToConcatFunc() {
 		return a * 2
 	}(3)
 
+	// This example ExampleConcatFunc function accepts only return type []int
+	// specific func (<anything>) return string
 	f4 := func(a []int) (t []int) {
 		for _, v := range a {
 			t = append(t, v*2)
@@ -118,6 +116,8 @@ func ExampleAnyToConcatFunc() {
 		return
 	}([]int{4, 5, 6, 7, 8})
 
+	// This example ExampleConcatFunc function accepts only return type []float64
+	// specific func (<anything>) return string
 	f5 := func(a []int) (t []float64) {
 		for _, v := range a {
 			t = append(t, float64(v)*1.2)
@@ -126,9 +126,9 @@ func ExampleAnyToConcatFunc() {
 	}([]int{4.0, 5.0, 6.0, 7.0, 8.0})
 
 	s1 := Concat([]bool{true, false, true})
-	s := ConcatFunc(f1, f2, f3, f4, f5)
-	fmt.Println(s + " " + s1)
-	// Output: 2.2 hello 202168101214164.867.1999999999999998.49.6 truefalsetrue
+	s2 := ConcatFunc(f1, f2, f3, f4, f5)
+	fmt.Printf("%s %s %s", s2, s1, s0)
+	// Output: 2.2 hello 202168101214164.867.1999999999999998.49.6 truefalsetrue 7
 }
 
 // go test -v -run ^TestConcatStr
