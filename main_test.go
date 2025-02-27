@@ -7,9 +7,15 @@ import (
 	"reflect"
 	"strings"
 	"testing"
-
-	testtypes "github.com/jeffotoni/gconcat/test.types"
 )
+
+type Y struct {
+	X string
+}
+
+func (Y) Fries(string) string {
+	return "good"
+}
 
 // This function is named ExampleConcat()
 // it with the Examples type.
@@ -1156,8 +1162,8 @@ func Test_buildStr5(t *testing.T) {
 		{
 			name: "reflect func imported struct Y, print internal exported fields only",
 			args: args{
-				str: reflect.ValueOf(func() testtypes.Y {
-					z := testtypes.Y{
+				str: reflect.ValueOf(func() Y {
+					z := Y{
 						X: "foo",
 					}
 					return z
@@ -1169,7 +1175,7 @@ func Test_buildStr5(t *testing.T) {
 			name: "reflect func test",
 			args: args{
 				str: reflect.ValueOf(func() interface{} {
-					z := testtypes.Y{
+					z := Y{
 						X: "foo",
 					}
 
