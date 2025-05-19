@@ -1,8 +1,20 @@
-# gconcat
+# 🧩 gconcat
+
+### Flexible and Fast String Concatenation Library for Go
 
 [![GoDoc](https://godoc.org/github.com/jeffotoni/gconcat?status.svg)](https://godoc.org/github.com/jeffotoni/gconcat) [![Github Release](https://img.shields.io/github/v/release/jeffotoni/gconcat?include_prereleases)](https://img.shields.io/github/v/release/jeffotoni/gconcat) [![CircleCI](https://dl.circleci.com/status-badge/img/gh/jeffotoni/gconcat/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/jeffotoni/gconcat/tree/master) [![Go Report](https://goreportcard.com/badge/github.com/jeffotoni/gconcat)](https://goreportcard.com/badge/github.com/jeffotoni/gconcat) [![License](https://img.shields.io/github/license/jeffotoni/gconcat)](https://img.shields.io/github/license/jeffotoni/gconcat) ![CircleCI](https://img.shields.io/circleci/build/github/jeffotoni/gconcat/master) ![Coveralls](https://img.shields.io/coverallsCoverage/github/jeffotoni/gconcat)
 
->A simple lib for concatenation, it accepts several types as a parameter and returns a string. A battery of tests was done, there are some complexities that we cannot escape to have the best computational cost 
+>A simple lib for concatenation, it accepts several types as a parameter and returns a string. A battery of tests was done, there are some complexities that we cannot escape to have the best computational cost.
+
+**gconcat** is a high-performance, **flexible string concatenation library written in Go**. Designed to simplify the handling of heterogeneous data types, it accepts interface{} inputs such as int, float, bool, string, []any, []int, []string, reflect.Value, structs, and more—automatically converting and joining them into efficient string outputs.
+
+Internally optimized with **strings.Builder**, gconcat includes specialized functions like ConcatStr, ConcatStrInt, and ConcatFunc to handle common use cases such as combining slices, variadic inputs, and dynamic function returns. It gracefully handles nil, empty values, and reflection-based data, **while avoiding unnecessary allocations**.
+
+**Benchmark tests conducted on Apple M3 Max (arm64) show gconcat outperforms many native and common Go idioms like fmt.Sprintf**, +, and Join, with nanosecond-level performance and minimal allocations.
+
+**Ideal for high-throughput applications**, custom logging systems, serialization, or any scenario where rapid, readable, and type-agnostic string assembly is required.
+
+![Graphic](graphic_benchmark.png)
 
 ## Example 
 
@@ -224,25 +236,29 @@ $ go get -u github.com/jeffotoni/gconcat
 #### Test Benchmarking
 
 ```bash
-$ go test -bench . -benchmem
-goarch: amd64
+go test -bench=. -benchtime=5s -benchmem
+goarch: arm64
 pkg: github.com/jeffotoni/gconcat
-cpu: Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz
-BenchmarkConcatVector-12              	  444762	      2584 ns/op	    1400 B/op	      31 allocs/op
-BenchmarkConcatFuncString-12          	10095128	       118.8 ns/op	      32 B/op	       2 allocs/op
-BenchmarkConcatFuncInt-12             	10678944	       114.4 ns/op	      16 B/op	       2 allocs/op
-BenchmarkConcatFuncStringVector-12    	 4447072	       269.2 ns/op	      84 B/op	       5 allocs/op
-BenchmarkConcatFuncFuncAny-12         	 4006081	       304.6 ns/op	      87 B/op	       6 allocs/op
-BenchmarkConcatStr-12                 	11044234	       109.1 ns/op	     416 B/op	       1 allocs/op
-BenchmarkConcatStrInt-12              	 3676225	       326.4 ns/op	     952 B/op	       7 allocs/op
-BenchmarkConcat-12                    	 3574280	       340.3 ns/op	     976 B/op	       8 allocs/op
-BenchmarkConcatSliceIntString-12           	 5670842	       209.0 ns/op	     128 B/op	       6 allocs/op
-BenchmarkLongJoin-12                  	10456964	       112.6 ns/op	     448 B/op	       1 allocs/op
-BenchmarkLongSprintf-12               	 3954552	       300.3 ns/op	     480 B/op	       5 allocs/op
-BenchmarkBuilder-12                   	 4020152	       264.7 ns/op	    2397 B/op	       0 allocs/op
-BenchmarkMarshal-12                   	  351388	      3088 ns/op	     768 B/op	       1 allocs/op
+cpu: Apple M3 Max
+BenchmarkConcatVector-16              	 4107244	      1449 ns/op	    1400 B/op	      31 allocs/op
+BenchmarkConcatFuncString-16          	100000000	        51.20 ns/op	      56 B/op	       3 allocs/op
+BenchmarkConcatFuncInt-16             	100000000	        56.18 ns/op	      48 B/op	       4 allocs/op
+BenchmarkConcatFuncStringVector-16    	47412261	       130.8 ns/op	     128 B/op	       8 allocs/op
+BenchmarkConcatFuncFuncAny-16         	45631294	       131.3 ns/op	     134 B/op	       7 allocs/op
+BenchmarkConcatStr-16                 	82444666	        74.11 ns/op	     448 B/op	       1 allocs/op
+BenchmarkCopyStr-16                   	54907971	       108.9 ns/op	     896 B/op	       2 allocs/op
+BenchmarkConcatStrCopy-16             	51330475	       107.3 ns/op	     896 B/op	       2 allocs/op
+BenchmarkConcatStrInt-16              	31643990	       191.7 ns/op	     952 B/op	       7 allocs/op
+BenchmarkConcat-16                    	33193046	       184.0 ns/op	     976 B/op	       8 allocs/op
+BenchmarkConcatSliceIntString-16      	46890064	       128.5 ns/op	     128 B/op	       6 allocs/op
+BenchmarkLongJoin-16                  	90253273	        66.02 ns/op	     448 B/op	       1 allocs/op
+BenchmarkLongSprintf-16               	43688498	       135.7 ns/op	     480 B/op	       5 allocs/op
+BenchmarkBuilder-16                   	40134584	       684.9 ns/op	    2080 B/op	       0 allocs/op
+BenchmarkMarshal-16                   	 3655041	      1619 ns/op	     768 B/op	       1 allocs/op
+BenchmarkConcatFunc-16                	14150409	       415.8 ns/op	     280 B/op	      18 allocs/op
+BenchmarkConcatFuncOLD-16             	 9384139	       618.9 ns/op	     280 B/op	      18 allocs/op
 PASS
-ok  	github.com/jeffotoni/gconcat	17.928s
+ok  	github.com/jeffotoni/gconcat	127.998s
 ```
 
 #### Creators
